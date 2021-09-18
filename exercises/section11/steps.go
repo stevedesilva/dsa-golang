@@ -40,3 +40,31 @@ func PrintRows(rows []string) {
 		fmt.Println(cRow)
 	}
 }
+
+func ExecuteRecursive(step int) []string {
+	res := make([]string, step)
+	col := make([]string, step)
+	rowNum := 0
+	executeRecursive(step, rowNum, col, res, 0)
+	return res
+}
+
+func executeRecursive(steps int, rowNum int, col []string, result []string, colNum int) {
+	if steps == rowNum {
+		return
+	}
+
+	if steps == colNum {
+		result[rowNum] = strings.Join(col, "")
+		newCol := make([]string, steps)
+		executeRecursive(steps, rowNum+1, newCol, result, 0)
+		return
+	}
+
+	if colNum <= rowNum {
+		col[colNum] = "#"
+	} else {
+		col[colNum] = " "
+	}
+	executeRecursive(steps, rowNum, col, result, colNum+1)
+}
