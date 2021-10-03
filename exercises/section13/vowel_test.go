@@ -50,12 +50,12 @@ func TestVowel_CalculateNumberOfVowels(t *testing.T) {
 			v := &Vowel{
 				Input: tt.input,
 			}
-			//if got := v.CalculateNumberOfVowelsIterativeUsingMap(); got != tt.want {
-			//	t.Errorf("CalculateNumberOfVowelsIterativeUsingMap() = %v, want %v", got, tt.want)
-			//}
-			//if got := v.CalculateNumberOfVowelsIterativeUsingContains(); got != tt.want {
-			//	t.Errorf("CalculateNumberOfVowelsIterativeUsingContains() = %v, want %v", got, tt.want)
-			//}
+			if got := v.CalculateNumberOfVowelsIterativeUsingMap(); got != tt.want {
+				t.Errorf("CalculateNumberOfVowelsIterativeUsingMap() = %v, want %v", got, tt.want)
+			}
+			if got := v.CalculateNumberOfVowelsIterativeUsingContains(); got != tt.want {
+				t.Errorf("CalculateNumberOfVowelsIterativeUsingContains() = %v, want %v", got, tt.want)
+			}
 			if got := v.CalculateNumberOfVowelsRegex(); got != tt.want {
 				t.Errorf("CalculateNumberOfVowelsRegex() = %v, want %v", got, tt.want)
 			}
