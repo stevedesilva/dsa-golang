@@ -44,9 +44,8 @@ func (v *Vowel) CalculateNumberOfVowelsIterativeUsingContains() int {
 	return count
 }
 
-// TODO regex
 func (v *Vowel) CalculateNumberOfVowelsRegex() int {
-	rx, _ := regexp.Compile("a|e|i|o|u|A|E|I|O|U")
+	rx, _ := regexp.Compile("(?i)[aeiou]") //same as regexp.Compile("a|e|i|o|u|A|E|I|O|U")
 
 	allString := rx.FindAllString(v.Input, -1)
 	return len(allString)
