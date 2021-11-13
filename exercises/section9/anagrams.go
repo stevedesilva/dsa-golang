@@ -7,7 +7,6 @@ import (
 )
 
 func AnagramChecker(inWordA, inWordB string) bool {
-	// if empty return
 	if eitherWordIsEmpty(inWordA, inWordB) {
 		return false
 	}
@@ -24,24 +23,22 @@ func AnagramChecker(inWordA, inWordB string) bool {
 		return false
 	}
 
-	wordAMap := make(map[rune]int)
-	for _, char := range []rune(wordA) {
-		if _, ok := wordAMap[char]; ok {
-			wordAMap[char] = wordAMap[char] + 1
-		} else {
-			wordAMap[char] = 1
-		}
-	}
-	wordBMap := make(map[rune]int)
-	for _, char := range []rune(wordB) {
-		if _, ok := wordBMap[char]; ok {
-			wordBMap[char] = wordBMap[char] + 1
-		} else {
-			wordBMap[char] = 1
-		}
-	}
+	wordAMap := createWordMap(wordA)
+	wordBMap := createWordMap(wordB)
 
 	return reflect.DeepEqual(wordAMap, wordBMap)
+}
+
+func createWordMap(word string) map[rune]int {
+	wordMap := make(map[rune]int)
+	for _, char := range word {
+		if _, ok := wordMap[char]; ok {
+			wordMap[char] = wordMap[char] + 1
+		} else {
+			wordMap[char] = 1
+		}
+	}
+	return wordMap
 }
 
 func eitherWordIsEmpty(inWordA string, inWordB string) bool {

@@ -10,6 +10,7 @@ func Reverse(input int) int {
 	inputAsRunes := []rune(inAsString)
 
 	i, j := 0, len(inputAsRunes)-1
+	// is a "-"
 	if inputAsRunes[0] == 45 {
 		i = 1
 	}

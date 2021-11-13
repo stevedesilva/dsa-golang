@@ -41,5 +41,4 @@ func CreateSpiral(size int) [][]int {
 	}
 
 	return spiral
-
 }

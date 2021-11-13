@@ -5,10 +5,6 @@ import (
 	"strings"
 )
 
-type Vowel struct {
-	Input string
-}
-
 func (v *Vowel) CalculateNumberOfVowelsIterativeUsingMap() int {
 	vowels := map[string]bool{
 		"a": true,
@@ -42,6 +38,10 @@ func (v *Vowel) CalculateNumberOfVowelsIterativeUsingContains() int {
 	}
 
 	return count
+}
+
+type Vowel struct {
+	Input string
 }
 
 func (v *Vowel) CalculateNumberOfVowelsRegex() int {

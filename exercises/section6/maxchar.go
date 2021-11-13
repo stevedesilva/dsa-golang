@@ -5,6 +5,7 @@ import "strings"
 func FindMax(input string) string {
 	// remove spaces
 	input = strings.ReplaceAll(input, " ", "")
+	// create map to count each character
 	inputMap := make(map[rune]int)
 	var (
 		maxChar rune = -1
