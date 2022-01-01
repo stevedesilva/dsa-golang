@@ -11,7 +11,8 @@ func TestGenerateFibSeries(t *testing.T) {
 		args args
 		want int
 	}{
-		//(zero indexed 0 1 1 2 3 5 8 13 21 34 54
+		// zero indexed 0 1 2 3 4 5 6  7  8  9 10
+		// value        0 1 1 2 3 5 8 13 21 34 54
 		//{name: "fib(0) ==  0", args: args{0}, want: 0},
 		{name: "fib(1) ==  1", args: args{1}, want: 1},
 		{name: "fib(2) ==  1", args: args{2}, want: 1},

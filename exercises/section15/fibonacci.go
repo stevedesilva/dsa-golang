@@ -72,19 +72,9 @@ func slowFib(num int, cache map[int]int) int {
 			fmt.Printf("cache add base: %d\n", num)
 			return num
 		}
-		//numLessTwo := num - 2
-		//second := slowFib(numLessTwo, cache)
-		//cache[numLessTwo] = second
-		//fmt.Printf("cache add second: key(%d) val(%d)\n", numLessTwo, second)
-		//
-		//numLessOne := num - 1
-		//first := slowFib(numLessOne, cache)
-		//cache[numLessOne] = first
-		//fmt.Printf("cache add first: key(%d) val(%d)\n", numLessOne, first)
 
-		val := slowFib(num-2, cache) + slowFib(num-1, cache)
-		cache[num] = val
-		fmt.Printf("cache add: key(%d) val(%d)\n", num, val)
+		cache[num] = slowFib(num-2, cache) + slowFib(num-1, cache)
+		fmt.Printf("cache add: key(%d) val(%d)\n", num, cache[num])
 		return cache[num]
 	}
 }
@@ -97,8 +87,7 @@ func FibRecursiveMemoizedV1(num int) int {
 
 func FibRecursiveMemoizedV2(num int) int {
 	fastFib := newMemoizedFib()
-	result := fastFib(num)
-	return result
+	return fastFib(num)
 }
 
 func newMemoizedFib() func(int) int {
