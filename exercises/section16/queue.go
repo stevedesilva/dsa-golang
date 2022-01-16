@@ -6,21 +6,24 @@ var (
 	EmptyQueueErr = fmt.Errorf("cannot remove from an empty queue")
 )
 
+type Any interface {
+}
+
 type Queue struct {
-	Values []int
+	Values []Any
 }
 
 func New() *Queue {
 	return &Queue{
-		Values: make([]int, 0),
+		Values: make([]Any, 0),
 	}
 }
 
-func (q *Queue) Add(value int) {
+func (q *Queue) Add(value Any) {
 	q.Values = append(q.Values, value)
 }
 
-func (q *Queue) Remove() (int, error) {
+func (q *Queue) Remove() (Any, error) {
 	if len(q.Values) < 1 {
 		return 0, EmptyQueueErr
 	}

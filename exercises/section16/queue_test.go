@@ -8,7 +8,7 @@ import (
 )
 
 func TestQueue_ShouldRemoveFromQueue(t *testing.T) {
-	want := []int{1, 2, 3, 4}
+	want := []section16.Any{1, 2, 3, 4}
 	q := section16.New()
 	q.Add(1)
 	q.Add(2)
@@ -28,7 +28,7 @@ func TestQueue_ShouldRemoveFromQueue(t *testing.T) {
 }
 
 func TestQueue_ShouldAddToExistingQueue(t *testing.T) {
-	want := []int{1, 2, 3, 4}
+	want := []section16.Any{1, 2, 3, 4}
 	q := section16.New()
 	q.Add(1)
 	q.Add(2)
@@ -39,7 +39,7 @@ func TestQueue_ShouldAddToExistingQueue(t *testing.T) {
 }
 
 func TestQueue_ShouldAddToEmptyQueue(t *testing.T) {
-	want := make([]int, 0)
+	want := make([]section16.Any, 0)
 	q := section16.New()
 
 	assert.Equal(t, want, q.Values)
