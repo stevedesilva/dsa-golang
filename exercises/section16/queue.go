@@ -31,3 +31,10 @@ func (q *Queue) Remove() (Any, error) {
 	q.Values = q.Values[1:]
 	return v, nil
 }
+
+func (q *Queue) Peek() (Any, error) {
+	if len(q.Values) < 1 {
+		return 0, EmptyQueueErr
+	}
+	return q.Values[0], nil
+}
