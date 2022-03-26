@@ -74,5 +74,9 @@ func (q *QueueFromStack) prepForPopOrPeek() error {
 }
 
 func (q *QueueFromStack) Size() int {
-	return q.inStack.Size()
+	err := q.prepForPopOrPeek()
+	if err != nil {
+		return 0
+	}
+	return q.stackAsQueue.Size()
 }
