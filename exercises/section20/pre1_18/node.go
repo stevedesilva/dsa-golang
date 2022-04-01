@@ -1,4 +1,4 @@
-package section20
+package pre1_18
 
 type Any interface{}
 
