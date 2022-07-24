@@ -7,14 +7,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLinearShouldReturnNilIfItemNotFound(t *testing.T) {
-	_, err := search.UnsortedSearch("Hi", []search.Any{})
-	assert.Equal(t, err, search.NotFound)
+func TestLinearShouldReturnNilIfItemNotFoundEmptyArray(t *testing.T) {
+	var value search.Any = "Hi"
+	_, err := search.UnsortedSearch(&value, []search.Any{})
+	assert.Equal(t, search.NotFound, err)
+}
+
+func TestLinearShouldReturnIndexWhenItemNotFound(t *testing.T) {
+	_, err := search.UnsortedSearch("Missing", []search.Any{"Qs", "Foo", "bar"})
+	assert.Equal(t, search.NotFound, err)
 }
 
 func TestLinearShouldReturnIndexWhenItemFound(t *testing.T) {
-	valueToFind := "Hi"
-	res, err := search.UnsortedSearch(valueToFind, []search.Any{"Qs", "Foo", "bar", valueToFind})
+	res, err := search.UnsortedSearch("Hi", []search.Any{"Qs", "Foo", "bar", "Hi"})
 	assert.Nil(t, err)
-	assert.Equal(t, res, 3)
+	assert.Equal(t, 3, res)
 }
