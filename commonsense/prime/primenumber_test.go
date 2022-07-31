@@ -51,9 +51,10 @@ func TestIsPrime(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-
-		res := IsPrime(d.input)
-		assert.Equal(t, d.expected, res, d.name)
+		t.Run(d.name, func(t *testing.T) {
+			res := IsPrime(d.input)
+			assert.Equal(t, d.expected, res, d.name)
+		})
 	}
 
 }
