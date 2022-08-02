@@ -23,16 +23,26 @@ func TestBubbleSort_Sort(t *testing.T) {
 			data: []int{1, 2, 3, 4, 5},
 			want: []int{1, 2, 3, 4, 5},
 		},
-		//{
-		//	name: "sorted 1,2",
-		//	data: []int{2, 1},
-		//	want: []int{1, 2},
-		//},
-		//{
-		//	name: "sorted 1,2,3",
-		//	data: []int{3, 2, 1},
-		//	want: []int{1, 2, 1},
-		//},
+		{
+			name: "sorted 1,2",
+			data: []int{2, 1},
+			want: []int{1, 2},
+		},
+		{
+			name: "sorted 1,2,3",
+			data: []int{3, 2, 1},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "sorted 1,2,3,4",
+			data: []int{3, 4, 2, 1},
+			want: []int{1, 2, 3, 4},
+		},
+		{
+			name: "sorted 1,2,3,4,5",
+			data: []int{3, 5, 2, 1, 4},
+			want: []int{1, 2, 3, 4, 5},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
