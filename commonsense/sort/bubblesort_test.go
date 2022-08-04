@@ -13,34 +13,39 @@ func TestBubbleSort_Sort(t *testing.T) {
 		data []int
 		want []int
 	}{
-		//{
-		//	name: "sorted 1",
-		//	data: []int{1},
-		//	want: []int{1},
-		//},
-		//{
-		//	name: "already sorted 1,2,3,4,5",
-		//	data: []int{1, 2, 3, 4, 5},
-		//	want: []int{1, 2, 3, 4, 5},
-		//},
-		//{
-		//	name: "sorted 1,2",
-		//	data: []int{2, 1},
-		//	want: []int{1, 2},
-		//},
-		//{
-		//	name: "sorted 1,2,3",
-		//	data: []int{3, 2, 1},
-		//	want: []int{1, 2, 3},
-		//},
-		//{
-		//	name: "sorted 1,2,3,4",
-		//	data: []int{3, 4, 2, 1},
-		//	want: []int{1, 2, 3, 4},
-		//},
+		{
+			name: "sorted 1",
+			data: []int{1},
+			want: []int{1},
+		},
+		{
+			name: "already sorted 1,2,3,4,5",
+			data: []int{1, 2, 3, 4, 5},
+			want: []int{1, 2, 3, 4, 5},
+		},
+		{
+			name: "sorted 1,2",
+			data: []int{2, 1},
+			want: []int{1, 2},
+		},
+		{
+			name: "sorted 1,2,3",
+			data: []int{3, 2, 1},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "sorted 1,2,3,4",
+			data: []int{3, 4, 2, 1},
+			want: []int{1, 2, 3, 4},
+		},
 		{
 			name: "sorted 1,2,3,4,5",
 			data: []int{4, 5, 3, 1, 2},
+			want: []int{1, 2, 3, 4, 5},
+		},
+		{
+			name: "sorted 1,2,3,4,5",
+			data: []int{1, 2, 4, 5, 3},
 			want: []int{1, 2, 3, 4, 5},
 		},
 	}
