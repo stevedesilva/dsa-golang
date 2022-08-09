@@ -23,12 +23,12 @@ func (b *BubbleSort) Sort() {
 
 func (b *BubbleSort) SortOfficial() {
 	end := len(b.data)
-	for swapped := true; swapped; {
-		swapped = false
+	for sorted := false; !sorted; {
+		sorted = true
 		for j := 1; j < end; j++ {
 			if b.data[j] < b.data[j-1] {
 				b.data[j], b.data[j-1] = b.data[j-1], b.data[j]
-				swapped = true
+				sorted = false
 			}
 		}
 		end--
