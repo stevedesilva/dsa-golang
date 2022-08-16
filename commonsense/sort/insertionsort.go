@@ -8,10 +8,8 @@ func InsertionSort(array []int) []int {
 	for i := 0; i < len(array); i++ {
 		value := array[i]
 		leastPos := i
-		prev := i - 1
-		for j := prev; j >= 0; j-- {
-			flag := array[j] > value
-			if flag {
+		for j := i - 1; j >= 0; j-- {
+			if array[j] > value {
 				array[leastPos] = array[j]
 				leastPos = j
 			} else {
