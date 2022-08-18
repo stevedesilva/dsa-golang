@@ -1,10 +1,11 @@
 package sort
 
+/*
+  For every element in the array:
+    for current element
+    sort everything to the left of the element
+*/
 func InsertionSort(array []int) []int {
-	// 1 select n + 1
-	// 2 take select out of array
-	// 3 compare n + 1 with left
-	// 4 if value less than selected number then swap - else move to next value in array
 	for i := 0; i < len(array); i++ {
 		value := array[i]
 		leastPos := i
