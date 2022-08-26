@@ -24,8 +24,8 @@ func TestFindMeanNumber(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := FindMeanNumber(tt.args.array); got != tt.want {
-				t.Errorf("FindMeanNumber() = %v, want %v", got, tt.want)
+			if got := FindMeanForEvenNumbers(tt.args.array); got != tt.want {
+				t.Errorf("FindMeanForEvenNumbers() = %v, want %v", got, tt.want)
 			}
 		})
 	}

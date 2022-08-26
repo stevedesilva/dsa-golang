@@ -1,5 +1,6 @@
 package array
 
-func FindMeanNumber(array []int) int {
+func FindMeanForEvenNumbers(array []int) float64 {
+
 	return 0
 }
