@@ -12,5 +12,8 @@ func findStartMidEndOfArray(array []int) (*Result, error) {
 	if len(array) <= 0 {
 		return nil, ErrNoInputSupplied
 	}
-	return nil, nil
+	start := array[0]
+	mid := array[len(array)/2]
+	end := array[len(array)-1]
+	return &Result{start, mid, end}, nil
 }

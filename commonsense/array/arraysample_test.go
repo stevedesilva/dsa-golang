@@ -22,7 +22,7 @@ func Test_findStartMidEndOfArray(t *testing.T) {
 		{
 			name:    "1",
 			args:    []int{1, 1, 1},
-			want:    &Result{1, 2, 3},
+			want:    &Result{1, 1, 1},
 			wantErr: nil,
 		},
 		{
