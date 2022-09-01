@@ -41,12 +41,12 @@ func TestAverageCelsuisReader(t *testing.T) {
 			},
 			want: 38,
 		},
-		//{name: "10c,20c,32c,40c,90c,100c",
-		//	args: args{
-		//		fahrenheitReadings: []int{10},
-		//	},
-		//	want: -12,
-		//},
+		{name: "10c,20c,32c,40c,90c,100c",
+			args: args{
+				fahrenheitReadings: []int{10, 20, 32, 40, 90, 100},
+			},
+			want: 9,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
