@@ -11,31 +11,30 @@ func TestAverageCelsuisReader(t *testing.T) {
 		args args
 		want int
 	}{
-
-		//{name: "20",
-		//	args: args{
-		//		fahrenheitReadings: []int{20},
-		//	},
-		//	want: -7,
-		//},
-		//{name: "32",
-		//	args: args{
-		//		fahrenheitReadings: []int{32},
-		//	},
-		//	want: 0,
-		//},
-		//{name: "40",
-		//	args: args{
-		//		fahrenheitReadings: []int{40},
-		//	},
-		//	want: 4,
-		//},
-		//{name: "90",
-		//	args: args{
-		//		fahrenheitReadings: []int{90},
-		//	},
-		//	want: 32,
-		//},
+		{name: "20",
+			args: args{
+				fahrenheitReadings: []int{20},
+			},
+			want: -7,
+		},
+		{name: "32",
+			args: args{
+				fahrenheitReadings: []int{32},
+			},
+			want: 0,
+		},
+		{name: "40",
+			args: args{
+				fahrenheitReadings: []int{40},
+			},
+			want: 4,
+		},
+		{name: "90",
+			args: args{
+				fahrenheitReadings: []int{90},
+			},
+			want: 32,
+		},
 		{name: "100",
 			args: args{
 				fahrenheitReadings: []int{100},
