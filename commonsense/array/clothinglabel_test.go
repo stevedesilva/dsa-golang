@@ -30,3 +30,14 @@ func Test_markInventory(t *testing.T) {
 		})
 	}
 }
+
+func Test_markInventoryReturnsErrorWhenNoInputGiven(t *testing.T) {
+	result, err := markInventory([]string{})
+	if result != nil {
+		t.Errorf("No result should be returned")
+	}
+	if err == nil {
+		t.Errorf("error should be returned")
+	}
+
+}
