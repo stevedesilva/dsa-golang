@@ -28,8 +28,10 @@ func TestCountOnes(t *testing.T) {
 			args: args{
 				array: [][]int{{}, {}},
 			},
-			wantErr: ErrNoInputProvided,
-			want:    nil,
+			wantErr: nil,
+			want: &CountResult{
+				Value: 0,
+			},
 		},
 		{
 			name: "first array",
