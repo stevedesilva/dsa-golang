@@ -10,7 +10,7 @@ type CountResult struct {
 	Value int
 }
 
-func CountOnes(array []int) (*CountResult, error) {
+func CountOnes(array [][]int) (*CountResult, error) {
 	res := CountResult{}
 	if len(array) <= 0 {
 		return nil, ErrNoInputSupplied
