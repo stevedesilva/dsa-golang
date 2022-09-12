@@ -9,6 +9,11 @@ func TestIsPalindrome(t *testing.T) {
 		want bool
 	}{
 		{
+			name: "₼aRa₼",
+			word: "₼aRa₼",
+			want: true,
+		},
+		{
 			name: "a",
 			word: "a",
 			want: true,
