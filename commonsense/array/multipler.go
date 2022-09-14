@@ -11,5 +11,10 @@ func FindTheProduct(input []int) ([]int, error) {
 		return nil, ErrInvalidInput
 	}
 	result := make([]int, 0, len(input))
+	for i := 0; i < len(input); i++ {
+		for j := i + 1; j < len(input); j++ {
+			result = append(result, input[i]*input[j])
+		}
+	}
 	return result, nil
 }
