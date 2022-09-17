@@ -10,31 +10,31 @@ func Test_findStartMidEndOfArray(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    []int
-		want    *Result
+		want    *result
 		wantErr error
 	}{
 		{
 			name:    "Error when no value supplied",
 			args:    []int{},
 			want:    nil,
-			wantErr: ErrNoInputSupplied,
+			wantErr: errNoInputSupplied,
 		},
 		{
 			name:    "1",
 			args:    []int{1, 1, 1},
-			want:    &Result{1, 1, 1},
+			want:    &result{1, 1, 1},
 			wantErr: nil,
 		},
 		{
 			name:    "1,2,3",
 			args:    []int{1, 2, 3},
-			want:    &Result{1, 2, 3},
+			want:    &result{1, 2, 3},
 			wantErr: nil,
 		},
 		{
 			name:    "1,2,3,4,5",
 			args:    []int{1, 2, 3, 4, 5},
-			want:    &Result{1, 3, 5},
+			want:    &result{1, 3, 5},
 			wantErr: nil,
 		},
 	}
