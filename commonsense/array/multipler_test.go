@@ -51,3 +51,58 @@ func TestFindTheProduct_ErrorsWhenInputLengthLessThanTwo(t *testing.T) {
 	}
 
 }
+
+func TestFindTheProduct1(t *testing.T) {
+	type args struct {
+		input []int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    []int
+		wantErr bool
+	}{
+		{},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := FindTheProduct(tt.args.input)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("FindTheProduct() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("FindTheProduct() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestFindTheProductFromTwoArrays(t *testing.T) {
+	type args struct {
+		inputA []int
+		inputB []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{name: "empty", args: args{[]int{}, []int{}}, want: []int{}},
+		{name: "empty - 1", args: args{[]int{}, []int{1}}, want: []int{}},
+		{name: "1 - empty", args: args{[]int{1}, []int{}}, want: []int{}},
+		{name: "1-1", args: args{[]int{1}, []int{1}}, want: []int{1}},
+		{name: "1,2-1", args: args{[]int{1, 2}, []int{1}}, want: []int{1, 2}},
+		{name: "1,2-1,2", args: args{[]int{1, 2}, []int{1, 2}}, want: []int{1, 2, 2, 4}},
+		{name: "1,2-1,2", args: args{[]int{1, 2, 3}, []int{1, 2, 3}}, want: []int{1, 2, 3, 2, 4, 6, 3, 6, 9}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := FindTheProductFromTwoArrays(tt.args.inputA, tt.args.inputB)
+
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("FindTheProductFromTwoArrays() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
