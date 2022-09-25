@@ -20,7 +20,7 @@ func TestPasswordCracker(t *testing.T) {
 		{
 			name: "empty",
 			args: args{},
-			want: []string{},
+			want: make([]string, 0),
 		},
 		{
 			name: "single combination",
@@ -49,7 +49,8 @@ func TestPasswordCracker(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := array.PasswordCracker(tt.args.charSet, tt.args.desiredLen); !reflect.DeepEqual(got, tt.want) {
+			pc := array.PasswordType{}
+			if got := pc.PasswordCracker(tt.args.charSet, tt.args.desiredLen); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("PasswordCracker() = %v, want %v", got, tt.want)
 			}
 		})
