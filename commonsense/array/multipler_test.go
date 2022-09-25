@@ -52,32 +52,6 @@ func TestFindTheProduct_ErrorsWhenInputLengthLessThanTwo(t *testing.T) {
 
 }
 
-func TestFindTheProduct1(t *testing.T) {
-	type args struct {
-		input []int
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    []int
-		wantErr bool
-	}{
-		{},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := FindTheProduct(tt.args.input)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("FindTheProduct() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("FindTheProduct() got = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestFindTheProductFromTwoArrays(t *testing.T) {
 	type args struct {
 		inputA []int

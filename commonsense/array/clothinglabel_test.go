@@ -57,7 +57,7 @@ func Test_markInventoryReturnsErrorWhenNoInputGiven(t *testing.T) {
 	if result != nil {
 		t.Errorf("No result should be returned")
 	}
-	if err == nil {
+	if err != errNoInputSuppliedForInventory {
 		t.Errorf("error should be returned")
 	}
 
