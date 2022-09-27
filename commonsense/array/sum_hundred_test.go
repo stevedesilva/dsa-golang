@@ -44,7 +44,27 @@ func TestOppositeValuesSumToHundred(t *testing.T) {
 		{
 			name: "Two  ",
 			args: args{numbers: []int{50, 50}},
+			want: true,
+		},
+		{
+			name: "99 1",
+			args: args{numbers: []int{99, 1}},
+			want: true,
+		},
+		{
+			name: "1 1",
+			args: args{numbers: []int{1, 1}},
 			want: false,
+		},
+		{
+			name: "1,10, 1",
+			args: args{numbers: []int{1, 10, 1}},
+			want: false,
+		},
+		{
+			name: "2,9,99,1,21,44",
+			args: args{numbers: []int{2, 9, 99, 1, 21, 44}},
+			want: true,
 		},
 	}
 	for _, tt := range tests {
