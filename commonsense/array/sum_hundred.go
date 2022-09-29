@@ -16,5 +16,6 @@ func OppositeValuesSumToHundred(numbers []int) (bool, error) {
 			return true, nil
 		}
 	}
+
 	return false, nil
 }
