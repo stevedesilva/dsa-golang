@@ -1,5 +1,5 @@
 package array
 
-func mergeTwoArrays() []int {
-	return []{}
+func mergeTwoArrays(a, b []int) (res []int) {
+	return res
 }
