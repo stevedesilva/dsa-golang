@@ -12,13 +12,14 @@ func mergeTwoArrays(a, b []int) []int {
 				j++
 			}
 		} else if i < len(a) && j >= len(b) {
-			res = append(res, a[i])
-			i++
+			// only a elements remain
+			res = append(res, a[i:]...)
+			return res
 		} else if j < len(b) && i >= len(a) {
-			res = append(res, b[j])
-			j++
+			// only b elements remain
+			res = append(res, b[j:]...)
+			return res
 		}
-
 	}
 	return res
 }
