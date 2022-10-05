@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -37,18 +38,44 @@ func main() {
 		os.Exit(1)
 	}
 
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		fmt.Printf("error making http request: %s /\n", err)
-		os.Exit(1)
-	}
-	fmt.Printf("client: got response!\n")
-	fmt.Printf("client: status code: %d\n", res.StatusCode)
+	wg := sync.WaitGroup{}
+	wg.Add(1)
 
-	resBody, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Printf("client: could not read response body: %s\n", err)
-		os.Exit(1)
-	}
-	fmt.Printf("client: response body: %s\n", resBody)
+	go func() {
+		res, err := http.DefaultClient.Do(req)
+		if err != nil {
+			fmt.Printf("error making http request: %s /\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("client: got response!\n")
+		fmt.Printf("client: status code: %d\n", res.StatusCode)
+
+		resBody, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Printf("client: could not read response body: %s\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("client: response body: %s\n", resBody)
+		defer wg.Done()
+	}()
+
+	go func() {
+		res, err := http.DefaultClient.Do(req)
+		if err != nil {
+			fmt.Printf("error making http request: %s /\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("client: got response!\n")
+		fmt.Printf("client: status code: %d\n", res.StatusCode)
+
+		resBody, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Printf("client: could not read response body: %s\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("client: response body: %s\n", resBody)
+		defer wg.Done()
+	}()
+
+	wg.Wait()
 }
