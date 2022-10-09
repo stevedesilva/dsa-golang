@@ -10,5 +10,15 @@ func PickResume(resumes []string) (*string, error) {
 	if resumes == nil || len(resumes) < 1 {
 		return nil, ErrMinimumValue
 	}
-	return nil, ErrMinimumValue
+	top := true
+	for len(resumes) > 1 {
+		half := len(resumes) / 2
+		if top {
+			resumes = resumes[half:]
+		} else {
+			resumes = resumes[:half]
+		}
+		top = !top
+	}
+	return &resumes[0], ErrMinimumValue
 }
