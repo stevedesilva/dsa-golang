@@ -30,5 +30,28 @@ func (s *arrayToMap) GetIntersection() ([]int, error) {
 			return s.a, nil
 		}
 	}
-	return nil, nil
+	var result []int
+	if len(s.a) >= len(s.b) {
+		result = getSubset(s.a, s.b)
+	} else {
+		result = getSubset(s.b, s.a)
+	}
+	return result, nil
+}
+
+func getSubset(largeInput, smallInput []int) []int {
+	size := len(largeInput)
+	values := make(map[int]bool, size)
+	res := make([]int, 0, size)
+
+	for _, val := range largeInput {
+		values[val] = true
+	}
+
+	for _, val := range smallInput {
+		if values[val] {
+			res = append(res, val)
+		}
+	}
+	return res
 }

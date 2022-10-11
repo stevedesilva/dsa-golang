@@ -45,6 +45,38 @@ func TestNew(t *testing.T) {
 			},
 			want: res{[]int{1, 2}, nil},
 		},
+		{
+			name: "join 1",
+			args: args{
+				a: []int{1, 2},
+				b: []int{1, 3},
+			},
+			want: res{[]int{1}, nil},
+		},
+		{
+			name: "join 2",
+			args: args{
+				a: []int{1, 2},
+				b: []int{2, 3},
+			},
+			want: res{[]int{2}, nil},
+		},
+		{
+			name: "join 3",
+			args: args{
+				a: []int{1, 3},
+				b: []int{2, 3, 3, 3},
+			},
+			want: res{[]int{3}, nil},
+		},
+		{
+			name: "join 3",
+			args: args{
+				a: []int{1, 3, 6, 9},
+				b: []int{2, 3, 9, 32},
+			},
+			want: res{[]int{3, 9}, nil},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
