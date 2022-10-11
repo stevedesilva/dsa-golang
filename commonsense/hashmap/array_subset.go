@@ -7,7 +7,7 @@ var (
 )
 
 type SubArray interface {
-	findSubArray(a, b []int) ([]int, error)
+	GetIntersection() ([]int, error)
 }
 
 type arrayToMap struct {
@@ -19,6 +19,6 @@ func New(a, b []int) SubArray {
 	return &arrayToMap{a, b}
 }
 
-func (s *arrayToMap) findSubArray(a, b []int) ([]int, error) {
+func (s *arrayToMap) GetIntersection() ([]int, error) {
 	return nil, nil
 }
