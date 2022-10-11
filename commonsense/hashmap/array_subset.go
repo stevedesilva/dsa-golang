@@ -20,5 +20,8 @@ func New(a, b []int) SubArray {
 }
 
 func (s *arrayToMap) GetIntersection() ([]int, error) {
+	if len(s.a) < 1 && len(s.b) < 1 {
+		return nil, ErrInvalidInput
+	}
 	return nil, nil
 }
