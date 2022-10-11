@@ -29,6 +29,22 @@ func TestNew(t *testing.T) {
 			},
 			want: res{nil, ErrInvalidInput},
 		},
+		{
+			name: "single a",
+			args: args{
+				a: []int{4, 2},
+				b: nil,
+			},
+			want: res{[]int{4, 2}, nil},
+		},
+		{
+			name: "single b",
+			args: args{
+				a: nil,
+				b: []int{1, 2},
+			},
+			want: res{[]int{1, 2}, nil},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
