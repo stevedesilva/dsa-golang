@@ -28,6 +28,12 @@ func Test_data_FirstDuplicate(t *testing.T) {
 			wantErr: ErrMinimumInputRequired,
 		},
 		{
+			name:    "no duplicate found error",
+			fields:  fields{array: []string{"a", "b", "c"}},
+			want:    nil,
+			wantErr: ErrNoDuplicates,
+		},
+		{
 			name:    "minimum not met with single value",
 			fields:  fields{array: []string{"a", "a"}},
 			want:    stringPtr("a"),
