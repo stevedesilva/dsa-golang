@@ -1,7 +1,6 @@
 package hashmap
 
 func findFirstMissingCharacter(sentence string) string {
-
 	alphabet := make(map[rune]bool)
 	for _, c := range sentence {
 		alphabet[c] = true
