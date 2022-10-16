@@ -1,8 +1,10 @@
-package hashmap
+package hashmap_test
 
 import (
 	"reflect"
 	"testing"
+
+	. "github.com/stevedesilva/dsa-golang.git/commonsense/hashmap"
 )
 
 func Test_data_FirstDuplicate(t *testing.T) {
@@ -54,9 +56,7 @@ func Test_data_FirstDuplicate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := &data{
-				array: tt.fields.array,
-			}
+			d := NewData(tt.fields.array)
 			got, err := d.FirstDuplicate()
 			if err != tt.wantErr {
 				t.Errorf("FirstDuplicate() error = %v, wantErr %v", err, tt.wantErr)

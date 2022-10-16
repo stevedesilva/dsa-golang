@@ -9,9 +9,9 @@ type Duplicate interface {
 	FirstDuplicate() (*string, error)
 }
 
-func NewData() Duplicate {
+func NewData(in []string) Duplicate {
 	return &data{
-		array: []string{},
+		array: in,
 	}
 }
 
@@ -20,6 +20,20 @@ type data struct {
 }
 
 func (d *data) FirstDuplicate() (*string, error) {
+	if len(d.array) < 2 {
+		return nil, ErrMinimumInputRequired
+	}
+	values := make(map[string]bool, len(d.array))
+	for _, v := range d.array {
+		if values[v] {
+			return &v, nil
+		}
+		values[v] = true
+	}
+	return nil, ErrNoDuplicates
+}
+
+func (d *data) FirstNonDuplicate() (*string, error) {
 	if len(d.array) < 2 {
 		return nil, ErrMinimumInputRequired
 	}
