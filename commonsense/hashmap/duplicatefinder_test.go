@@ -36,7 +36,7 @@ func Test_data_FirstDuplicate(t *testing.T) {
 			wantErr: ErrNoDuplicates,
 		},
 		{
-			name:    "minimum not met with single value",
+			name:    "single value find a",
 			fields:  fields{array: []string{"a", "a"}},
 			want:    stringPtr("a"),
 			wantErr: nil,
@@ -64,6 +64,62 @@ func Test_data_FirstDuplicate(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("FirstDuplicate() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_data_FirstNonDuplicate(t *testing.T) {
+	type fields struct {
+		array []string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		want    *string
+		wantErr error
+	}{
+		{
+			name:    "minimum not met",
+			fields:  fields{array: []string{}},
+			want:    nil,
+			wantErr: ErrMinimumInputRequired,
+		},
+		{
+			name:    "minimum not met with single value",
+			fields:  fields{array: []string{"a"}},
+			want:    nil,
+			wantErr: ErrMinimumInputRequired,
+		},
+		{
+			name:    "no non duplicate found error",
+			fields:  fields{array: []string{"a", "b", "c", "a", "b", "c"}},
+			want:    nil,
+			wantErr: ErrNonDuplicates,
+		},
+		{
+			name:    "find duplicate not met with single value",
+			fields:  fields{array: []string{"a", "b", "c", "a", "b", "d"}},
+			want:    stringPtr("c"),
+			wantErr: nil,
+		},
+		{
+			name:    "find duplicate not met with single value",
+			fields:  fields{array: []string{"ab", "bb", "cb", "ab", "bb", "db"}},
+			want:    stringPtr("cb"),
+			wantErr: nil,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			d := NewData(tt.fields.array)
+			got, err := d.FirstNonDuplicate()
+			if err != tt.wantErr {
+				t.Errorf("FirstNonDuplicate() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("FirstNonDuplicate() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
