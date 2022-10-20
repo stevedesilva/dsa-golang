@@ -20,8 +20,10 @@ func main() {
 			fmt.Fprintf(w, `{"message": "hello!"}`)
 		})
 		server := http.Server{
-			Addr:    fmt.Sprintf(":%d", serverPort),
-			Handler: mux,
+			Addr:         fmt.Sprintf(":%d", serverPort),
+			Handler:      mux,
+			ReadTimeout:  5 * time.Second,
+			WriteTimeout: 10 * time.Second,
 		}
 		if err := server.ListenAndServe(); err != nil {
 			if !errors.Is(err, http.ErrServerClosed) {
@@ -60,6 +62,7 @@ func main() {
 	}()
 
 	go func() {
+
 		res, err := http.DefaultClient.Do(req)
 		if err != nil {
 			fmt.Printf("error making http request: %s /\n", err)
