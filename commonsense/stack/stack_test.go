@@ -18,7 +18,7 @@ func Test_stack_Print(t *testing.T) {
 func Test_stack_Peek(t *testing.T) {
 	stack := New("a", "b", "c")
 	got, _ := stack.Peek()
-	want := "a"
+	want := "c"
 	if want != got {
 		t.Errorf("want %s got %s", want, got)
 	}
@@ -60,7 +60,7 @@ func Test_stack_Pop(t *testing.T) {
 
 func Test_stack_Size(t *testing.T) {
 	stack := New("a", "b", "c")
-	if l := stack.Size(); l != 1 {
+	if l := stack.Size(); l != 3 {
 		t.Errorf("want 0 got %d", l)
 	}
 }
