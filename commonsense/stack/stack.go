@@ -41,7 +41,10 @@ func (s *stack) Pop() (string, error) {
 	if s.Size() < 1 {
 		return "", ErrEmpty
 	}
-	return s.data[len(s.data)-1], nil
+	i := len(s.data) - 1
+	item := s.data[i]
+	s.data = s.data[:i]
+	return item, nil
 }
 
 func (s *stack) Peek() (string, error) {
