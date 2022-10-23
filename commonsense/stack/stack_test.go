@@ -7,7 +7,7 @@ import (
 )
 
 func Test_stack_Print(t *testing.T) {
-	stack := New("a", "b", "c")
+	stack := New[string]("a", "b", "c")
 	got := stack.Print()
 	want := "[a b c]"
 	if want != got {
@@ -16,7 +16,7 @@ func Test_stack_Print(t *testing.T) {
 }
 
 func Test_stack_Peek(t *testing.T) {
-	stack := New("a", "b", "c")
+	stack := New[string]("a", "b", "c")
 	got, _ := stack.Peek()
 	want := "c"
 	if want != got {
@@ -25,14 +25,14 @@ func Test_stack_Peek(t *testing.T) {
 }
 
 func Test_stack_PeekEmpty(t *testing.T) {
-	stack := New()
+	stack := New[string]()
 	if l := stack.Size(); l != 0 {
 		t.Errorf("want 0 got %d", l)
 	}
 }
 
 func Test_stack_Push(t *testing.T) {
-	stack := New()
+	stack := New[string]()
 	stack.Push("a")
 	stack.Push("b")
 	stack.Push("c")
@@ -46,7 +46,7 @@ func Test_stack_Push(t *testing.T) {
 }
 
 func Test_stack_Pop(t *testing.T) {
-	stack := New("a", "b", "c")
+	stack := New[string]("a", "b", "c")
 	stack.Pop()
 	stack.Pop()
 	if l := stack.Size(); l != 1 {
@@ -59,7 +59,7 @@ func Test_stack_Pop(t *testing.T) {
 }
 
 func Test_stack_Size(t *testing.T) {
-	stack := New("a", "b", "c")
+	stack := New[string]("a", "b", "c")
 	if l := stack.Size(); l != 3 {
 		t.Errorf("want 0 got %d", l)
 	}

@@ -9,11 +9,11 @@ var (
 	ErrEmpty = errors.New("empty stack")
 )
 
-type stackable interface {
+type AllowedStackTypes interface {
 	string | int
 }
 
-type AllowedFunc[T stackable] interface {
+type AllowedFunc[T AllowedStackTypes] interface {
 	Push(T)
 	Pop() (T, error)
 	Peek() (T, error)
@@ -21,7 +21,7 @@ type AllowedFunc[T stackable] interface {
 	Size() int
 }
 
-func New[T stackable](data ...T) AllowedFunc[T] {
+func New[T AllowedStackTypes](data ...T) AllowedFunc[T] {
 	d := make([]T, 0, len(data))
 	d = append(d, data...)
 	res := stack[T]{
@@ -30,7 +30,7 @@ func New[T stackable](data ...T) AllowedFunc[T] {
 	return &res
 }
 
-type stack[T stackable] struct {
+type stack[T AllowedStackTypes] struct {
 	data []T
 }
 
@@ -43,8 +43,9 @@ func (s *stack[T]) Push(s2 T) {
 }
 
 func (s *stack[T]) Pop() (T, error) {
+	var emptyT T
 	if s.Size() < 1 {
-		return nil, ErrEmpty
+		return emptyT, ErrEmpty
 	}
 	i := len(s.data) - 1
 	item := s.data[i]
@@ -53,8 +54,9 @@ func (s *stack[T]) Pop() (T, error) {
 }
 
 func (s *stack[T]) Peek() (T, error) {
+	var emptyT T
 	if s.Size() < 1 {
-		return nil, ErrEmpty
+		return emptyT, ErrEmpty
 	}
 	return s.data[len(s.data)-1], nil
 }
