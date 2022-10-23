@@ -9,37 +9,42 @@ var (
 	ErrEmpty = errors.New("empty stack")
 )
 
-type AllowedFunc interface {
-	Push(string)
-	Pop() (string, error)
-	Peek() (string, error)
+type stackable interface {
+	string | int
+}
+
+type AllowedFunc[T stackable] interface {
+	Push(T)
+	Pop() (T, error)
+	Peek() (T, error)
 	Print() string
 	Size() int
 }
 
-func New(data ...string) AllowedFunc {
-	d := make([]string, 0, len(data))
+func New[T stackable](data ...T) AllowedFunc[T] {
+	d := make([]T, 0, len(data))
 	d = append(d, data...)
-	return &stack{
+	res := stack[T]{
 		data: d,
 	}
+	return &res
 }
 
-type stack struct {
-	data []string
+type stack[T stackable] struct {
+	data []T
 }
 
-func (s *stack) Print() string {
+func (s *stack[T]) Print() string {
 	return fmt.Sprintf("%v", s.data)
 }
 
-func (s *stack) Push(s2 string) {
+func (s *stack[T]) Push(s2 T) {
 	s.data = append(s.data, s2)
 }
 
-func (s *stack) Pop() (string, error) {
+func (s *stack[T]) Pop() (T, error) {
 	if s.Size() < 1 {
-		return "", ErrEmpty
+		return nil, ErrEmpty
 	}
 	i := len(s.data) - 1
 	item := s.data[i]
@@ -47,13 +52,13 @@ func (s *stack) Pop() (string, error) {
 	return item, nil
 }
 
-func (s *stack) Peek() (string, error) {
+func (s *stack[T]) Peek() (T, error) {
 	if s.Size() < 1 {
-		return "", ErrEmpty
+		return nil, ErrEmpty
 	}
 	return s.data[len(s.data)-1], nil
 }
 
-func (s *stack) Size() int {
+func (s *stack[T]) Size() int {
 	return len(s.data)
 }
