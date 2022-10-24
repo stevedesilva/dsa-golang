@@ -26,14 +26,6 @@ type braceLinter struct {
 }
 
 func (b *braceLinter) Validate() (bool, error) {
-	braces := map[rune]bool{
-		'{': true,
-		'}': true,
-		'[': true,
-		']': true,
-		'(': true,
-		')': true,
-	}
 
 	openBraces := map[rune]bool{
 		'{': true,
@@ -49,32 +41,25 @@ func (b *braceLinter) Validate() (bool, error) {
 	// move on if character isn't type of brace
 	s := stack[rune]{}
 	for _, ch := range b.data {
-
-		b2 := string(ch)
-		_ = b2
-		if braces[ch] {
-			if openBraces[ch] {
-				s.Push(ch)
-			} else if cb, ok := closingBraces[ch]; ok {
-				val, err := s.Pop()
-				if err != nil {
-					// empty stack
-					if errors.Is(err, ErrEmpty) {
-						return false, ErrMissingOpeningBrace
-					}
-					// some unknown error
-					return false, err
-				}
-				// check if ch matches
-				if val != cb {
-					if _, ok := braces[val]; ok {
-						return false, ErrBraceMismatch
-					}
+		if openBraces[ch] {
+			s.Push(ch)
+		} else if openingBraceMatch, found := closingBraces[ch]; found {
+			val, err := s.Pop()
+			if err != nil {
+				// empty stack
+				if errors.Is(err, ErrEmpty) {
 					return false, ErrMissingOpeningBrace
 				}
+				// some unknown error
+				return false, err
+			}
+			// check if ch matches
+			if val != openingBraceMatch {
+				return false, ErrBraceMismatch
 			}
 		}
 	}
+
 	// stack should be empty
 	if s.Size() > 0 {
 		return false, ErrMissingClosingBrace
