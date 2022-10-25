@@ -10,7 +10,7 @@ var (
 )
 
 type AllowedStackTypes interface {
-	string | int | rune
+	any
 }
 
 type AllowedFunc[T AllowedStackTypes] interface {
