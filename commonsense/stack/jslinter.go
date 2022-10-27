@@ -26,7 +26,6 @@ type braceLinter struct {
 }
 
 func (b *braceLinter) Validate() (bool, error) {
-
 	openBraces := map[rune]bool{
 		'{': true,
 		'[': true,
