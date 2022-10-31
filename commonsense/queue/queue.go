@@ -1,6 +1,13 @@
 package queue
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrEmpty = errors.New("empty queue")
+)
 
 type AllowedFunc[T any] interface {
 	Enqueue(value T)
@@ -24,25 +31,31 @@ type queue[T any] struct {
 }
 
 func (q *queue[T]) Enqueue(value T) {
-	//TODO implement me
-	panic("implement me")
+	q.data = append(q.data, value)
 }
 
 func (q *queue[T]) Dequeue() (T, error) {
-	//TODO implement me
-	panic("implement me")
+	var res T
+	if len(q.data) < 1 {
+		return res, ErrEmpty
+	}
+	res = q.data[0]
+	q.data = q.data[1:]
+	return res, nil
 }
 
 func (q *queue[T]) Read() (T, error) {
-	//TODO implement me
-	panic("implement me")
+	var res T
+	if len(q.data) < 1 {
+		return res, ErrEmpty
+	}
+	return q.data[0], nil
 }
 
 func (q *queue[T]) Size() int {
-	//TODO implement me
-	panic("implement me")
+	return len(q.data)
 }
 
-func (s *queue[T]) Print() string {
-	return fmt.Sprintf("%v", s.data)
+func (q *queue[T]) Print() string {
+	return fmt.Sprintf("%v", q.data)
 }
