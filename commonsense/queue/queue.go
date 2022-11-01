@@ -9,7 +9,7 @@ var (
 	ErrEmpty = errors.New("empty queue")
 )
 
-type AllowedFunc[T any] interface {
+type AllowedQueueFunc[T any] interface {
 	Enqueue(value T)
 	Dequeue() (T, error)
 	Read() (T, error)
@@ -17,7 +17,7 @@ type AllowedFunc[T any] interface {
 	Print() string
 }
 
-func New[T any](data ...T) AllowedFunc[T] {
+func New[T any](data ...T) AllowedQueueFunc[T] {
 	d := make([]T, 0, len(data))
 	d = append(d, data...)
 	res := queue[T]{
