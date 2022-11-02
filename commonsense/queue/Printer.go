@@ -25,7 +25,7 @@ func (p *printer[T]) QueuePrintJob(document T) {
 
 func (p *printer[T]) Run() {
 	size := p.q.Size()
-	// can't use size for for loop since it keeps decreasing
+	// can't use size for loop since it keeps decreasing
 	for i := 0; i < size; i++ {
 		data, err := p.q.Dequeue()
 		if err != nil {
