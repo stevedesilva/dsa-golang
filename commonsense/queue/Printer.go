@@ -1,5 +1,7 @@
 package queue
 
+import "fmt"
+
 type Methods[T any] interface {
 	QueuePrintJob(document T)
 	Run()
@@ -18,15 +20,25 @@ func NewPrinter[T any](documents ...T) Methods[T] {
 }
 
 func (p *printer[T]) QueuePrintJob(document T) {
-	//TODO implement me
-	panic("implement me")
+	p.q.Enqueue(document)
 }
 
 func (p *printer[T]) Run() {
-	//TODO implement me
-	panic("implement me")
+	size := p.q.Size()
+	// can't use size for for loop since it keeps decreasing
+	for i := 0; i < size; i++ {
+		data, err := p.q.Dequeue()
+		if err != nil {
+			continue
+		}
+		p.print(data)
+	}
 }
 
 func (p *printer[T]) Size() int {
-	return p.Size()
+	return p.q.Size()
+}
+
+func (p *printer[T]) print(val T) {
+	fmt.Printf("%v \n", val)
 }
