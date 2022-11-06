@@ -1,15 +1,19 @@
 package recursion
 
+import "fmt"
+
 func countTo(number int) []int {
-	res := count(number, make([]int, 0))
+	res := countDown(number, make([]int, 0))
 	return res
 }
 
-func count(number int, acc []int) {
+func countDown(number int, acc []int) []int {
 	if number == 0 {
-		return
+		// old slice
+		return acc
 	}
-	neoNum := number - 1
-	acc = append(acc, neoNum)
-	count(neoNum, acc)
+	fmt.Printf("num %d \t acc %v \n", number, acc)
+	// new slice created when append
+	acc = append(acc, number)
+	return countDown(number-1, acc)
 }
