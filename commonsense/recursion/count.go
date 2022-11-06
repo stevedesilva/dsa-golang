@@ -14,6 +14,6 @@ func countDown(number int, acc []int) []int {
 	}
 	fmt.Printf("num %d \t acc %v \n", number, acc)
 	// new slice created when append
-	acc = append(acc, number)
-	return countDown(number-1, acc)
+	newAcc := append(acc, number)
+	return countDown(number-1, newAcc)
 }
