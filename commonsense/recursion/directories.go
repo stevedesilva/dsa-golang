@@ -5,10 +5,9 @@ import (
 	"os"
 )
 
-func FindDirectories(rootDirPath string) []string {
+func FindDirectoriesWithAccumulator(rootDirPath string) []string {
 	foundDirs := make([]string, 0)
 	return findDirectories(rootDirPath, foundDirs)
-
 }
 
 func findDirectories(directory string, acc []string) []string {
@@ -27,4 +26,9 @@ func findDirectories(directory string, acc []string) []string {
 		}
 	}
 	return acc
+}
+
+func FindDirectories(rootDirPath string) []string {
+	foundDirs := make([]string, 0)
+	return findDirectories(rootDirPath, foundDirs)
 }
