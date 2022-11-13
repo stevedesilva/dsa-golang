@@ -10,14 +10,31 @@ import (
 	"github.com/stevedesilva/dsa-golang.git/commonsense/recursion"
 )
 
-func TestFindDirectories(t *testing.T) {
+func TestFindDirectories_AccumulatorReturned(t *testing.T) {
+	// Given a Root directory and Sub directories
+	rootName, expectedDirs := createRootAndSubdirectoriesWithTestFiles(t)
+	defer os.Remove(rootName)
+	// When
+	res := recursion.FindDirectoriesWithAccumulator(rootName)
+	// Then
+	assert.Equal(t, expectedDirs, res)
+}
 
-	// Given a Root directory and files
+func TestFindDirectories_AccumulatorPointer(t *testing.T) {
+	// Given a Root directory and Sub directories
+	rootName, expectedDirs := createRootAndSubdirectoriesWithTestFiles(t)
+	defer os.Remove(rootName)
+	// When
+	res := recursion.FindDirectoriesWithSlicePointer(rootName)
+	// Then
+	assert.Equal(t, expectedDirs, res)
+}
+
+func createRootAndSubdirectoriesWithTestFiles(t *testing.T) (string, []string) {
+	// root
 	rootName, err := createDirectoryStructure("", "level_root_", "test_file_1", "test_file_2")
 	assert.Nil(t, err)
-	defer os.Remove(rootName)
 
-	// And Sub directories
 	expectedDirs := make([]string, 0, 5)
 	levelOneName, err := createDirectoryStructure(rootName, "level_1_", "test_file_1a", "test_file_1b")
 	assert.Nil(t, err)
@@ -38,12 +55,7 @@ func TestFindDirectories(t *testing.T) {
 	levelFiveName, err := createDirectoryStructure(levelFourName, "level_5_", "test_file_5a")
 	assert.Nil(t, err)
 	expectedDirs = append(expectedDirs, levelFiveName)
-
-	// When
-	res := recursion.FindDirectoriesWithAccumulator(rootName)
-
-	// Then
-	assert.Equal(t, expectedDirs, res)
+	return rootName, expectedDirs
 }
 
 func createEmptyFile(name string, tempDir string) {

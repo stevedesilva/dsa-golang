@@ -28,7 +28,23 @@ func findDirectories(directory string, acc []string) []string {
 	return acc
 }
 
-func FindDirectories(rootDirPath string) []string {
+func FindDirectoriesWithSlicePointer(rootDirPath string) []string {
 	foundDirs := make([]string, 0)
-	return findDirectories(rootDirPath, foundDirs)
+	findDirectoriesPointer(rootDirPath, &foundDirs)
+	return foundDirs
+}
+
+func findDirectoriesPointer(directory string, acc *[]string) {
+	directories, err := os.ReadDir(directory)
+	if err != nil {
+		return
+	}
+
+	for _, dir := range directories {
+		if dir.IsDir() {
+			name := fmt.Sprintf("%s/%s", directory, dir.Name())
+			*acc = append(*acc, name)
+			findDirectoriesPointer(name, acc)
+		}
+	}
 }
