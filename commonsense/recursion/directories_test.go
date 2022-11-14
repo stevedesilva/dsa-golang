@@ -58,12 +58,6 @@ func createRootAndSubdirectoriesWithTestFiles(t *testing.T) (string, []string) {
 	return rootName, expectedDirs
 }
 
-func createEmptyFile(name string, tempDir string) {
-	filename := filepath.Join(tempDir, name)
-	data := []byte("")
-	os.WriteFile(filename, data, 0644)
-}
-
 func createDirectoryStructure(dirName, dirPattern string, files ...string) (string, error) {
 	dirPath, err := os.MkdirTemp(dirName, dirPattern)
 	if err != nil {
@@ -73,4 +67,10 @@ func createDirectoryStructure(dirName, dirPattern string, files ...string) (stri
 		createEmptyFile(file, dirPath)
 	}
 	return dirPath, nil
+}
+
+func createEmptyFile(name string, tempDir string) {
+	filename := filepath.Join(tempDir, name)
+	data := []byte("")
+	os.WriteFile(filename, data, 0644)
 }
