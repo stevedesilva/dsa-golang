@@ -1,8 +1,10 @@
-package recursion
+package recursion_test
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/stevedesilva/dsa-golang.git/commonsense/recursion"
 )
 
 func Test_countTo(t *testing.T) {
@@ -39,7 +41,36 @@ func Test_countTo(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := countTo(tt.number); !reflect.DeepEqual(got, tt.want) {
+			if got := recursion.CountTo(tt.number); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("countTo() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_countEven(t *testing.T) {
+	type data struct {
+		low, high int
+	}
+	tests := []struct {
+		name string
+		data data
+		want []int
+	}{
+		{
+			name: "even 0 to 10",
+			data: data{0, 10},
+			want: []int{0, 2, 4, 6, 8, 10},
+		},
+		{
+			name: "even 0 to 20",
+			data: data{0, 20},
+			want: []int{0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := recursion.CountEven(tt.data.low, tt.data.high); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("countTo() = %v, want %v", got, tt.want)
 			}
 		})
