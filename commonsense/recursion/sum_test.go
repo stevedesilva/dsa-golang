@@ -61,7 +61,7 @@ func TestSumNumberBetweenRange(t *testing.T) {
 		{
 			name: "1 to 8",
 			args: args{
-				1, 7,
+				1, 8,
 			},
 			want: 36,
 		},
