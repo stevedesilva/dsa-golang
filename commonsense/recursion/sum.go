@@ -14,7 +14,7 @@ func sumNumberBetweenRangeRec(start, end int, acc int) int {
 
 func SumNumberBetweenRangeNoTailRec(start, end int) int {
 	if start >= end {
-		return start
+		return end
 	}
 	return start + SumNumberBetweenRangeNoTailRec(start+1, end)
 }
