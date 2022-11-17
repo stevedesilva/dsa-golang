@@ -11,3 +11,10 @@ func sumNumberBetweenRangeRec(start, end int, acc int) int {
 	acc = acc + start
 	return sumNumberBetweenRangeRec(start+1, end, acc)
 }
+
+func SumNumberBetweenRangeNoTailRec(start, end int) int {
+	if start >= end {
+		return start
+	}
+	return start + SumNumberBetweenRangeNoTailRec(start+1, end)
+}
