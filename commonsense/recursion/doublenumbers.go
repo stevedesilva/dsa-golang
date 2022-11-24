@@ -10,7 +10,6 @@ func doubleNumbersInArrayRec(array []int, count int) {
 	if count >= len(array) {
 		return
 	}
-	val := array[count] * 2
-	array[count] = val
+	array[count] *= 2
 	doubleNumbersInArrayRec(array, count+1)
 }
