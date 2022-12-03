@@ -1,9 +1,13 @@
 package recursion
 
-func StringReversal(array string) int {
-	return stringReversalRec(array, 0)
+func StringReversal(word string) string {
+	res := stringReversalRec([]rune(word))
+	return string(res)
 }
 
-func stringReversalRec(array string, total int) int {
-	return 0
+func stringReversalRec(array []rune) string {
+	if len(array) == 1 {
+		return string(array[0])
+	}
+	return stringReversalRec(array[1:]) + string(array[0])
 }
