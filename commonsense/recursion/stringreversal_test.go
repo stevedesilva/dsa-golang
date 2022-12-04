@@ -9,9 +9,10 @@ import (
 func TestStringReversal(t *testing.T) {
 
 	tests := []struct {
-		name string
-		word string
-		want string
+		name    string
+		word    string
+		want    string
+		wantErr error
 	}{
 		{
 			name: "a",
@@ -43,10 +44,18 @@ func TestStringReversal(t *testing.T) {
 			word: "abcdef",
 			want: "fedcba",
 		},
+		{
+			name:    "empty",
+			word:    "",
+			want:    "",
+			wantErr: ErrEmptyInput,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equalf(t, tt.want, StringReversal(tt.word), "StringReversal(%v)", tt.word)
+			reversal, err := StringReversal(tt.word)
+			assert.Equalf(t, tt.want, reversal, "StringReversal(%v)", tt.word)
+			assert.Equalf(t, tt.wantErr, err, "StringReversal Error(%v)", tt.word)
 		})
 	}
 }

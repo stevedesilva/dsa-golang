@@ -1,8 +1,15 @@
 package recursion
 
-func StringReversal(word string) string {
+import "errors"
+
+var ErrEmptyInput = errors.New("minimum input of one word required")
+
+func StringReversal(word string) (string, error) {
+	if len(word) < 1 {
+		return "", ErrEmptyInput
+	}
 	res := stringReversalRec([]rune(word))
-	return string(res)
+	return string(res), nil
 }
 
 func stringReversalRec(array []rune) string {
