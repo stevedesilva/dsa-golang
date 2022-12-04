@@ -1,7 +1,9 @@
-package recursion
+package recursion_test
 
 import (
 	"testing"
+
+	"github.com/stevedesilva/dsa-golang.git/commonsense/recursion"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -48,12 +50,12 @@ func TestStringReversal(t *testing.T) {
 			name:    "empty",
 			word:    "",
 			want:    "",
-			wantErr: ErrEmptyInput,
+			wantErr: recursion.ErrEmptyInput,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			reversal, err := StringReversal(tt.word)
+			reversal, err := recursion.StringReversal(tt.word)
 			assert.Equalf(t, tt.want, reversal, "StringReversal(%v)", tt.word)
 			assert.Equalf(t, tt.wantErr, err, "StringReversal Error(%v)", tt.word)
 		})
