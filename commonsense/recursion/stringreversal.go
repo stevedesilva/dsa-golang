@@ -8,13 +8,12 @@ func StringReversal(word string) (string, error) {
 	if len(word) < 1 {
 		return "", ErrEmptyInput
 	}
-	res := stringReversalRec([]rune(word))
-	return string(res), nil
+	return stringReversalRec([]rune(word)), nil
 }
 
 func stringReversalRec(array []rune) string {
-	if len(array) == 1 {
-		return string(array[0])
+	if len(array) == 0 {
+		return ""
 	}
 	return stringReversalRec(array[1:]) + string(array[0])
 }
