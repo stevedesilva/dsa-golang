@@ -4,8 +4,11 @@ import "fmt"
 
 func GenerateFibSeriesIterative(num int) int {
 	res := []int{0, 1}
+
 	for i := 2; i <= num; i++ {
-		value := res[(len(res)-2)] + res[(len(res)-1)]
+		lastItem := res[(len(res) - 1)]
+		nextToLastItem := res[(len(res) - 2)]
+		value := nextToLastItem + lastItem
 		res = append(res, value)
 	}
 	return res[(len(res) - 1)]
