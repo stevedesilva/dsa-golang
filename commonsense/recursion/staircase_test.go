@@ -54,6 +54,11 @@ func Test_countNumberOfSteps(t *testing.T) {
 			number: 7,
 			want:   44,
 		},
+		{
+			name:   "step 8",
+			number: 8,
+			want:   81,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
