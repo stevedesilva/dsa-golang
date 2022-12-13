@@ -1,15 +1,6 @@
 package recursion
 
-import "fmt"
-
-func CountNumberOfSteps(number int) int {
-	fmt.Println(">", number)
-	res := countNumberOfPaths(number)
-	fmt.Println("<", res)
-	return res
-}
-
-func countNumberOfPaths(steps int) int {
+func CountNumberOfPaths(steps int) int {
 	// hardcode base values
 	if steps <= 0 {
 		return 0
@@ -32,5 +23,24 @@ func countNumberOfPaths(steps int) int {
 	// 2 = 2
 	// 1 = 1
 
-	return countNumberOfPaths(steps-1) + countNumberOfPaths(steps-2) + countNumberOfPaths(steps-3)
+	return CountNumberOfPaths(steps-1) + CountNumberOfPaths(steps-2) + CountNumberOfPaths(steps-3)
+}
+
+func CountNumberOfPathsAlt(steps int) int {
+	// hardcode base values
+	if steps < 0 {
+		return 0
+	}
+	if steps == 0 || steps == 1 {
+		return 1
+	}
+	// 8 = 7r(44) + 6r(24) + 5r(13)
+	// 7 = 6r + 5r + 4r  = 24 + 13 + 7 = 44
+	// 6 = 5r + 4r + 3(4) = 13 + 7 + 4 = 24
+	// 5 = 4r + 3(4) + 2(2) = 7 + 4 + 2 = 13
+	// 4 = 3(4) + 2(2) + 1(1) = 7
+	// 3 = 4
+	// 2 = 2
+	// 1 = 1
+	return CountNumberOfPathsAlt(steps-1) + CountNumberOfPathsAlt(steps-2) + CountNumberOfPathsAlt(steps-3)
 }
