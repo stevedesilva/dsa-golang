@@ -28,6 +28,15 @@ func TestFindAllPossibleAnagrams(t *testing.T) {
 			word: "abc",
 			want: []string{"abc", "acb", "bac", "bca", "cab", "cba"},
 		},
+		{
+			name: "abcd",
+			word: "abc",
+			want: []string{
+				"abcd", "abdc", "adbc", "dabc",
+				"bacd", "badc", "bdac", "dbac",
+				"cabd", "cadb", "cdab", "dcab",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
