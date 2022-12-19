@@ -7,38 +7,38 @@ import (
 )
 
 func TestFindAllPossibleAnagrams(t *testing.T) {
-
+	// O(N!)
 	tests := []struct {
 		name string
 		word string
 		want []string
 	}{
-		//{
-		//	name: "a",
-		//	word: "a",
-		//	want: []string{"a"},
-		//},
-		//{
-		//	name: "ab",
-		//	word: "ab",
-		//	want: []string{"ab", "ba"},
-		//},
-		//{
-		//	name: "abc",
-		//	word: "abc",
-		//	want: []string{"abc", "bac", "bca", "acb", "cab", "cba"},
-		//},
-		//{
-		//	name: "abcd",
-		//	word: "abcd",
-		//	want: []string{
-		//		"abcd", "bacd", "bcad", "bcda",
-		//		"acbd", "cabd", "cbad", "cbda",
-		//		"acdb", "cadb", "cdab", "cdba",
-		//		"abdc", "badc", "bdac", "bdca",
-		//		"adbc", "dabc", "dbac", "dbca",
-		//		"adcb", "dacb", "dcab", "dcba"},
-		//},
+		{
+			name: "a",
+			word: "a",
+			want: []string{"a"},
+		},
+		{
+			name: "ab",
+			word: "ab",
+			want: []string{"ab", "ba"},
+		},
+		{
+			name: "abc",
+			word: "abc",
+			want: []string{"abc", "bac", "bca", "acb", "cab", "cba"},
+		},
+		{
+			name: "abcd",
+			word: "abcd",
+			want: []string{
+				"abcd", "bacd", "bcad", "bcda",
+				"acbd", "cabd", "cbad", "cbda",
+				"acdb", "cadb", "cdab", "cdba",
+				"abdc", "badc", "bdac", "bdca",
+				"adbc", "dabc", "dbac", "dbca",
+				"adcb", "dacb", "dcab", "dcba"},
+		},
 		{
 			name: "abcde",
 			word: "abcde",
@@ -52,7 +52,7 @@ func TestFindAllPossibleAnagrams(t *testing.T) {
 				"adcbe", "dacbe", "dcabe", "dcbae", "dcbea",
 				"adceb", "daceb", "dcaeb", "dceab", "dceba",
 				"abdec", "badec", "bdaec", "bdeac", "bdeca",
-				"adbec", "dabec", "dbaec", "dbeac", "dbeca",
+				"adbec", "dabec", "dbaec", "dbeac", "dbeca", //50
 				"adebc", "daebc", "deabc", "debac", "debca",
 				"adecb", "daecb", "deacb", "decab", "decba",
 				"abced", "baced", "bcaed", "bcead", "bceda",
@@ -62,7 +62,7 @@ func TestFindAllPossibleAnagrams(t *testing.T) {
 				"abecd", "baecd", "beacd", "becad", "becda",
 				"aebcd", "eabcd", "ebacd", "ebcad", "ebcda",
 				"aecbd", "eacbd", "ecabd", "ecbad", "ecbda",
-				"aecdb", "eacdb", "ecadb", "ecdab", "ecdba",
+				"aecdb", "eacdb", "ecadb", "ecdab", "ecdba", //100
 				"abedc", "baedc", "beadc", "bedac", "bedca",
 				"aebdc", "eabdc", "ebadc", "ebdac", "ebdca",
 				"aedbc", "eadbc", "edabc", "edbac", "edbca",

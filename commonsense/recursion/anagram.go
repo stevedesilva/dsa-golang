@@ -3,6 +3,8 @@ package recursion
 import "strings"
 
 func FindAllPossibleAnagrams(word string) []string {
+	// O(N!) function
+
 	// create a collection to hold all the anagrams
 	res := make([]string, 0)
 
