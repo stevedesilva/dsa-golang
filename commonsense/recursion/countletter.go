@@ -21,3 +21,7 @@ func countLetter(word []rune, letter rune) int {
 		return countLetter(word[1:], letter)
 	}
 }
+
+func CountLetterInArray(array []string) int {
+	return 0
+}
