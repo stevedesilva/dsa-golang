@@ -104,6 +104,11 @@ func TestCountLetterInArray(t *testing.T) {
 			array: []string{"abc", "de", "fg"},
 			want:  7,
 		},
+		{
+			name:  "multi diff words",
+			array: []string{"abc", "de", "fg", "hijkl"},
+			want:  12,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
