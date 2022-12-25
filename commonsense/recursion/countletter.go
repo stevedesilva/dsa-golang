@@ -2,7 +2,6 @@ package recursion
 
 import (
 	"errors"
-	"fmt"
 )
 
 func CountLetter(word string, letter rune) (int, error) {
@@ -26,7 +25,6 @@ func countLetter(word []rune, letter rune) int {
 }
 
 func CountLetterInArray(words []string) int {
-	fmt.Printf("word %s \n", words)
 	if len(words) <= 0 {
 		return 0
 	}
