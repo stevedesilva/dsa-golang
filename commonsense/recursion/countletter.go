@@ -29,10 +29,8 @@ func CountLetterInArray(words []string) int {
 	if len(words) == 1 {
 		return len([]rune(words[0]))
 	}
-
 	other := words[1:]
 	return len([]rune(words[0])) + CountLetterInArray(other)
-
 }
 
 //
