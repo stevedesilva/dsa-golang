@@ -42,6 +42,11 @@ func TestEvenNumbersFromArray(t *testing.T) {
 			array: []int{1, 3, 5, 9, 11, 2, 4, 6, 8, 10},
 			want:  []int{2, 4, 6, 8, 10},
 		},
+		{
+			name:  "mixed  digits 3",
+			array: []int{6, 1, 3, 5, 9, 11, 22, 4, 6, 8, 10, 50},
+			want:  []int{6, 22, 4, 6, 8, 10, 50},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
