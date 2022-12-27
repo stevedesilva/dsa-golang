@@ -10,3 +10,10 @@ func calculateTriangularNumberRec(positionToCalculate, currentIndex, currentValu
 	}
 	return calculateTriangularNumberRec(positionToCalculate, currentIndex+1, currentValue+currentIndex)
 }
+
+func CalculateTriangularNumberAlt(n int) int {
+	if n == 1 {
+		return 1
+	}
+	return n + CalculateTriangularNumberAlt(n-1)
+}
