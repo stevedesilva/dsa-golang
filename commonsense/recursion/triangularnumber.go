@@ -5,6 +5,8 @@ func CalculateTriangularNumber(positionToCalculate int) int {
 }
 
 func calculateTriangularNumberRec(positionToCalculate, currentIndex, currentValue int) int {
-
-	return 0
+	if currentIndex > positionToCalculate {
+		return currentValue
+	}
+	return calculateTriangularNumberRec(positionToCalculate, currentIndex+1, currentValue+currentIndex)
 }
