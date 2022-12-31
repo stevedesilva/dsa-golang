@@ -16,3 +16,21 @@ func findFirstIndex(word []rune, letter rune, index int) (int, error) {
 	}
 	return findFirstIndex(word, letter, index+1)
 }
+
+func FindFirstIndexAlt(word string, letter rune) (int, error) {
+	return findFirstIndexAlt([]rune(word), letter)
+}
+
+func findFirstIndexAlt(word []rune, letter rune) (int, error) {
+	if len(word) == 0 {
+		return 0, errors.New("not found")
+	}
+	if word[0] == letter {
+		return 0, nil
+	}
+	val, err := findFirstIndexAlt(word[1:], letter)
+	if err == nil {
+		val += 1
+	}
+	return val, err
+}
