@@ -57,6 +57,8 @@ func Test_findAllUniquePaths(t *testing.T) {
 		{name: "5,5:1", args: args{5, 5}, want: 70},
 
 		{name: "5,1:1", args: args{6, 1}, want: 1},
+
+		{name: "5,1:1", args: args{7, 1}, want: 1},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
