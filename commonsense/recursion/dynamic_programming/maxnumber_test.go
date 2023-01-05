@@ -22,9 +22,27 @@ func Test_FindMaxNumber(t *testing.T) {
 			wantErr: assert.Error,
 		},
 		{
-			name:    "empty",
+			name:    "1",
 			numbers: []int{1},
 			want:    1,
+			wantErr: assert.NoError,
+		},
+		{
+			name:    "1-2",
+			numbers: []int{1, 2},
+			want:    2,
+			wantErr: assert.NoError,
+		},
+		{
+			name:    "1-4",
+			numbers: []int{1, 2, 3, 4},
+			want:    4,
+			wantErr: assert.NoError,
+		},
+		{
+			name:    "random",
+			numbers: []int{10, 2, 30, 4, 58, 21},
+			want:    58,
 			wantErr: assert.NoError,
 		},
 	}
