@@ -1,6 +1,8 @@
 package dynamic_programming
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func Fibonacci(number int) int {
 	cache := make(map[int]int, 0)
@@ -20,5 +22,13 @@ func fibonacci(number int, cache map[int]int) int {
 }
 
 func FibonacciNoRecursive(number int) int {
-	return 0
+	if number <= 1 {
+		return number
+	}
+	sequence := []int{0, 1}
+	for i := 2; i <= number; i++ {
+		res := sequence[i-2] + sequence[i-1]
+		sequence = append(sequence, res)
+	}
+	return sequence[len(sequence)-1]
 }
