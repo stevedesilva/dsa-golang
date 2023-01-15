@@ -18,3 +18,7 @@ func fibonacci(number int, cache map[int]int) int {
 	}
 	return cache[number]
 }
+
+func FibonacciNoRecursive(number int) int {
+	return 0
+}
