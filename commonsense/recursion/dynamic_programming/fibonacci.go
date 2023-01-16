@@ -32,3 +32,7 @@ func FibonacciNoRecursive(number int) int {
 	}
 	return sequence[len(sequence)-1]
 }
+
+func FibonacciNoRecursiveAlt(number int) int {
+	return 0
+}
