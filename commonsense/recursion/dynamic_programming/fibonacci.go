@@ -33,6 +33,19 @@ func FibonacciNoRecursive(number int) int {
 	return sequence[len(sequence)-1]
 }
 
+// 0 1 1 2 3 5 8 13 21
 func FibonacciNoRecursiveAlt(number int) int {
-	return 0
+	a := 0
+	b := 1
+	if number <= 1 {
+		return number
+	}
+	temp := 0
+	for i := 2; i <= number; i++ {
+		temp = a + b
+		a = b
+		b = temp
+	}
+
+	return temp
 }
