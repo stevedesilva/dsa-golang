@@ -37,15 +37,15 @@ func FibonacciNoRecursive(number int) int {
 func FibonacciNoRecursiveAlt(number int) int {
 	a := 0
 	b := 1
-	if number <= 1 {
+	if number <= 0 {
 		return number
 	}
 	temp := 0
-	for i := 2; i <= number; i++ {
-		temp = a + b
+	for i := 1; i <= number; i++ {
+		temp = a
 		a = b
-		b = temp
+		b = temp + b
 	}
 
-	return temp
+	return b
 }
