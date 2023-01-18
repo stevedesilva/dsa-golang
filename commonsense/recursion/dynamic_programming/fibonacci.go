@@ -41,7 +41,7 @@ func FibonacciNoRecursiveAlt(number int) int {
 		return number
 	}
 	temp := 0
-	for i := 1; i <= number; i++ {
+	for i := 1; i < number; i++ {
 		temp = a
 		a = b
 		b = temp + b
