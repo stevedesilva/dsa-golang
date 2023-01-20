@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFibonacciWithMemoisaton(t *testing.T) {
+func TestFibonacciWithMemoization(t *testing.T) {
 
 	tests := []struct {
 		name   string
