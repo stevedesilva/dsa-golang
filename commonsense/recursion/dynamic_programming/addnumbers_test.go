@@ -24,6 +24,11 @@ func TestAddUntilOneHundred(t *testing.T) {
 			want:    6,
 		},
 		{
+			name:    "mixture adding up to 100",
+			numbers: []int{1, 2, 3, 4, 5, 10, 20, 40, 15},
+			want:    100,
+		},
+		{
 			name:    "1-99",
 			numbers: []int{1, 98},
 			want:    99,
