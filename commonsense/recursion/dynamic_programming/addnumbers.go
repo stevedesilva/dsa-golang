@@ -4,9 +4,10 @@ func AddUntilOneHundred(numbers []int) int {
 	if len(numbers) == 0 {
 		return 0
 	}
-	if numbers[0]+AddUntilOneHundred(numbers[1:]) > 100 {
-		return AddUntilOneHundred(numbers[1:])
+	tailSum := AddUntilOneHundred(numbers[1:])
+	if numbers[0]+tailSum > 100 {
+		return tailSum
 	} else {
-		return numbers[0] + AddUntilOneHundred(numbers[1:])
+		return numbers[0] + tailSum
 	}
 }
