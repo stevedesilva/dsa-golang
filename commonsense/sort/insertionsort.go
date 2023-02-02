@@ -1,9 +1,11 @@
 package sort
 
 /*
-  For every element in the array:
-    for current element
-    sort everything to the left of the element
+InsertionSort
+
+	For every element in the array:
+	for current element
+	sort everything to the left of the element
 */
 func InsertionSort(array []int) []int {
 	for i := 0; i < len(array); i++ {
