@@ -1,15 +1,33 @@
 package sort
 
-func Quicksort(array []int) []int {
-	return array
-}
+//func Quicksort(array []int) []int {
+//	return array
+//}
 
 type SortableArray struct {
 	array []int
 }
 
-func New() *SortableArray {
-	return &SortableArray{}
+func New(array []int) *SortableArray {
+	return &SortableArray{
+		array: array,
+	}
+}
+
+func (q *SortableArray) Quicksort() []int {
+	q.quicksort(0, len(q.array)-1)
+	return q.array
+}
+
+func (q *SortableArray) quicksort(leftIndex, rightIndex int) {
+	if rightIndex-leftIndex <= 0 {
+		return
+	}
+
+	pivotIndex := q.partition(leftIndex, rightIndex)
+
+	q.quicksort(leftIndex, pivotIndex-1)
+	q.quicksort(pivotIndex+1, rightIndex)
 }
 
 func (q *SortableArray) partition(leftPointer, rightPointer int) int {

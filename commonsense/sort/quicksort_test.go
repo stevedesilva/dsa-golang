@@ -61,7 +61,8 @@ func TestQuicksort(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equalf(t, tt.want, Quicksort(tt.input), "Quicksort(%v)", tt.want)
+			q := New(tt.input)
+			assert.Equalf(t, tt.want, q.Quicksort(), "Quicksort(%v)", tt.want)
 		})
 	}
 }
