@@ -36,11 +36,11 @@ func (q *SortableArray) partition(leftPointer, rightPointer int) int {
 
 	rightPointer--
 	for {
-		for q.array[leftPointer] < pivotValue {
+		for leftPointer >= 0 && q.array[leftPointer] < pivotValue {
 			leftPointer++
 		}
 
-		for q.array[rightPointer] > pivotValue {
+		for rightPointer >= 0 && q.array[rightPointer] > pivotValue {
 			rightPointer--
 		}
 

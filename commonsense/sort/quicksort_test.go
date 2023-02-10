@@ -24,12 +24,12 @@ func TestQuicksort(t *testing.T) {
 			want:  []int{1},
 		},
 		{
-			name:  "2 test in order",
+			name:  "test in order",
 			input: []int{1, 2},
 			want:  []int{1, 2},
 		},
 		{
-			name:  "2 test out of order",
+			name:  "test out of order",
 			input: []int{2, 1},
 			want:  []int{1, 2},
 		},
