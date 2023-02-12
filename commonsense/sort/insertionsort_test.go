@@ -30,14 +30,14 @@ func TestInsertionSort(t *testing.T) {
 			want:  []int{1, 2},
 		},
 		{
-			name:  "2 test out of order",
-			input: []int{2, 1},
-			want:  []int{1, 2},
-		},
-		{
 			name:  "3 test in order",
 			input: []int{1, 2, 3},
 			want:  []int{1, 2, 3},
+		},
+		{
+			name:  "2 test out of order",
+			input: []int{2, 1},
+			want:  []int{1, 2},
 		},
 		{
 			name:  "3 test out of order",
@@ -57,6 +57,11 @@ func TestInsertionSort(t *testing.T) {
 		{
 			name:  "6 test out of order",
 			input: []int{5, 3, 2, 6, 4, 1},
+			want:  []int{1, 2, 3, 4, 5, 6},
+		},
+		{
+			name:  "6 - worst case test out of order",
+			input: []int{6, 5, 4, 3, 2, 1},
 			want:  []int{1, 2, 3, 4, 5, 6},
 		},
 	}
