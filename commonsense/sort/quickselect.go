@@ -10,20 +10,24 @@ func NewQuickSelect(array []int) *SortedArray {
 	}
 }
 
-func (q *SortedArray) QuickSelect() []int {
-	q.quickselect(0, len(q.array)-1)
-	return q.array
+func (q *SortedArray) QuickSelect(indexToFind int) int {
+	return q.quickselect(indexToFind, 0, len(q.array)-1)
 }
 
-func (q *SortedArray) quickselect(leftIndex, rightIndex int) {
+func (q *SortedArray) quickselect(indexToFind, leftIndex, rightIndex int) int {
 	if rightIndex-leftIndex <= 0 {
-		return
+		return q.array[leftIndex]
 	}
 
 	pivotIndex := q.partition(leftIndex, rightIndex)
+	if indexToFind < pivotIndex {
+		return q.quickselect(indexToFind, leftIndex, pivotIndex-1)
 
-	q.quickselect(leftIndex, pivotIndex-1)
-	q.quickselect(pivotIndex+1, rightIndex)
+	} else if indexToFind > pivotIndex {
+		return q.quickselect(indexToFind, pivotIndex+1, rightIndex)
+	} else {
+		return q.array[indexToFind]
+	}
 }
 
 func (q *SortedArray) partition(leftPointer, rightPointer int) int {
