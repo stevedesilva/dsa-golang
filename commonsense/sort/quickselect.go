@@ -19,12 +19,12 @@ func (q *SortedArray) quickselect(indexToFind, leftIndex, rightIndex int) int {
 		return q.array[leftIndex]
 	}
 
-	pivotIndex := q.partition(leftIndex, rightIndex)
-	if indexToFind < pivotIndex {
-		return q.quickselect(indexToFind, leftIndex, pivotIndex-1)
+	partition := q.partition(leftIndex, rightIndex)
+	if indexToFind < partition {
+		return q.quickselect(indexToFind, leftIndex, partition-1)
 
-	} else if indexToFind > pivotIndex {
-		return q.quickselect(indexToFind, pivotIndex+1, rightIndex)
+	} else if indexToFind > partition {
+		return q.quickselect(indexToFind, partition+1, rightIndex)
 	} else {
 		return q.array[indexToFind]
 	}
