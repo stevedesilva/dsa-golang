@@ -1,13 +1,22 @@
 package sort
 
+import "errors"
+
 type SortedArray struct {
 	array []int
 }
 
-func NewQuickSelect(array []int) *SortedArray {
+var (
+	ErrMinimum = errors.New("array must contain at least one value")
+)
+
+func NewQuickSelect(array []int) (*SortedArray, error) {
+	if len(array) < 1 {
+		return nil, ErrMinimum
+	}
 	return &SortedArray{
 		array: array,
-	}
+	}, nil
 }
 
 func (q *SortedArray) QuickSelect(indexToFind int) int {
