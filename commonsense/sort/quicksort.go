@@ -57,3 +57,13 @@ func (q *SortableArray) partition(leftPointer, rightPointer int) int {
 	return leftPointer
 
 }
+
+func (q *SortableArray) HasDuplicates() bool {
+	q.Quicksort()
+	for i := 0; i < len(q.array); i++ {
+		if q.array[i] == q.array[i+1] {
+			return true
+		}
+	}
+	return false
+}
