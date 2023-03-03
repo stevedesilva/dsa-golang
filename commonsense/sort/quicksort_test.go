@@ -71,7 +71,3 @@ func TestQuicksort(t *testing.T) {
 		})
 	}
 }
-
-func TestHasDuplicates(t *testing.T) {
-
-}

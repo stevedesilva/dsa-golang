@@ -1,8 +1,5 @@
 package sort
 
-type Duplicate struct {
-}
-
 func HasDuplicates(array []int) bool {
 	q := NewQuickSort(array)
 	q.Quicksort()
@@ -10,7 +7,7 @@ func HasDuplicates(array []int) bool {
 }
 
 func hasDuplicates(sorted []int) bool {
-	for i := 0; i < len(sorted); i++ {
+	for i := 0; i < len(sorted)-1; i++ {
 		if sorted[i] == sorted[i+1] {
 			return true
 		}
