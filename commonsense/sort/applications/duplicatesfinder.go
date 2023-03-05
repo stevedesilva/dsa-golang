@@ -1,9 +1,10 @@
-package sort
+package applications
+
+import "github.com/stevedesilva/dsa-golang.git/commonsense/sort"
 
 func HasDuplicates(array []int) bool {
-	q := NewQuickSort(array)
-	q.Quicksort()
-	return hasDuplicates(q.array)
+	q := sort.NewQuickSort(array)
+	return hasDuplicates(q.Quicksort())
 }
 
 func hasDuplicates(sorted []int) bool {
