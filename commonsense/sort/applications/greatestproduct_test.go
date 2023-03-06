@@ -54,6 +54,15 @@ func TestFindGreatestProduct(t *testing.T) {
 			want:    17,
 			wantErr: assert.NoError,
 		},
+		{
+			name: "find product in 10",
+			args: args{
+				array:       []int{1, 2, 4, 5, 6, 6, 4, 10, 5, 2, 1, 23},
+				numberRange: 3,
+			},
+			want:    39,
+			wantErr: assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
