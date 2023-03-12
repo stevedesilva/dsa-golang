@@ -23,7 +23,7 @@ func TestFindMissingNumber(t *testing.T) {
 		},
 		{
 			name:    "value not found error",
-			numbers: []int{0, 1, 3},
+			numbers: []int{0, 1, 2, 3},
 			want:    nil,
 			wantErr: assert.Error,
 		},
@@ -37,6 +37,12 @@ func TestFindMissingNumber(t *testing.T) {
 			name:    "missing 2",
 			numbers: []int{0, 1, 3},
 			want:    IntPointer(2),
+			wantErr: assert.NoError,
+		},
+		{
+			name:    "missing 5",
+			numbers: []int{0, 1, 2, 3, 4, 6, 7, 8},
+			want:    IntPointer(5),
 			wantErr: assert.NoError,
 		},
 	}
