@@ -20,6 +20,18 @@ var tests = []struct {
 		wantErr: assert.Error,
 	},
 	{
+		name:    "test single",
+		numbers: []int{1},
+		want:    intPtr(1),
+		wantErr: assert.NoError,
+	},
+	{
+		name:    "test two values",
+		numbers: []int{1, 2},
+		want:    intPtr(2),
+		wantErr: assert.NoError,
+	},
+	{
 		name:    "test 1",
 		numbers: []int{1, 2, 4, 5, 6, 6, 4, 10, 5, 2, 1, 23},
 		want:    intPtr(23),
