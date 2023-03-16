@@ -49,6 +49,18 @@ var tests = []struct {
 		want:    intPtr(50),
 		wantErr: assert.NoError,
 	},
+	{
+		name:    "largest value at the 2nd position 100",
+		numbers: []int{1, 100, 4, 50, 6},
+		want:    intPtr(100),
+		wantErr: assert.NoError,
+	},
+	{
+		name:    "largest value at the front 100",
+		numbers: []int{100, 2, 4, 50, 6, 6, 4, 10, 5, 2, 1, 23},
+		want:    intPtr(100),
+		wantErr: assert.NoError,
+	},
 }
 
 func TestLargestValueN(t *testing.T) {
