@@ -1,6 +1,9 @@
 package linkedlist
 
-import "github.com/stevedesilva/dsa-golang.git/commonsense/node"
+import (
+	"errors"
+	"github.com/stevedesilva/dsa-golang.git/commonsense/node"
+)
 
 type LinkedList[T comparable] struct {
 	Head *node.Node[T]
@@ -41,20 +44,32 @@ func (l *LinkedList[T]) Add(value T) {
 	}
 	current.Next = node
 }
+
+// a -> b -> c
 func (l *LinkedList[T]) AddByIndex(index int, value T) error {
 	node := &node.Node[T]{
 		Data: value,
 		Next: nil,
 	}
-	if l.Head == nil {
+	if index == 0 {
+		node.Next = l.Head
 		l.Head = node
-		return
+		return nil
 	}
+
 	current := l.Head
-	for current.Next != nil {
+	currentIdx := 0
+
+	for currentIdx < index-1 {
 		current = current.Next
+		currentIdx++
+		if current == nil {
+			return errors.New("index not found")
+		}
 	}
+	node.Next = current.Next
 	current.Next = node
+	return nil
 }
 
 func (l *LinkedList[T]) Delete(index int) error {
