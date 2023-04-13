@@ -71,14 +71,91 @@ func TestLinkedList_AddByIndexToEndOfList(t *testing.T) {
 	assert.Equal(t, list.Head.Next.Next.Next.Data, "d")
 }
 
-func TestLinkedList_Delete(t *testing.T) {
-
-}
-
 func TestLinkedList_Read(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
 
+	read, err := list.Read(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", read)
+	read, err = list.Read(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "b", read)
+	read, err = list.Read(2)
+	assert.Nil(t, err)
+	assert.Equal(t, "c", read)
 }
 
 func TestLinkedList_Search(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	idx, err := list.Search("a")
+	assert.Nil(t, err)
+	assert.Equal(t, 0, idx)
+	idx, err = list.Search("b")
+	assert.Nil(t, err)
+	assert.Equal(t, 1, idx)
+	idx, err = list.Search("c")
+	assert.Nil(t, err)
+	assert.Equal(t, 2, idx)
+}
 
+func TestLinkedList_SearchErrorWhenIndexNotFound(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	idx, err := list.Search("z")
+	assert.NotNil(t, err)
+	assert.Equal(t, -1, idx)
+}
+
+func TestLinkedList_DeleteHead(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	err := list.Delete(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "b", list.Head.Data)
+	err = list.Delete(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "c", list.Head.Data)
+}
+
+func TestLinkedList_DeleteMiddle(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	err := list.Delete(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", list.Head.Data)
+	assert.Equal(t, "c", list.Head.Next.Data)
+}
+
+func TestLinkedList_DeleteEnd(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	err := list.Delete(2)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", list.Head.Data)
+	err = list.Delete(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "b", list.Head.Next.Data)
+}
+
+func TestLinkedList_DeleteErrorWhenIndexNotFound(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	err := list.Delete(10)
+	assert.NotNil(t, err)
 }
