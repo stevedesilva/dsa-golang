@@ -9,10 +9,6 @@ type LinkedList[T comparable] struct {
 	Head *node.Node[T]
 }
 
-//type LinkedList[T any] struct {
-//	head *Node[T]
-//}
-
 //type ClassicLinkedList[T comparable] interface {
 //	Read(index int) (T, error)
 //	Add(value T)
