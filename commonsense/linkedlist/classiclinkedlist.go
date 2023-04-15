@@ -6,18 +6,24 @@ import (
 )
 
 type LinkedList[T comparable] struct {
-	Head *node.Node[T]
+	head *node.Node[T]
 }
 
-//type ClassicLinkedList[T comparable] interface {
-//	Read(index int) (T, error)
-//	Add(value T)
-//	Search(index T) (int, error)
-//	Delete(index int) error
-//}
+type ClassicLinkedList[T comparable] interface {
+	Add(value T)
+	AddByIndex(index int, value T) error
+	Read(index int) (T, error)
+	Search(value T) (int, error)
+	Delete(index int) error
+	Head() *node.Node[T]
+}
 
-func NewClassicLinkedList[T comparable]() *LinkedList[T] {
+func NewClassicLinkedList[T comparable]() ClassicLinkedList[T] {
 	return &LinkedList[T]{}
+}
+
+func (l *LinkedList[T]) Head() *node.Node[T] {
+	return l.head
 }
 
 func (l *LinkedList[T]) Add(value T) {
@@ -25,11 +31,11 @@ func (l *LinkedList[T]) Add(value T) {
 		Data: value,
 		Next: nil,
 	}
-	if l.Head == nil {
-		l.Head = node
+	if l.head == nil {
+		l.head = node
 		return
 	}
-	current := l.Head
+	current := l.head
 	for current.Next != nil {
 		current = current.Next
 	}
@@ -42,12 +48,12 @@ func (l *LinkedList[T]) AddByIndex(index int, value T) error {
 		Next: nil,
 	}
 	if index == 0 {
-		node.Next = l.Head
-		l.Head = node
+		node.Next = l.head
+		l.head = node
 		return nil
 	}
 
-	current := l.Head
+	current := l.head
 	currentIdx := 0
 
 	for currentIdx < index-1 {
@@ -65,7 +71,7 @@ func (l *LinkedList[T]) AddByIndex(index int, value T) error {
 func (l *LinkedList[T]) Read(index int) (T, error) {
 	var value T
 	currentIdx := 0
-	current := l.Head
+	current := l.head
 	for currentIdx < index {
 		current = current.Next
 		currentIdx++
@@ -78,7 +84,7 @@ func (l *LinkedList[T]) Read(index int) (T, error) {
 
 func (l *LinkedList[T]) Search(value T) (int, error) {
 	currentIdx := 0
-	current := l.Head
+	current := l.head
 	for current != nil {
 		if current.Data == value {
 			return currentIdx, nil
@@ -91,9 +97,9 @@ func (l *LinkedList[T]) Search(value T) (int, error) {
 
 func (l *LinkedList[T]) Delete(index int) error {
 	currentIdx := 0
-	current := l.Head
+	current := l.head
 	if index == 0 {
-		l.Head = l.Head.Next
+		l.head = l.head.Next
 	}
 	for currentIdx < index-1 {
 		current = current.Next
