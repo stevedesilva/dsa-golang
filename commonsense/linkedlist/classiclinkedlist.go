@@ -16,15 +16,19 @@ type ClassicLinkedList[T comparable] interface {
 	Search(value T) (int, error)
 	Delete(index int) error
 	DeleteItems(predicate func(T) bool)
-	Head() *node.Node[T]
+	GetHead() *node.Node[T]
+	SetHead(*node.Node[T])
 }
 
 func NewClassicLinkedList[T comparable]() ClassicLinkedList[T] {
 	return &LinkedList[T]{}
 }
 
-func (l *LinkedList[T]) Head() *node.Node[T] {
+func (l *LinkedList[T]) GetHead() *node.Node[T] {
 	return l.head
+}
+func (l *LinkedList[T]) SetHead(head *node.Node[T]) {
+	l.head = head
 }
 
 func (l *LinkedList[T]) Add(value T) {
@@ -114,5 +118,26 @@ func (l *LinkedList[T]) Delete(index int) error {
 }
 
 func (l *LinkedList[T]) DeleteItems(predicate func(T) bool) {
-
+	var previous *node.Node[T]
+	current := l.head
+	for current != nil {
+		if predicate(current.Data) {
+			if previous == nil {
+				// head case
+				if predicate(current.Data) {
+					l.SetHead(current.Next)
+				} else {
+					previous = current
+				}
+			} else {
+				// tail case
+				if predicate(current.Data) {
+					previous.Next = current.Next
+				} else {
+					previous = current
+				}
+			}
+		}
+		current = current.Next
+	}
 }
