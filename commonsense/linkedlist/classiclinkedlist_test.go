@@ -1,6 +1,7 @@
 package linkedlist
 
 import (
+	"regexp"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -159,4 +160,26 @@ func TestLinkedList_DeleteErrorWhenIndexNotFound(t *testing.T) {
 	list.Add("c")
 	err := list.Delete(10)
 	assert.NotNil(t, err)
+}
+
+func TestLinkedList_DeleteItems(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+
+	list.Add("this is a password:1 that needs obfuscating")
+	list.Add("this is a password:12 that needs obfuscating")
+	list.Add("this is a password:123 that needs obfuscating")
+	list.Add("this is a password:12cae that needs obfuscating")
+	list.Add("this is a password:some_password that needs obfuscating")
+	list.Add("a")
+	list.Add("b")
+
+	predicate := func(data string) bool {
+		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
+		return pattern.MatchString(data)
+	}
+	list.DeleteItems(predicate)
+	first, _ := list.Read(0)
+	assert.Equal(t, first, "a")
+	second, _ := list.Read(1)
+	assert.Equal(t, second, "b")
 }

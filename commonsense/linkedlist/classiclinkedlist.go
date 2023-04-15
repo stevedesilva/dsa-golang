@@ -15,6 +15,7 @@ type ClassicLinkedList[T comparable] interface {
 	Read(index int) (T, error)
 	Search(value T) (int, error)
 	Delete(index int) error
+	DeleteItems(predicate func(T) bool)
 	Head() *node.Node[T]
 }
 
@@ -110,4 +111,8 @@ func (l *LinkedList[T]) Delete(index int) error {
 	}
 	current.Next = current.Next.Next
 	return nil
+}
+
+func (l *LinkedList[T]) DeleteItems(predicate func(T) bool) {
+
 }
