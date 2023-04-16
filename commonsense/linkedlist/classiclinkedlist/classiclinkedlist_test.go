@@ -1,4 +1,4 @@
-package linkedlist
+package classiclinkedlist
 
 import (
 	"regexp"
@@ -16,24 +16,24 @@ func TestLinkedList_Add(t *testing.T) {
 	list.Add("e")
 	list.Add("f")
 
-	assert.Equal(t, list.GetHead().Data, "a")
-	assert.Equal(t, list.GetHead().Next.Data, "b")
-	assert.Equal(t, list.GetHead().Next.Next.Data, "c")
-	assert.Equal(t, list.GetHead().Next.Next.Next.Data, "d")
-	assert.Equal(t, list.GetHead().Next.Next.Next.Next.Data, "e")
-	assert.Equal(t, list.GetHead().Next.Next.Next.Next.Next.Data, "f")
+	assert.Equal(t, list.GetHead().data, "a")
+	assert.Equal(t, list.GetHead().next.data, "b")
+	assert.Equal(t, list.GetHead().next.next.data, "c")
+	assert.Equal(t, list.GetHead().next.next.next.data, "d")
+	assert.Equal(t, list.GetHead().next.next.next.next.data, "e")
+	assert.Equal(t, list.GetHead().next.next.next.next.next.data, "f")
 }
 
 func TestLinkedList_AddByIndexToHead(t *testing.T) {
 	list := NewClassicLinkedList[string]()
 	list.AddByIndex(0, "a")
-	assert.Equal(t, list.GetHead().Data, "a")
+	assert.Equal(t, list.GetHead().data, "a")
 
 	list.AddByIndex(0, "b")
-	assert.Equal(t, list.GetHead().Data, "b")
+	assert.Equal(t, list.GetHead().data, "b")
 
 	list.AddByIndex(0, "c")
-	assert.Equal(t, list.GetHead().Data, "c")
+	assert.Equal(t, list.GetHead().data, "c")
 }
 
 func TestLinkedList_AddByIndexToMiddle(t *testing.T) {
@@ -44,12 +44,12 @@ func TestLinkedList_AddByIndexToMiddle(t *testing.T) {
 
 	err := list.AddByIndex(1, "d")
 	assert.Nil(t, err)
-	assert.Equal(t, list.GetHead().Next.Data, "d")
+	assert.Equal(t, list.GetHead().next.data, "d")
 
 	err = list.AddByIndex(1, "e")
 	assert.Nil(t, err)
-	assert.Equal(t, list.GetHead().Next.Data, "e")
-	assert.Equal(t, list.GetHead().Next.Next.Data, "d")
+	assert.Equal(t, list.GetHead().next.data, "e")
+	assert.Equal(t, list.GetHead().next.next.data, "d")
 }
 
 func TestLinkedList_AddByIndexReturnErrorWhenIndexOutOfBounds(t *testing.T) {
@@ -69,7 +69,7 @@ func TestLinkedList_AddByIndexToEndOfList(t *testing.T) {
 
 	err := list.AddByIndex(3, "d")
 	assert.Nil(t, err)
-	assert.Equal(t, list.GetHead().Next.Next.Next.Data, "d")
+	assert.Equal(t, list.GetHead().next.next.next.data, "d")
 }
 
 func TestLinkedList_Read(t *testing.T) {
@@ -122,10 +122,10 @@ func TestLinkedList_DeleteHead(t *testing.T) {
 	list.Add("c")
 	err := list.Delete(0)
 	assert.Nil(t, err)
-	assert.Equal(t, "b", list.GetHead().Data)
+	assert.Equal(t, "b", list.GetHead().data)
 	err = list.Delete(0)
 	assert.Nil(t, err)
-	assert.Equal(t, "c", list.GetHead().Data)
+	assert.Equal(t, "c", list.GetHead().data)
 }
 
 func TestLinkedList_DeleteMiddle(t *testing.T) {
@@ -135,8 +135,8 @@ func TestLinkedList_DeleteMiddle(t *testing.T) {
 	list.Add("c")
 	err := list.Delete(1)
 	assert.Nil(t, err)
-	assert.Equal(t, "a", list.GetHead().Data)
-	assert.Equal(t, "c", list.GetHead().Next.Data)
+	assert.Equal(t, "a", list.GetHead().data)
+	assert.Equal(t, "c", list.GetHead().next.data)
 }
 
 func TestLinkedList_DeleteEnd(t *testing.T) {
@@ -146,11 +146,11 @@ func TestLinkedList_DeleteEnd(t *testing.T) {
 	list.Add("c")
 	err := list.Delete(2)
 	assert.Nil(t, err)
-	assert.Equal(t, "a", list.GetHead().Data)
-	assert.Equal(t, "b", list.GetHead().Next.Data)
+	assert.Equal(t, "a", list.GetHead().data)
+	assert.Equal(t, "b", list.GetHead().next.data)
 	err = list.Delete(0)
 	assert.Nil(t, err)
-	assert.Equal(t, "b", list.GetHead().Data)
+	assert.Equal(t, "b", list.GetHead().data)
 }
 
 func TestLinkedList_DeleteErrorWhenIndexNotFound(t *testing.T) {

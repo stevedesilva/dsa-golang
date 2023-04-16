@@ -1,6 +1,4 @@
-package node
+package doublylinkedlist
 
 type Node[T comparable] struct {
-	Data T
-	Next *Node[T]
 }
