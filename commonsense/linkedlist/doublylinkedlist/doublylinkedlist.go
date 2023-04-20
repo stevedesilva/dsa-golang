@@ -16,24 +16,24 @@ func NewDoublyLinkedList[T comparable]() *DoublyLinkedList[T] {
 	return &DoublyLinkedList[T]{}
 }
 
+// a - b - c
 func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
 	node := &Node[T]{
 		data:     value,
-		next:     nil,
 		previous: nil,
+		next:     nil,
 	}
 	if d.head == nil {
 		d.head = node
-		d.tail = nil
-	} else {
-		curr := d.head
-		for curr.next != nil {
-			curr = curr.next
-		}
-		// end of list
-		node.previous = curr
-		curr.next = node
 		d.tail = node
+	} else {
+		// new node points to previous tail
+		node.previous = d.tail
+		// update current tail
+		d.tail.next = node
+		// make new node the new tail
+		d.tail = node
+
 	}
 	d.size = d.size + 1
 }
