@@ -1,5 +1,7 @@
 package doublylinkedlist
 
+import "errors"
+
 type Node[T comparable] struct {
 	data     T
 	next     *Node[T]
@@ -38,6 +40,31 @@ func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
 }
 
 func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
+	node := &Node[T]{
+		data:     value,
+		previous: nil,
+		next:     nil,
+	}
+	if index == 0 {
+		// head needs updating
+		node.next = d.head
+		d.head = node
+		return nil
+	}
+	count := 0
+	curr := d.head
+
+	for count < index {
+		count++
+		curr = curr.next
+		if curr == nil {
+			return errors.New("index not found")
+		}
+	}
+	node.previous = curr.previous
+	node.next = curr
+	curr.previous = node
+
 	return nil
 }
 

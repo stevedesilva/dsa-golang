@@ -19,6 +19,7 @@ func TestDoublyLinkedList_AddAtEnd(t *testing.T) {
 	assert.Equal(t, list.tail.data, 2)
 
 	assert.Equal(t, list.head.next.data, 2)
+	assert.Equal(t, list.head.data, "x")
 
 }
 
@@ -29,7 +30,7 @@ func TestDoublyLinkedList_AddByIndexFront(t *testing.T) {
 	list.AddAtEnd("c")
 
 	list.AddByIndex(0, "z")
-	assert.Equal(t, list.size, 4)
+	assert.Equal(t, 4, list.size)
 	assert.Equal(t, list.head.data, "z")
 	assert.Equal(t, list.head.next.data, "b")
 	assert.Equal(t, list.head.next.next.data, "c")
