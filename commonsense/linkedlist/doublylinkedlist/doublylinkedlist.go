@@ -36,10 +36,11 @@ func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
 		d.tail = node
 
 	}
-	d.size = d.size + 1
+	d.size++
 }
 
 func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
+	// a - b - c
 	node := &Node[T]{
 		data:     value,
 		previous: nil,
@@ -49,22 +50,32 @@ func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
 		// head needs updating
 		node.next = d.head
 		d.head = node
+		d.size++
 		return nil
 	}
+	if index == d.size {
+		node.previous = d.tail
+		d.tail.next = node
+		d.tail = node
+
+		d.size++
+		return nil
+	}
+
 	count := 0
 	curr := d.head
 
-	for count < index {
+	for count < index-1 {
 		count++
 		curr = curr.next
 		if curr == nil {
 			return errors.New("index not found")
 		}
 	}
-	node.previous = curr.previous
-	node.next = curr
-	curr.previous = node
-
+	node.previous = curr
+	node.next = curr.next
+	curr.next = node
+	d.size++
 	return nil
 }
 
