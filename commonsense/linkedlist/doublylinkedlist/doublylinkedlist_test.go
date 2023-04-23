@@ -9,17 +9,16 @@ import (
 func TestDoublyLinkedList_AddAtEnd(t *testing.T) {
 	list := NewDoublyLinkedList[int]()
 	list.AddAtEnd(1)
-	assert.Equal(t, list.size, 1)
-	assert.Equal(t, list.head.data, 1)
-	assert.Equal(t, list.tail.data, 1)
+	assert.Equal(t, 1, list.size)
+	assert.Equal(t, 1, list.head.data)
+	assert.Equal(t, 1, list.tail.data)
 
 	list.AddAtEnd(2)
-	assert.Equal(t, list.size, 2)
-	assert.Equal(t, list.head.data, 1)
-	assert.Equal(t, list.tail.data, 2)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, 1, list.head.data)
+	assert.Equal(t, 2, list.tail.data)
 
-	assert.Equal(t, list.head.next.data, 2)
-	assert.Equal(t, list.head.data, "x")
+	assert.Equal(t, 2, list.head.next.data)
 
 }
 
@@ -31,10 +30,10 @@ func TestDoublyLinkedList_AddByIndexFront(t *testing.T) {
 
 	list.AddByIndex(0, "z")
 	assert.Equal(t, 4, list.size)
-	assert.Equal(t, list.head.data, "z")
-	assert.Equal(t, list.head.next.data, "b")
-	assert.Equal(t, list.head.next.next.data, "c")
-	assert.Equal(t, list.tail.data, "c")
+	assert.Equal(t, "z", list.head.data)
+	assert.Equal(t, "b", list.head.next.data)
+	assert.Equal(t, "c", list.head.next.next.data)
+	assert.Equal(t, "c", list.tail.data)
 }
 
 func TestDoublyLinkedList_AddByIndexMid(t *testing.T) {
@@ -44,10 +43,10 @@ func TestDoublyLinkedList_AddByIndexMid(t *testing.T) {
 	list.AddAtEnd("c")
 
 	list.AddByIndex(1, "z")
-	assert.Equal(t, list.size, 4)
-	assert.Equal(t, list.head.data, "a")
-	assert.Equal(t, list.head.next.data, "z")
-	assert.Equal(t, list.tail.data, "c")
+	assert.Equal(t, 4, list.size)
+	assert.Equal(t, "a", list.head.data)
+	assert.Equal(t, "z", list.head.next.data)
+	assert.Equal(t, "c", list.tail.data)
 }
 
 func TestDoublyLinkedList_AddByIndexEnd(t *testing.T) {
@@ -57,12 +56,12 @@ func TestDoublyLinkedList_AddByIndexEnd(t *testing.T) {
 	list.AddAtEnd("c")
 
 	list.AddByIndex(3, "z")
-	assert.Equal(t, list.size, 4)
-	assert.Equal(t, list.head.data, "a")
-	assert.Equal(t, list.head.next.data, "b")
-	assert.Equal(t, list.head.next.next.data, "c")
-	assert.Equal(t, list.head.next.next.next.data, "z")
-	assert.Equal(t, list.tail.data, "z")
+	assert.Equal(t, 4, list.size)
+	assert.Equal(t, "a", list.head.data)
+	assert.Equal(t, "b", list.head.next.data)
+	assert.Equal(t, "c", list.head.next.next.data)
+	assert.Equal(t, "z", list.head.next.next.next.data)
+	assert.Equal(t, "z", list.tail.data)
 }
 
 func TestLinkedList_AddByIndexReturnErrorWhenIndexOutOfBounds(t *testing.T) {
