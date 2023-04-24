@@ -6,6 +6,27 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestDoublyLinkedList_AddToFront(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+
+	list.AddToFront("y")
+	assert.Equal(t, 3, list.size)
+	assert.Equal(t, "y", list.head.data)
+	assert.Equal(t, "a", list.head.next.data)
+	assert.Equal(t, "b", list.head.next.next.data)
+	assert.Equal(t, "b", list.tail.data)
+
+	list.AddToFront("z")
+	assert.Equal(t, 4, list.size)
+	assert.Equal(t, "z", list.head.data)
+	assert.Equal(t, "y", list.head.next.data)
+	assert.Equal(t, "a", list.head.next.next.data)
+	assert.Equal(t, "b", list.head.next.next.next.data)
+	assert.Equal(t, "b", list.tail.data)
+}
+
 func TestDoublyLinkedList_AddAtEnd(t *testing.T) {
 	list := NewDoublyLinkedList[int]()
 	list.AddAtEnd(1)

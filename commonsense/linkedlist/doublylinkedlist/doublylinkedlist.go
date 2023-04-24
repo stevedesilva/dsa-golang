@@ -18,6 +18,26 @@ func NewDoublyLinkedList[T comparable]() *DoublyLinkedList[T] {
 	return &DoublyLinkedList[T]{}
 }
 
+func (d *DoublyLinkedList[T]) AddToFront(value T) {
+	node := &Node[T]{
+		data:     value,
+		previous: nil,
+		next:     nil,
+	}
+	if d.head == nil {
+		d.head = node
+		d.tail = node
+	} else {
+		// new node points to previous tail
+		node.next = d.head
+		// update current tail
+		d.head.previous = node
+		// make new node the new head
+		d.head = node
+	}
+	d.size++
+}
+
 func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
 	node := &Node[T]{
 		data:     value,
@@ -79,7 +99,11 @@ func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
 	return nil
 }
 
-//func (d *DoublyLinkedList[T]) RemoveFromFront() T {
+//func (d *DoublyLinkedList[T]) DeleteFromFront() T {
+//	return nil
+//}
+
+//func (d *DoublyLinkedList[T]) DeleteFromEnd() T {
 //	return nil
 //}
 //
