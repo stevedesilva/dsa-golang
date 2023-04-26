@@ -111,3 +111,70 @@ func TestLinkedList_AddByIndexReturnErrorWhenIndexOutOfBounds(t *testing.T) {
 	err := list.AddByIndex(12, "d")
 	assert.NotNil(t, err)
 }
+
+func TestDoublyLinkedList_ReadFromFront(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+
+	res, err := list.ReadFromFront()
+	assert.Nil(t, err)
+	assert.Equal(t, "a", res)
+}
+
+func TestDoublyLinkedList_ReadFromFrontShouldErrorEmptyList(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	_, err := list.ReadFromFront()
+	assert.Nil(t, err)
+}
+
+func TestDoublyLinkedList_ReadFromEnd(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+
+	res, err := list.ReadFromEnd()
+	assert.Nil(t, err)
+	assert.Equal(t, "c", res)
+}
+
+func TestDoublyLinkedList_ReadFromEndShouldErrorEmptyList(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	_, err := list.ReadFromEnd()
+	assert.Nil(t, err)
+}
+
+func TestDoublyLinkedList_ReadByIndex(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+
+	res, err := list.ReadByIndex(0)
+	assert.NotNil(t, err)
+	assert.Equal(t, "a", res)
+	res, err = list.ReadByIndex(1)
+	assert.NotNil(t, err)
+	assert.Equal(t, "b", res)
+	res, err = list.ReadByIndex(2)
+	assert.NotNil(t, err)
+	assert.Equal(t, "c", res)
+}
+
+func TestDoublyLinkedList_ReadByIndexShouldErrorWhenEmptyList(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	_, err := list.ReadByIndex(0)
+	assert.Nil(t, err)
+}
+
+func TestDoublyLinkedList_ReadByIndexShouldErrorWhenIndexNotFound(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+
+	_, err := list.ReadByIndex(10)
+	assert.NotNil(t, err)
+}
