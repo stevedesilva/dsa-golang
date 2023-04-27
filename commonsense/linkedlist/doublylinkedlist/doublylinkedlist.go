@@ -100,15 +100,24 @@ func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
 }
 
 func (d *DoublyLinkedList[T]) ReadFromFront() (T, error) {
-	return nil, nil
+	if d.head != nil {
+		return d.head.data, nil
+	}
+	var v T
+	return v, errors.New("not found")
 }
 
 func (d *DoublyLinkedList[T]) ReadFromEnd() (T, error) {
-	return nil, nil
+	if d.tail != nil {
+		return d.tail.data, nil
+	}
+	var v T
+	return v, errors.New("not found")
 }
 
 func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
-	return nil, nil
+	var v T
+	return v, nil
 }
 
 //func (d *DoublyLinkedList[T]) DeleteFromFront() T {

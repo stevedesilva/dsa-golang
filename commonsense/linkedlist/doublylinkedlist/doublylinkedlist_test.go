@@ -126,7 +126,7 @@ func TestDoublyLinkedList_ReadFromFront(t *testing.T) {
 func TestDoublyLinkedList_ReadFromFrontShouldErrorEmptyList(t *testing.T) {
 	list := NewDoublyLinkedList[string]()
 	_, err := list.ReadFromFront()
-	assert.Nil(t, err)
+	assert.NotNil(t, err)
 }
 
 func TestDoublyLinkedList_ReadFromEnd(t *testing.T) {
@@ -143,7 +143,7 @@ func TestDoublyLinkedList_ReadFromEnd(t *testing.T) {
 func TestDoublyLinkedList_ReadFromEndShouldErrorEmptyList(t *testing.T) {
 	list := NewDoublyLinkedList[string]()
 	_, err := list.ReadFromEnd()
-	assert.Nil(t, err)
+	assert.NotNil(t, err)
 }
 
 func TestDoublyLinkedList_ReadByIndex(t *testing.T) {
