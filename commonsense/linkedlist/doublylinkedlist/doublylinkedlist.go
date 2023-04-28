@@ -117,6 +117,9 @@ func (d *DoublyLinkedList[T]) ReadFromEnd() (T, error) {
 
 func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 	var v T
+	if index >= d.size {
+		return v, errors.New("index not found")
+	}
 	return v, nil
 }
 

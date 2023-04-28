@@ -175,6 +175,6 @@ func TestDoublyLinkedList_ReadByIndexShouldErrorWhenIndexNotFound(t *testing.T) 
 	list.AddAtEnd("b")
 	list.AddAtEnd("c")
 
-	_, err := list.ReadByIndex(10)
+	_, err := list.ReadByIndex(3)
 	assert.NotNil(t, err)
 }
