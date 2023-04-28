@@ -153,20 +153,20 @@ func TestDoublyLinkedList_ReadByIndex(t *testing.T) {
 	list.AddAtEnd("c")
 
 	res, err := list.ReadByIndex(0)
-	assert.NotNil(t, err)
+	assert.Nil(t, err)
 	assert.Equal(t, "a", res)
 	res, err = list.ReadByIndex(1)
-	assert.NotNil(t, err)
+	assert.Nil(t, err)
 	assert.Equal(t, "b", res)
 	res, err = list.ReadByIndex(2)
-	assert.NotNil(t, err)
+	assert.Nil(t, err)
 	assert.Equal(t, "c", res)
 }
 
 func TestDoublyLinkedList_ReadByIndexShouldErrorWhenEmptyList(t *testing.T) {
 	list := NewDoublyLinkedList[string]()
 	_, err := list.ReadByIndex(0)
-	assert.Nil(t, err)
+	assert.NotNil(t, err)
 }
 
 func TestDoublyLinkedList_ReadByIndexShouldErrorWhenIndexNotFound(t *testing.T) {

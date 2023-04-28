@@ -120,7 +120,13 @@ func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 	if index >= d.size {
 		return v, errors.New("index not found")
 	}
-	return v, nil
+	count := 0
+	curr := d.head
+	for count < index {
+		curr = curr.next
+		count++
+	}
+	return curr.data, nil
 }
 
 //func (d *DoublyLinkedList[T]) DeleteFromFront() T {
