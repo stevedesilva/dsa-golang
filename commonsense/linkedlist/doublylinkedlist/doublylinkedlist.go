@@ -115,18 +115,17 @@ func (d *DoublyLinkedList[T]) ReadFromEnd() (T, error) {
 	return v, errors.New("not found")
 }
 
-func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
-	var v T
-	if index >= d.size {
-		return v, errors.New("index not found")
-	}
-	count := 0
+func (d *DoublyLinkedList[T]) Search(value T) (int, error) {
 	curr := d.head
-	for count < index {
+	index := 0
+	for curr != nil {
+		if curr.data == value {
+			return index, nil
+		}
 		curr = curr.next
-		count++
+		index++
 	}
-	return curr.data, nil
+	return -1, errors.New("not found")
 }
 
 //func (d *DoublyLinkedList[T]) DeleteFromFront() T {
@@ -148,6 +147,16 @@ func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 //}
 //
 
-func (d *DoublyLinkedList[T]) Search(value T) (int, error) {
-	return -1, nil
+func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
+	var v T
+	if index >= d.size {
+		return v, errors.New("index not found")
+	}
+	count := 0
+	curr := d.head
+	for count < index {
+		curr = curr.next
+		count++
+	}
+	return curr.data, nil
 }
