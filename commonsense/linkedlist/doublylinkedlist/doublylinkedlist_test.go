@@ -178,3 +178,33 @@ func TestDoublyLinkedList_ReadByIndexShouldErrorWhenIndexNotFound(t *testing.T) 
 	_, err := list.ReadByIndex(3)
 	assert.NotNil(t, err)
 }
+
+func TestLinkedList_Search(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+
+	idx, err := list.Search("a")
+	assert.Nil(t, err)
+	assert.Equal(t, 0, idx)
+
+	idx, err = list.Search("b")
+	assert.Nil(t, err)
+	assert.Equal(t, 1, idx)
+
+	idx, err = list.Search("c")
+	assert.Nil(t, err)
+	assert.Equal(t, 2, idx)
+}
+
+func TestLinkedList_SearchErrorWhenIndexNotFound(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+
+	idx, err := list.Search("z")
+	assert.NotNil(t, err)
+	assert.Equal(t, -1, idx)
+}

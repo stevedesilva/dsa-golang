@@ -148,7 +148,6 @@ func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 //}
 //
 
-//
-//func (d *DoublyLinkedList[T]) Search(value T) (int, error) {
-//	return -1, nil
-//}
+func (d *DoublyLinkedList[T]) Search(value T) (int, error) {
+	return -1, nil
+}
