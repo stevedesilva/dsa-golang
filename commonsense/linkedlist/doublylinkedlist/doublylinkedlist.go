@@ -128,25 +128,6 @@ func (d *DoublyLinkedList[T]) Search(value T) (int, error) {
 	return -1, errors.New("not found")
 }
 
-//func (d *DoublyLinkedList[T]) DeleteFromFront() T {
-//	return nil
-//}
-
-//func (d *DoublyLinkedList[T]) DeleteFromEnd() T {
-//	return nil
-//}
-
-//func (d *DoublyLinkedList[T]) Delete(index int) error {
-//	return nil
-//}
-
-//
-//
-//func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
-//
-//}
-//
-
 func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 	var v T
 	if index >= d.size {
@@ -159,4 +140,20 @@ func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 		count++
 	}
 	return curr.data, nil
+}
+
+func (d *DoublyLinkedList[T]) DeleteFromFront() T {
+	return nil
+}
+
+func (d *DoublyLinkedList[T]) DeleteFromEnd() T {
+	return nil
+}
+
+func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
+	return nil
+}
+
+func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
+
 }

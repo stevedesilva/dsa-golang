@@ -208,3 +208,111 @@ func TestLinkedList_SearchErrorWhenIndexNotFound(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.Equal(t, -1, idx)
 }
+
+func TestLinkedList_DeleteHead(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	value := list.DeleteFromFront()
+	assert.Nil(t, value)
+
+	front, err := list.ReadFromFront()
+	assert.Nil(t, err)
+
+	assert.Equal(t, "b", front)
+	value = list.DeleteFromFront()
+	assert.Nil(t, value)
+
+	front, err = list.ReadFromFront()
+	assert.Equal(t, "c", front)
+}
+
+func TestLinkedList_DeleteTail(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	value := list.DeleteFromEnd()
+	assert.Nil(t, value)
+
+	front, err := list.ReadFromEnd()
+	assert.Nil(t, err)
+
+	assert.Equal(t, "b", front)
+	value = list.DeleteFromEnd()
+	assert.Nil(t, value)
+
+	front, err = list.ReadFromEnd()
+	assert.Equal(t, "a", front)
+}
+
+func TestLinkedList_DeleteFrontByIndex(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	err := list.DeleteByIndex(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "b", list.head.data)
+	err = list.DeleteByIndex(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "c", list.head.data)
+}
+
+//
+//func TestLinkedList_DeleteMiddleByIndex(t *testing.T) {
+//	list := NewDoublyLinkedList[string]()
+//	list.Add("a")
+//	list.Add("b")
+//	list.Add("c")
+//	err := list.Delete(1)
+//	assert.Nil(t, err)
+//	assert.Equal(t, "a", list.GetHead().data)
+//	assert.Equal(t, "c", list.GetHead().next.data)
+//}
+//
+//func TestLinkedList_DeleteEndByIndex(t *testing.T) {
+//	list := NewDoublyLinkedList[string]()
+//	list.Add("a")
+//	list.Add("b")
+//	list.Add("c")
+//	err := list.Delete(2)
+//	assert.Nil(t, err)
+//	assert.Equal(t, "a", list.GetHead().data)
+//	assert.Equal(t, "b", list.GetHead().next.data)
+//	err = list.Delete(0)
+//	assert.Nil(t, err)
+//	assert.Equal(t, "b", list.GetHead().data)
+//}
+//
+//func TestLinkedList_DeleteErrorWhenIndexNotFound(t *testing.T) {
+//	list := NewDoublyLinkedList[string]()
+//	list.Add("a")
+//	list.Add("b")
+//	list.Add("c")
+//	err := list.Delete(10)
+//	assert.NotNil(t, err)
+//}
+//
+//func TestLinkedList_DeleteItems(t *testing.T) {
+//	list := NewDoublyLinkedList[string]()
+//
+//	list.Add("this is a password:1 that needs obfuscating")
+//	list.Add("this is a password:12 that needs obfuscating")
+//	list.Add("this is a password:123 that needs obfuscating")
+//	list.Add("this is a password:12cae that needs obfuscating")
+//	list.Add("this is a password:some_password that needs obfuscating")
+//	list.Add("a")
+//	list.Add("b")
+//
+//	predicate := func(data string) bool {
+//		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
+//		return pattern.MatchString(data)
+//	}
+//	list.DeleteItems(predicate)
+//	first, _ := list.Read(0)
+//	assert.Equal(t, first, "a")
+//	second, _ := list.Read(1)
+//	assert.Equal(t, second, "b")
+//}
