@@ -269,31 +269,32 @@ func TestLinkedList_DeleteFrontByIndex(t *testing.T) {
 	assert.Equal(t, "c", list.head.data)
 }
 
-//
-//func TestLinkedList_DeleteMiddleByIndex(t *testing.T) {
-//	list := NewDoublyLinkedList[string]()
-//	list.Add("a")
-//	list.Add("b")
-//	list.Add("c")
-//	err := list.Delete(1)
-//	assert.Nil(t, err)
-//	assert.Equal(t, "a", list.GetHead().data)
-//	assert.Equal(t, "c", list.GetHead().next.data)
-//}
-//
-//func TestLinkedList_DeleteEndByIndex(t *testing.T) {
-//	list := NewDoublyLinkedList[string]()
-//	list.Add("a")
-//	list.Add("b")
-//	list.Add("c")
-//	err := list.Delete(2)
-//	assert.Nil(t, err)
-//	assert.Equal(t, "a", list.GetHead().data)
-//	assert.Equal(t, "b", list.GetHead().next.data)
-//	err = list.Delete(0)
-//	assert.Nil(t, err)
-//	assert.Equal(t, "b", list.GetHead().data)
-//}
+func TestLinkedList_DeleteMiddleByIndex(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	err := list.DeleteByIndex(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", list.head.data)
+	assert.Equal(t, "c", list.head.next.data)
+	assert.Equal(t, "c", list.tail.data)
+}
+
+func TestLinkedList_DeleteEndByIndex(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	err := list.DeleteByIndex(2)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", list.head.data)
+	assert.Equal(t, "b", list.tail.data)
+	assert.Equal(t, "b", list.head.next.data)
+	err = list.DeleteByIndex(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "b", list.head.data)
+}
 
 //func TestLinkedList_DeleteItems(t *testing.T) {
 //	list := NewDoublyLinkedList[string]()
