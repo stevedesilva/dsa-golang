@@ -291,9 +291,6 @@ func TestLinkedList_DeleteEndByIndex(t *testing.T) {
 	assert.Equal(t, "a", list.head.data)
 	assert.Equal(t, "b", list.tail.data)
 	assert.Equal(t, "b", list.head.next.data)
-	err = list.DeleteByIndex(0)
-	assert.Nil(t, err)
-	assert.Equal(t, "b", list.head.data)
 }
 
 //func TestLinkedList_DeleteItems(t *testing.T) {

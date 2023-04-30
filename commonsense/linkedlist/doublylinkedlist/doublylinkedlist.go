@@ -174,13 +174,14 @@ func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
 	for count < index {
 		count++
 		curr = curr.next
-		if curr == nil {
-			return errors.New("index not found")
-		}
 	}
-
-	curr.previous.next = curr.next
-	curr.next.previous = curr.previous
+	if curr.next == nil {
+		d.tail = curr.previous
+		curr.previous.next = nil
+	} else {
+		curr.previous.next = curr.next
+		curr.next.previous = curr.previous
+	}
 	return nil
 }
 
