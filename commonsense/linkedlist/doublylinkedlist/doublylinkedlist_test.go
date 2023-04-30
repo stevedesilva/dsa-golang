@@ -217,6 +217,7 @@ func TestLinkedList_DeleteHead(t *testing.T) {
 	list.AddAtEnd("c")
 	value := list.DeleteFromFront()
 	assert.Nil(t, value)
+	assert.Equal(t, 2, list.size)
 
 	front, err := list.ReadFromFront()
 	assert.Nil(t, err)
@@ -224,9 +225,11 @@ func TestLinkedList_DeleteHead(t *testing.T) {
 	assert.Equal(t, "b", front)
 	value = list.DeleteFromFront()
 	assert.Nil(t, value)
+	assert.Equal(t, 1, list.size)
 
 	front, err = list.ReadFromFront()
 	assert.Equal(t, "c", front)
+
 }
 
 func TestLinkedList_DeleteTail(t *testing.T) {
@@ -236,6 +239,7 @@ func TestLinkedList_DeleteTail(t *testing.T) {
 	list.AddAtEnd("c")
 	value := list.DeleteFromEnd()
 	assert.Nil(t, value)
+	assert.Equal(t, 2, list.size)
 
 	front, err := list.ReadFromEnd()
 	assert.Nil(t, err)
@@ -243,6 +247,7 @@ func TestLinkedList_DeleteTail(t *testing.T) {
 	assert.Equal(t, "b", front)
 	value = list.DeleteFromEnd()
 	assert.Nil(t, value)
+	assert.Equal(t, 1, list.size)
 
 	front, err = list.ReadFromEnd()
 	assert.Equal(t, "a", front)
@@ -255,6 +260,7 @@ func TestLinkedList_DeleteErrorWhenIndexNotFound(t *testing.T) {
 	list.AddAtEnd("c")
 	err := list.DeleteByIndex(3)
 	assert.NotNil(t, err)
+	assert.Equal(t, 3, list.size)
 }
 
 func TestLinkedList_DeleteFrontByIndex(t *testing.T) {
@@ -264,8 +270,12 @@ func TestLinkedList_DeleteFrontByIndex(t *testing.T) {
 	list.AddAtEnd("c")
 	err := list.DeleteByIndex(0)
 	assert.Nil(t, err)
+	assert.Equal(t, 2, list.size)
+
 	assert.Equal(t, "b", list.head.data)
 	err = list.DeleteByIndex(0)
+	assert.Equal(t, 1, list.size)
+
 	assert.Nil(t, err)
 	assert.Equal(t, "c", list.head.data)
 }
@@ -280,6 +290,7 @@ func TestLinkedList_DeleteMiddleByIndex(t *testing.T) {
 	assert.Equal(t, "a", list.head.data)
 	assert.Equal(t, "c", list.head.next.data)
 	assert.Equal(t, "c", list.tail.data)
+	assert.Equal(t, 2, list.size)
 }
 
 func TestLinkedList_DeleteEndByIndex(t *testing.T) {
@@ -292,26 +303,102 @@ func TestLinkedList_DeleteEndByIndex(t *testing.T) {
 	assert.Equal(t, "a", list.head.data)
 	assert.Equal(t, "b", list.tail.data)
 	assert.Equal(t, "b", list.head.next.data)
+	assert.Equal(t, 2, list.size)
 }
 
-func TestLinkedList_DeleteItems(t *testing.T) {
+func TestLinkedList_DeleteItemsHead(t *testing.T) {
 	list := NewDoublyLinkedList[string]()
-
-	list.AddAtEnd("this is a password:1 that needs obfuscating")
-	list.AddAtEnd("this is a password:12 that needs obfuscating")
-	list.AddAtEnd("this is a password:123 that needs obfuscating")
-	list.AddAtEnd("this is a password:12cae that needs obfuscating")
-	list.AddAtEnd("this is a password:some_password that needs obfuscating")
-	list.AddAtEnd("a")
-	list.AddAtEnd("b")
+	list.AddAtEnd("1 this is a password:1 that needs obfuscating")
+	list.AddAtEnd("2 a")
+	list.AddAtEnd("3 b")
 
 	hasPassword := func(data string) bool {
 		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
 		return pattern.MatchString(data)
 	}
 	list.DeleteItems(hasPassword)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "2 a", list.head.data)
+	assert.Equal(t, "3 b", list.tail.data)
+
 	first, _ := list.ReadByIndex(0)
-	assert.Equal(t, first, "a")
+	assert.Equal(t, first, "2 a")
 	second, _ := list.ReadByIndex(1)
-	assert.Equal(t, second, "b")
+	assert.Equal(t, second, "3 b")
+}
+
+func TestLinkedList_DeleteItemsEnd(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+
+	list.AddAtEnd("1 a")
+	list.AddAtEnd("2 b")
+	list.AddAtEnd("3 this is a password:1 that needs obfuscating")
+
+	hasPassword := func(data string) bool {
+		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
+		return pattern.MatchString(data)
+	}
+	list.DeleteItems(hasPassword)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "1 a", list.head.data)
+	assert.Equal(t, "2 b", list.tail.data)
+
+	first, _ := list.ReadByIndex(0)
+	assert.Equal(t, first, "1 a")
+	second, _ := list.ReadByIndex(1)
+	assert.Equal(t, second, "2 b")
+}
+
+func TestLinkedList_DeleteItemsMid(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+
+	list.AddAtEnd("1 a")
+	list.AddAtEnd("2 this is a password:1 that needs obfuscating")
+	list.AddAtEnd("3 this is a password:1 that needs obfuscating")
+	list.AddAtEnd("4 b")
+
+	hasPassword := func(data string) bool {
+		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
+		return pattern.MatchString(data)
+	}
+	list.DeleteItems(hasPassword)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "1 a", list.head.data)
+	assert.Equal(t, "4 b", list.tail.data)
+
+	first, _ := list.ReadByIndex(0)
+	assert.Equal(t, first, "1 a")
+	second, _ := list.ReadByIndex(1)
+	assert.Equal(t, second, "4 b")
+}
+
+func TestLinkedList_DeleteItems(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+
+	list.AddAtEnd("1 this is a password:1 that needs obfuscating")
+	list.AddAtEnd("2 this is a password:12 that needs obfuscating")
+	list.AddAtEnd("3 this is a password:123 that needs obfuscating")
+	list.AddAtEnd("4 this is a password:12cae that needs obfuscating")
+	list.AddAtEnd("5 this is a password:some_password that needs obfuscating")
+	list.AddAtEnd("6 a")
+	list.AddAtEnd("7 b")
+	list.AddAtEnd("8 this is a password:12cae that needs obfuscating")
+	list.AddAtEnd("9 c")
+	list.AddAtEnd("10 this is a password:some_password that needs obfuscating")
+
+	hasPassword := func(data string) bool {
+		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
+		return pattern.MatchString(data)
+	}
+	list.DeleteItems(hasPassword)
+	assert.Equal(t, 3, list.size)
+	assert.Equal(t, "6 a", list.head.data)
+	assert.Equal(t, "9 c", list.tail.data)
+
+	first, _ := list.ReadByIndex(0)
+	assert.Equal(t, first, "6 a")
+	second, _ := list.ReadByIndex(1)
+	assert.Equal(t, second, "7 b")
+	third, _ := list.ReadByIndex(2)
+	assert.Equal(t, third, "9 c")
 }

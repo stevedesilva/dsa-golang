@@ -148,6 +148,7 @@ func (d *DoublyLinkedList[T]) DeleteFromFront() error {
 	}
 	d.head = d.head.next
 	d.head.previous = nil
+	d.size--
 	return nil
 }
 
@@ -157,6 +158,7 @@ func (d *DoublyLinkedList[T]) DeleteFromEnd() error {
 	}
 	d.tail = d.tail.previous
 	d.tail.next = nil
+	d.size--
 	return nil
 }
 
@@ -167,6 +169,7 @@ func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
 	if index == 0 {
 		d.head = d.head.next
 		d.head.previous = nil
+		d.size--
 		return nil
 	}
 	curr := d.head
@@ -182,9 +185,28 @@ func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
 		curr.previous.next = curr.next
 		curr.next.previous = curr.previous
 	}
+	d.size--
 	return nil
 }
 
 func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
-
+	curr := d.head
+	for curr != nil {
+		if predicate(curr.data) {
+			if curr.previous == nil {
+				// head
+				d.head = curr.next
+				curr.next.previous = nil
+			} else if curr.next == nil {
+				// tail (a- b - c)
+				d.tail = curr.previous
+				curr.previous.next = nil
+			} else {
+				curr.previous.next = curr.next
+				curr.next.previous = curr.previous
+			}
+			d.size--
+		}
+		curr = curr.next
+	}
 }
