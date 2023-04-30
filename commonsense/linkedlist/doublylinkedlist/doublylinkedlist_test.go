@@ -247,6 +247,15 @@ func TestLinkedList_DeleteTail(t *testing.T) {
 	assert.Equal(t, "a", front)
 }
 
+func TestLinkedList_DeleteErrorWhenIndexNotFound(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	err := list.DeleteByIndex(3)
+	assert.NotNil(t, err)
+}
+
 func TestLinkedList_DeleteFrontByIndex(t *testing.T) {
 	list := NewDoublyLinkedList[string]()
 	list.AddAtEnd("a")
@@ -285,16 +294,7 @@ func TestLinkedList_DeleteFrontByIndex(t *testing.T) {
 //	assert.Nil(t, err)
 //	assert.Equal(t, "b", list.GetHead().data)
 //}
-//
-//func TestLinkedList_DeleteErrorWhenIndexNotFound(t *testing.T) {
-//	list := NewDoublyLinkedList[string]()
-//	list.Add("a")
-//	list.Add("b")
-//	list.Add("c")
-//	err := list.Delete(10)
-//	assert.NotNil(t, err)
-//}
-//
+
 //func TestLinkedList_DeleteItems(t *testing.T) {
 //	list := NewDoublyLinkedList[string]()
 //

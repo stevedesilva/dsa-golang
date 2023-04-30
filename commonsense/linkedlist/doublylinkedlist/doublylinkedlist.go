@@ -142,18 +142,40 @@ func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 	return curr.data, nil
 }
 
-func (d *DoublyLinkedList[T]) DeleteFromFront() T {
+func (d *DoublyLinkedList[T]) DeleteFromFront() error {
+	if d.head == nil {
+		return errors.New("no items to delete")
+	}
+	d.head = d.head.next
+	d.head.previous = nil
 	return nil
 }
 
-func (d *DoublyLinkedList[T]) DeleteFromEnd() T {
+func (d *DoublyLinkedList[T]) DeleteFromEnd() error {
+	if d.tail == nil {
+		return errors.New("no items to delete")
+	}
+	d.tail = d.tail.previous
+	d.tail.next = nil
 	return nil
 }
 
 func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
+	if index >= d.size {
+		return errors.New("index not found")
+	}
+	curr := d.head
+	count := 0
+	for count < index {
+		count++
+		curr = curr.next
+		if curr == nil {
+			return errors.New("index not found")
+		}
+	}
 	return nil
 }
 
-func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
-
-}
+//func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
+//
+//}
