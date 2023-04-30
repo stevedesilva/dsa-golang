@@ -185,6 +185,6 @@ func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
 	return nil
 }
 
-//func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
-//
-//}
+func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
+
+}

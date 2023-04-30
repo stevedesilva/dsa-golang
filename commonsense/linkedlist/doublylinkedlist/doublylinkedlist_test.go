@@ -1,6 +1,7 @@
 package doublylinkedlist
 
 import (
+	"regexp"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -293,24 +294,24 @@ func TestLinkedList_DeleteEndByIndex(t *testing.T) {
 	assert.Equal(t, "b", list.head.next.data)
 }
 
-//func TestLinkedList_DeleteItems(t *testing.T) {
-//	list := NewDoublyLinkedList[string]()
-//
-//	list.Add("this is a password:1 that needs obfuscating")
-//	list.Add("this is a password:12 that needs obfuscating")
-//	list.Add("this is a password:123 that needs obfuscating")
-//	list.Add("this is a password:12cae that needs obfuscating")
-//	list.Add("this is a password:some_password that needs obfuscating")
-//	list.Add("a")
-//	list.Add("b")
-//
-//	predicate := func(data string) bool {
-//		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
-//		return pattern.MatchString(data)
-//	}
-//	list.DeleteItems(predicate)
-//	first, _ := list.Read(0)
-//	assert.Equal(t, first, "a")
-//	second, _ := list.Read(1)
-//	assert.Equal(t, second, "b")
-//}
+func TestLinkedList_DeleteItems(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+
+	list.AddAtEnd("this is a password:1 that needs obfuscating")
+	list.AddAtEnd("this is a password:12 that needs obfuscating")
+	list.AddAtEnd("this is a password:123 that needs obfuscating")
+	list.AddAtEnd("this is a password:12cae that needs obfuscating")
+	list.AddAtEnd("this is a password:some_password that needs obfuscating")
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+
+	hasPassword := func(data string) bool {
+		pattern := regexp.MustCompile("\\bpassword:[\\w]+\\b")
+		return pattern.MatchString(data)
+	}
+	list.DeleteItems(hasPassword)
+	first, _ := list.ReadByIndex(0)
+	assert.Equal(t, first, "a")
+	second, _ := list.ReadByIndex(1)
+	assert.Equal(t, second, "b")
+}
