@@ -35,6 +35,7 @@ func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
 	}
 
 	if index == d.size {
+		// last element
 		node.previous = d.tail
 		d.tail.next = node
 		d.tail = node
@@ -61,29 +62,17 @@ func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
 }
 
 func (d *DoublyLinkedList[T]) AddToFront(value T) {
-	d.AddByIndex(0, value)
+	err := d.AddByIndex(0, value)
+	if err != nil {
+		return
+	}
 }
 
 func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
-	d.AddByIndex(d.size, value)
-	//node := &Node[T]{
-	//	data:     value,
-	//	previous: nil,
-	//	next:     nil,
-	//}
-	//if d.head == nil {
-	//	d.head = node
-	//	d.tail = node
-	//} else {
-	//	// new node points to previous tail
-	//	node.previous = d.tail
-	//	// update current tail
-	//	d.tail.next = node
-	//	// make new node the new tail
-	//	d.tail = node
-	//
-	//}
-	//d.size++
+	err := d.AddByIndex(d.size, value)
+	if err != nil {
+		return
+	}
 }
 
 func (d *DoublyLinkedList[T]) ReadFromFront() (T, error) {
