@@ -18,61 +18,22 @@ func NewDoublyLinkedList[T comparable]() *DoublyLinkedList[T] {
 	return &DoublyLinkedList[T]{}
 }
 
-func (d *DoublyLinkedList[T]) AddToFront(value T) {
-	node := &Node[T]{
-		data:     value,
-		previous: nil,
-		next:     nil,
-	}
-	if d.head == nil {
-		d.head = node
-		d.tail = node
-	} else {
-		// new node points to previous tail
-		node.next = d.head
-		// update current tail
-		d.head.previous = node
-		// make new node the new head
-		d.head = node
-	}
-	d.size++
-}
-
-func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
-	node := &Node[T]{
-		data:     value,
-		previous: nil,
-		next:     nil,
-	}
-	if d.head == nil {
-		d.head = node
-		d.tail = node
-	} else {
-		// new node points to previous tail
-		node.previous = d.tail
-		// update current tail
-		d.tail.next = node
-		// make new node the new tail
-		d.tail = node
-
-	}
-	d.size++
-}
-
 func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
-	// a - b - c
 	node := &Node[T]{
 		data:     value,
 		previous: nil,
 		next:     nil,
 	}
 	if index == 0 {
-		// head needs updating
+		if d.head == nil {
+			d.tail = node
+		}
 		node.next = d.head
 		d.head = node
 		d.size++
 		return nil
 	}
+
 	if index == d.size {
 		node.previous = d.tail
 		d.tail.next = node
@@ -99,6 +60,32 @@ func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
 	return nil
 }
 
+func (d *DoublyLinkedList[T]) AddToFront(value T) {
+	d.AddByIndex(0, value)
+}
+
+func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
+	d.AddByIndex(d.size, value)
+	//node := &Node[T]{
+	//	data:     value,
+	//	previous: nil,
+	//	next:     nil,
+	//}
+	//if d.head == nil {
+	//	d.head = node
+	//	d.tail = node
+	//} else {
+	//	// new node points to previous tail
+	//	node.previous = d.tail
+	//	// update current tail
+	//	d.tail.next = node
+	//	// make new node the new tail
+	//	d.tail = node
+	//
+	//}
+	//d.size++
+}
+
 func (d *DoublyLinkedList[T]) ReadFromFront() (T, error) {
 	if d.head != nil {
 		return d.head.data, nil
@@ -108,6 +95,7 @@ func (d *DoublyLinkedList[T]) ReadFromFront() (T, error) {
 }
 
 func (d *DoublyLinkedList[T]) ReadFromEnd() (T, error) {
+	//return d.ReadByIndex(d.size - 1)
 	if d.tail != nil {
 		return d.tail.data, nil
 	}
@@ -142,36 +130,19 @@ func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 	return curr.data, nil
 }
 
-func (d *DoublyLinkedList[T]) DeleteFromFront() error {
-	if d.head == nil {
-		return errors.New("no items to delete")
-	}
-	d.head = d.head.next
-	d.head.previous = nil
-	d.size--
-	return nil
-}
-
-func (d *DoublyLinkedList[T]) DeleteFromEnd() error {
-	if d.tail == nil {
-		return errors.New("no items to delete")
-	}
-	d.tail = d.tail.previous
-	d.tail.next = nil
-	d.size--
-	return nil
-}
-
-func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
+func (d *DoublyLinkedList[T]) RemoveByIndex(index int) (T, error) {
+	var value T
 	if index >= d.size {
-		return errors.New("index not found")
+		return value, errors.New("index not found")
 	}
+
 	if index == 0 {
+		value = d.head.data
 		d.head = d.head.next
-		d.head.previous = nil
 		d.size--
-		return nil
+		return value, nil
 	}
+
 	curr := d.head
 	count := 0
 	for count < index {
@@ -179,14 +150,45 @@ func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
 		curr = curr.next
 	}
 	if curr.next == nil {
+		value = curr.data
 		d.tail = curr.previous
 		curr.previous.next = nil
 	} else {
+		value = curr.data
 		curr.previous.next = curr.next
 		curr.next.previous = curr.previous
 	}
 	d.size--
-	return nil
+	return value, nil
+}
+
+func (d *DoublyLinkedList[T]) RemoveFromFront() (T, error) {
+	return d.RemoveByIndex(0)
+}
+
+func (d *DoublyLinkedList[T]) RemoveFromEnd() (T, error) {
+	return d.RemoveByIndex(lastIndex(d.size))
+}
+
+func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
+	_, err := d.RemoveByIndex(index)
+	return err
+}
+
+func (d *DoublyLinkedList[T]) DeleteFromFront() error {
+	return d.DeleteByIndex(0)
+}
+
+func (d *DoublyLinkedList[T]) DeleteFromEnd() error {
+	return d.DeleteByIndex(lastIndex(d.size))
+}
+
+func lastIndex(size int) int {
+	var index = size - 1
+	if index < 0 {
+		index = 0
+	}
+	return index
 }
 
 func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
@@ -198,7 +200,7 @@ func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
 				d.head = curr.next
 				curr.next.previous = nil
 			} else if curr.next == nil {
-				// tail (a- b - c)
+				// tail
 				d.tail = curr.previous
 				curr.previous.next = nil
 			} else {

@@ -210,6 +210,134 @@ func TestLinkedList_SearchErrorWhenIndexNotFound(t *testing.T) {
 	assert.Equal(t, -1, idx)
 }
 
+func TestLinkedList_RemoveFromFrontSingle(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+
+	value, err := list.RemoveFromFront()
+	assert.Nil(t, err)
+	assert.Equal(t, 0, list.size)
+	assert.Equal(t, "a", value)
+}
+
+func TestLinkedList_RemoveFromFrontByIndex(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	value, err := list.RemoveByIndex(0)
+	assert.Nil(t, err)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "a", value)
+
+	value, err = list.RemoveByIndex(0)
+	assert.Equal(t, 1, list.size)
+	assert.Equal(t, "b", value)
+
+	value, err = list.RemoveByIndex(0)
+	assert.Equal(t, 0, list.size)
+	assert.Equal(t, "c", value)
+}
+
+func TestLinkedList_RemoveFromFront(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	value, err := list.RemoveFromFront()
+	assert.Nil(t, err)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "a", value)
+
+	value, err = list.RemoveFromFront()
+	assert.Equal(t, 1, list.size)
+	assert.Equal(t, "b", value)
+
+	value, err = list.RemoveFromFront()
+	assert.Equal(t, 0, list.size)
+	assert.Equal(t, "c", value)
+}
+
+func TestLinkedList_RemoveFromEnd(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	value, err := list.RemoveFromEnd()
+	assert.Nil(t, err)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "c", value)
+
+	value, err = list.RemoveFromEnd()
+	assert.Equal(t, 1, list.size)
+	assert.Equal(t, "b", value)
+
+	value, err = list.RemoveFromEnd()
+	assert.Equal(t, 0, list.size)
+	assert.Equal(t, "a", value)
+}
+
+func TestLinkedList_RemoveFromEndByIndex(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	value, err := list.RemoveByIndex(2)
+	assert.Nil(t, err)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "c", value)
+
+	value, err = list.RemoveByIndex(1)
+	assert.Equal(t, 1, list.size)
+	assert.Equal(t, "b", value)
+
+	value, err = list.RemoveByIndex(0)
+	assert.Equal(t, 0, list.size)
+	assert.Equal(t, "a", value)
+}
+
+func TestLinkedList_RemoveFromMiddleByIndex(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	list.AddAtEnd("d")
+
+	value, err := list.RemoveByIndex(2)
+	assert.Nil(t, err)
+	assert.Equal(t, 3, list.size)
+	assert.Equal(t, "c", value)
+
+	value, err = list.RemoveByIndex(1)
+	assert.Equal(t, 2, list.size)
+	assert.Equal(t, "b", value)
+
+	value, err = list.RemoveByIndex(1)
+	assert.Equal(t, 1, list.size)
+	assert.Equal(t, "d", value)
+
+	value, err = list.RemoveByIndex(0)
+	assert.Equal(t, 0, list.size)
+	assert.Equal(t, "a", value)
+}
+
+func TestLinkedList_DeleteAllListHead(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	value := list.DeleteFromFront()
+	assert.Nil(t, value)
+	assert.Equal(t, 1, list.size)
+
+	front, err := list.ReadFromFront()
+	assert.Nil(t, err)
+
+	assert.Equal(t, "b", front)
+	value = list.DeleteFromFront()
+	assert.Nil(t, value)
+	assert.Equal(t, 0, list.size)
+}
+
 func TestLinkedList_DeleteHead(t *testing.T) {
 	list := NewDoublyLinkedList[string]()
 	list.AddAtEnd("a")
@@ -229,7 +357,6 @@ func TestLinkedList_DeleteHead(t *testing.T) {
 
 	front, err = list.ReadFromFront()
 	assert.Equal(t, "c", front)
-
 }
 
 func TestLinkedList_DeleteTail(t *testing.T) {
