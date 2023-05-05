@@ -5,7 +5,10 @@ import (
 )
 
 func Test_queue_Print(t *testing.T) {
-	queue := New[string]("a", "b", "c")
+	queue := New[string]()
+	queue.Enqueue("a")
+	queue.Enqueue("b")
+	queue.Enqueue("c")
 	got := queue.Print()
 	want := "[a b c]"
 	if want != got {
@@ -14,7 +17,10 @@ func Test_queue_Print(t *testing.T) {
 }
 
 func Test_queue_Read(t *testing.T) {
-	queue := New[string]("a", "b", "c")
+	queue := New[string]()
+	queue.Enqueue("a")
+	queue.Enqueue("b")
+	queue.Enqueue("c")
 	got, _ := queue.Read()
 	want := "a"
 	if want != got {
@@ -44,7 +50,10 @@ func Test_queue_Enqueue(t *testing.T) {
 }
 
 func Test_queue_Dequeue(t *testing.T) {
-	queue := New[string]("a", "b", "c")
+	queue := New[string]()
+	queue.Enqueue("a")
+	queue.Enqueue("b")
+	queue.Enqueue("c")
 	queue.Dequeue()
 	queue.Dequeue()
 	if l := queue.Size(); l != 1 {
@@ -57,7 +66,10 @@ func Test_queue_Dequeue(t *testing.T) {
 }
 
 func Test_queue_Size(t *testing.T) {
-	queue := New[string]("a", "b", "c")
+	queue := New[string]()
+	queue.Enqueue("a")
+	queue.Enqueue("b")
+	queue.Enqueue("c")
 	if l := queue.Size(); l != 3 {
 		t.Errorf("want 0 got %d", l)
 	}
