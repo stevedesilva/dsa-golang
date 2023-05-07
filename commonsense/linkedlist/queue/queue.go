@@ -10,13 +10,13 @@ var (
 	ErrEmpty = errors.New("empty queue")
 )
 
-type AllowedQueueFunc[T any] interface {
-	Enqueue(value T)
-	Dequeue() (T, error)
-	Read() (T, error)
-	Size() int
-	Print() string
-}
+//type AllowedQueueFunc[T any] interface {
+//	Enqueue(value T)
+//	Dequeue() (T, error)
+//	Read() (T, error)
+//	Size() int
+//	Print() string
+//}
 
 //
 //func New[T any](data ...T) AllowedQueueFunc[T] {
@@ -28,39 +28,34 @@ type AllowedQueueFunc[T any] interface {
 //	return &res
 //}
 
-type queue[T comparable] struct {
+type Queue[T comparable] struct {
 	data *doublylinkedlist.DoublyLinkedList[T]
 }
 
-func New[T comparable]() AllowedQueueFunc[T] {
-	res := queue[T]{
+func New[T comparable]() *Queue[T] {
+	res := Queue[T]{
 		data: doublylinkedlist.NewDoublyLinkedList[T](),
 	}
 	return &res
 }
 
-func (q *queue[T]) Enqueue(value T) {
+func (q *Queue[T]) Read() (T, error) {
+	return q.data.ReadFromFront()
+}
+
+func (q *Queue[T]) Enqueue(value T) {
 	q.data.AddAtEnd(value)
 }
 
-func (q *queue[T]) Dequeue() (T, error) {
-	return q.data.ReadFromEnd()
+func (q *Queue[T]) Dequeue() (T, error) {
+	return q.data.RemoveFromFront()
 }
 
-func (q *queue[T]) Read() (T, error) {
-	var res T
-	//if len(q.data) < 1 {
-	//	return res, ErrEmpty
-	//}
-	//return q.data[0], nil
-	return res, nil
+func (q *Queue[T]) Size() int {
+	return q.data.Size()
 }
 
-func (q *queue[T]) Size() int {
-	//return len(q.data)
-	return 0
-}
-
-func (q *queue[T]) Print() string {
-	return fmt.Sprintf("%v", q.data)
+func (q *Queue[T]) Print() string {
+	data := q.data.PrintItems()
+	return fmt.Sprintf("%v", data)
 }

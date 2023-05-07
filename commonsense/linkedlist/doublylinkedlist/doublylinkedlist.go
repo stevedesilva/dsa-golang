@@ -201,3 +201,17 @@ func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
 		curr = curr.next
 	}
 }
+
+func (d *DoublyLinkedList[T]) PrintItems() []T {
+	res := make([]T, 0, d.size)
+	curr := d.head
+	for curr != nil {
+		res = append(res, curr.data)
+		curr = curr.next
+	}
+	return res
+}
+
+func (d *DoublyLinkedList[T]) Size() int {
+	return d.size
+}
