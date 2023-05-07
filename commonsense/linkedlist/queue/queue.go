@@ -10,29 +10,25 @@ var (
 	ErrEmpty = errors.New("empty queue")
 )
 
-//type AllowedQueueFunc[T any] interface {
-//	Enqueue(value T)
-//	Dequeue() (T, error)
-//	Read() (T, error)
-//	Size() int
-//	Print() string
-//}
-
-//
-//func New[T any](data ...T) AllowedQueueFunc[T] {
-//	d := make([]T, 0, len(data))
-//	d = append(d, data...)
-//	res := queue[T]{
-//		data: d,
-//	}
-//	return &res
-//}
+type AllowedQueueFunc[T comparable] interface {
+	Enqueue(value T)
+	Dequeue() (T, error)
+	Read() (T, error)
+	Size() int
+	Print() string
+}
 
 type Queue[T comparable] struct {
 	data *doublylinkedlist.DoublyLinkedList[T]
 }
 
-func New[T comparable]() *Queue[T] {
+func New[T comparable]() AllowedQueueFunc[T] {
+	res := Queue[T]{
+		data: doublylinkedlist.NewDoublyLinkedList[T](),
+	}
+	return &res
+}
+func NewQueueAsStruct[T comparable]() *Queue[T] {
 	res := Queue[T]{
 		data: doublylinkedlist.NewDoublyLinkedList[T](),
 	}
