@@ -14,8 +14,36 @@ type DoublyLinkedList[T comparable] struct {
 	size int
 }
 
-func NewDoublyLinkedList[T comparable]() *DoublyLinkedList[T] {
+type AllowedDoublyLinkedListFunc[T comparable] interface {
+	AddAtEnd(value T)
+	AddByIndex(index int, value T) error
+	AddToFront(value T)
+	DeleteByIndex(index int) error
+	DeleteFromEnd() error
+	DeleteFromFront() error
+	DeleteItems(func(T) bool)
+	PrintItems() []T
+	ReadByIndex(index int) (T, error)
+	ReadFromEnd() (T, error)
+	ReadFromFront() (T, error)
+	RemoveByIndex(index int) (T, error)
+	RemoveFromEnd() (T, error)
+	RemoveFromFront() (T, error)
+	Search(value T) (int, error)
+	Size() int
+	Head() *Node[T]
+	Tail() *Node[T]
+}
+
+func NewDoublyLinkedList[T comparable]() AllowedDoublyLinkedListFunc[T] {
 	return &DoublyLinkedList[T]{}
+}
+
+func (d *DoublyLinkedList[T]) Head() *Node[T] {
+	return d.head
+}
+func (d *DoublyLinkedList[T]) Tail() *Node[T] {
+	return d.tail
 }
 
 func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
