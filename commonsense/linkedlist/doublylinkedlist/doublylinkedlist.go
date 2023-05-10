@@ -2,18 +2,6 @@ package doublylinkedlist
 
 import "errors"
 
-type Node[T comparable] struct {
-	data     T
-	next     *Node[T]
-	previous *Node[T]
-}
-
-type DoublyLinkedList[T comparable] struct {
-	head *Node[T]
-	tail *Node[T]
-	size int
-}
-
 type AllowedDoublyLinkedListFunc[T comparable] interface {
 	AddAtEnd(value T)
 	AddByIndex(index int, value T) error
@@ -31,23 +19,35 @@ type AllowedDoublyLinkedListFunc[T comparable] interface {
 	RemoveFromFront() (T, error)
 	Search(value T) (int, error)
 	Size() int
-	Head() *Node[T]
-	Tail() *Node[T]
+	Head() *node[T]
+	Tail() *node[T]
 }
 
 func NewDoublyLinkedList[T comparable]() AllowedDoublyLinkedListFunc[T] {
-	return &DoublyLinkedList[T]{}
+	return &doublyLinkedList[T]{}
 }
 
-func (d *DoublyLinkedList[T]) Head() *Node[T] {
+type node[T comparable] struct {
+	data     T
+	next     *node[T]
+	previous *node[T]
+}
+
+type doublyLinkedList[T comparable] struct {
+	head *node[T]
+	tail *node[T]
+	size int
+}
+
+func (d *doublyLinkedList[T]) Head() *node[T] {
 	return d.head
 }
-func (d *DoublyLinkedList[T]) Tail() *Node[T] {
+func (d *doublyLinkedList[T]) Tail() *node[T] {
 	return d.tail
 }
 
-func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
-	node := &Node[T]{
+func (d *doublyLinkedList[T]) AddByIndex(index int, value T) error {
+	node := &node[T]{
 		data:     value,
 		previous: nil,
 		next:     nil,
@@ -89,21 +89,21 @@ func (d *DoublyLinkedList[T]) AddByIndex(index int, value T) error {
 	return nil
 }
 
-func (d *DoublyLinkedList[T]) AddToFront(value T) {
+func (d *doublyLinkedList[T]) AddToFront(value T) {
 	err := d.AddByIndex(0, value)
 	if err != nil {
 		return
 	}
 }
 
-func (d *DoublyLinkedList[T]) AddAtEnd(value T) {
+func (d *doublyLinkedList[T]) AddAtEnd(value T) {
 	err := d.AddByIndex(d.size, value)
 	if err != nil {
 		return
 	}
 }
 
-func (d *DoublyLinkedList[T]) ReadFromFront() (T, error) {
+func (d *doublyLinkedList[T]) ReadFromFront() (T, error) {
 	if d.head != nil {
 		return d.head.data, nil
 	}
@@ -111,7 +111,7 @@ func (d *DoublyLinkedList[T]) ReadFromFront() (T, error) {
 	return v, errors.New("not found")
 }
 
-func (d *DoublyLinkedList[T]) ReadFromEnd() (T, error) {
+func (d *doublyLinkedList[T]) ReadFromEnd() (T, error) {
 	//return d.ReadByIndex(d.size - 1)
 	if d.tail != nil {
 		return d.tail.data, nil
@@ -120,7 +120,7 @@ func (d *DoublyLinkedList[T]) ReadFromEnd() (T, error) {
 	return v, errors.New("not found")
 }
 
-func (d *DoublyLinkedList[T]) Search(value T) (int, error) {
+func (d *doublyLinkedList[T]) Search(value T) (int, error) {
 	curr := d.head
 	index := 0
 	for curr != nil {
@@ -133,7 +133,7 @@ func (d *DoublyLinkedList[T]) Search(value T) (int, error) {
 	return -1, errors.New("not found")
 }
 
-func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
+func (d *doublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 	var v T
 	if index >= d.size {
 		return v, errors.New("index not found")
@@ -147,7 +147,7 @@ func (d *DoublyLinkedList[T]) ReadByIndex(index int) (T, error) {
 	return curr.data, nil
 }
 
-func (d *DoublyLinkedList[T]) RemoveByIndex(index int) (T, error) {
+func (d *doublyLinkedList[T]) RemoveByIndex(index int) (T, error) {
 	var value T
 	if index >= d.size {
 		return value, errors.New("index not found")
@@ -179,24 +179,24 @@ func (d *DoublyLinkedList[T]) RemoveByIndex(index int) (T, error) {
 	return value, nil
 }
 
-func (d *DoublyLinkedList[T]) RemoveFromFront() (T, error) {
+func (d *doublyLinkedList[T]) RemoveFromFront() (T, error) {
 	return d.RemoveByIndex(0)
 }
 
-func (d *DoublyLinkedList[T]) RemoveFromEnd() (T, error) {
+func (d *doublyLinkedList[T]) RemoveFromEnd() (T, error) {
 	return d.RemoveByIndex(lastIndex(d.size))
 }
 
-func (d *DoublyLinkedList[T]) DeleteByIndex(index int) error {
+func (d *doublyLinkedList[T]) DeleteByIndex(index int) error {
 	_, err := d.RemoveByIndex(index)
 	return err
 }
 
-func (d *DoublyLinkedList[T]) DeleteFromFront() error {
+func (d *doublyLinkedList[T]) DeleteFromFront() error {
 	return d.DeleteByIndex(0)
 }
 
-func (d *DoublyLinkedList[T]) DeleteFromEnd() error {
+func (d *doublyLinkedList[T]) DeleteFromEnd() error {
 	return d.DeleteByIndex(lastIndex(d.size))
 }
 
@@ -208,7 +208,7 @@ func lastIndex(size int) int {
 	return index
 }
 
-func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
+func (d *doublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
 	curr := d.head
 	for curr != nil {
 		if predicate(curr.data) {
@@ -230,7 +230,7 @@ func (d *DoublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
 	}
 }
 
-func (d *DoublyLinkedList[T]) PrintItems() []T {
+func (d *doublyLinkedList[T]) PrintItems() []T {
 	res := make([]T, 0, d.size)
 	curr := d.head
 	for curr != nil {
@@ -240,6 +240,6 @@ func (d *DoublyLinkedList[T]) PrintItems() []T {
 	return res
 }
 
-func (d *DoublyLinkedList[T]) Size() int {
+func (d *doublyLinkedList[T]) Size() int {
 	return d.size
 }

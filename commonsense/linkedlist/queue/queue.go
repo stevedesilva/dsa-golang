@@ -18,40 +18,34 @@ type AllowedQueueFunc[T comparable] interface {
 	Print() string
 }
 
-type Queue[T comparable] struct {
-	data *doublylinkedlist.DoublyLinkedList[T]
-}
-
 func New[T comparable]() AllowedQueueFunc[T] {
-	res := Queue[T]{
-		data: doublylinkedlist.NewDoublyLinkedList[T](),
-	}
-	return &res
-}
-func NewQueueAsStruct[T comparable]() *Queue[T] {
-	res := Queue[T]{
+	res := queue[T]{
 		data: doublylinkedlist.NewDoublyLinkedList[T](),
 	}
 	return &res
 }
 
-func (q *Queue[T]) Read() (T, error) {
+type queue[T comparable] struct {
+	data doublylinkedlist.AllowedDoublyLinkedListFunc[T]
+}
+
+func (q *queue[T]) Read() (T, error) {
 	return q.data.ReadFromFront()
 }
 
-func (q *Queue[T]) Enqueue(value T) {
+func (q *queue[T]) Enqueue(value T) {
 	q.data.AddAtEnd(value)
 }
 
-func (q *Queue[T]) Dequeue() (T, error) {
+func (q *queue[T]) Dequeue() (T, error) {
 	return q.data.RemoveFromFront()
 }
 
-func (q *Queue[T]) Size() int {
+func (q *queue[T]) Size() int {
 	return q.data.Size()
 }
 
-func (q *Queue[T]) Print() string {
+func (q *queue[T]) Print() string {
 	data := q.data.PrintItems()
 	return fmt.Sprintf("%v", data)
 }
