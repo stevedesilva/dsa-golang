@@ -112,7 +112,6 @@ func (d *doublyLinkedList[T]) ReadFromFront() (T, error) {
 }
 
 func (d *doublyLinkedList[T]) ReadFromEnd() (T, error) {
-	//return d.ReadByIndex(d.size - 1)
 	if d.tail != nil {
 		return d.tail.data, nil
 	}
