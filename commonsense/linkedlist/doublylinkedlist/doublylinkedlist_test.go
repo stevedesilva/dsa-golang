@@ -529,3 +529,21 @@ func TestLinkedList_DeleteItems(t *testing.T) {
 	third, _ := list.ReadByIndex(2)
 	assert.Equal(t, third, "9 c")
 }
+
+func TestLinkedList_PrintItems(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	val := list.PrintItems()
+	assert.Equal(t, "a,b,c", val)
+}
+
+func TestLinkedList_PrintItemsInReverse(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	val := list.PrintItemsInReverse()
+	assert.Equal(t, "c,b,a", val)
+}

@@ -1,6 +1,10 @@
 package doublylinkedlist
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"strings"
+)
 
 type AllowedDoublyLinkedListFunc[T comparable] interface {
 	AddAtEnd(value T)
@@ -10,7 +14,8 @@ type AllowedDoublyLinkedListFunc[T comparable] interface {
 	DeleteFromEnd() error
 	DeleteFromFront() error
 	DeleteItems(func(T) bool)
-	PrintItems() []T
+	PrintItems() string
+	PrintItemsInReverse() string
 	ReadByIndex(index int) (T, error)
 	ReadFromEnd() (T, error)
 	ReadFromFront() (T, error)
@@ -229,14 +234,26 @@ func (d *doublyLinkedList[T]) DeleteItems(predicate func(T) bool) {
 	}
 }
 
-func (d *doublyLinkedList[T]) PrintItems() []T {
-	res := make([]T, 0, d.size)
+func (d *doublyLinkedList[T]) PrintItems() string {
+	res := make([]string, 0, d.size)
 	curr := d.head
 	for curr != nil {
-		res = append(res, curr.data)
+		elem := fmt.Sprintf("%v", curr.data)
+		res = append(res, elem)
 		curr = curr.next
 	}
-	return res
+	return strings.Join(res, ",")
+}
+
+func (d *doublyLinkedList[T]) PrintItemsInReverse() string {
+	res := make([]string, 0, d.size)
+	curr := d.tail
+	for curr != nil {
+		elem := fmt.Sprintf("%v", curr.data)
+		res = append(res, elem)
+		curr = curr.previous
+	}
+	return strings.Join(res, ",")
 }
 
 func (d *doublyLinkedList[T]) Size() int {
