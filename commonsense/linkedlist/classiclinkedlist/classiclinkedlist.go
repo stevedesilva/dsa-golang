@@ -185,6 +185,10 @@ func (l *LinkedList[T]) PrintItemsInReverse() string {
 }
 
 func (l *LinkedList[T]) ReadLastItem() (T, error) {
+	var value T
+	if l.head == nil {
+		return value, errors.New("list is empty")
+	}
 	current := l.head
 	for current.next != nil {
 		current = current.next
