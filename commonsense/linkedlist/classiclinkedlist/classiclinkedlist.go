@@ -2,6 +2,8 @@ package classiclinkedlist
 
 import (
 	"errors"
+	"fmt"
+	"strings"
 )
 
 type Node[T comparable] struct {
@@ -22,6 +24,9 @@ type ClassicLinkedList[T comparable] interface {
 	DeleteItems(predicate func(T) bool)
 	GetHead() *Node[T]
 	SetHead(*Node[T])
+	PrintItems() string
+	PrintItemsInReverse() string
+	ReadLastItem() (T, error)
 }
 
 func NewClassicLinkedList[T comparable]() ClassicLinkedList[T] {
@@ -144,4 +149,45 @@ func (l *LinkedList[T]) DeleteItems(predicate func(T) bool) {
 		}
 		current = current.next
 	}
+}
+
+func (l *LinkedList[T]) PrintItems() string {
+	res := make([]string, 0)
+	current := l.head
+	for current != nil {
+		res = append(res, fmt.Sprint(current.data))
+		current = current.next
+		if current != nil {
+			res = append(res, " -> ")
+		} else {
+			res = append(res, " -> nil")
+		}
+	}
+	return strings.Join(res, "")
+}
+
+func (l *LinkedList[T]) PrintItemsInReverse() string {
+	res := []string{" -> nil"}
+	current := l.head
+	for current != nil {
+		// add to front of res
+		var val string
+		if current.next != nil {
+			val = fmt.Sprint(" -> ", current.data)
+		} else {
+			val = fmt.Sprint(current.data)
+		}
+		res = append([]string{val}, res[:]...)
+		current = current.next
+	}
+	// return string value of res
+	return strings.Join(res, "")
+}
+
+func (l *LinkedList[T]) ReadLastItem() (T, error) {
+	current := l.head
+	for current.next != nil {
+		current = current.next
+	}
+	return current.data, nil
 }

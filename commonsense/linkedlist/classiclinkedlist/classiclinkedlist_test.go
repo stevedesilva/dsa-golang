@@ -89,6 +89,17 @@ func TestLinkedList_Read(t *testing.T) {
 	assert.Equal(t, "c", read)
 }
 
+func TestLinkedList_ReadLastItem(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+
+	read, err := list.ReadLastItem()
+	assert.Nil(t, err)
+	assert.Equal(t, "c", read)
+}
+
 func TestLinkedList_Search(t *testing.T) {
 	list := NewClassicLinkedList[string]()
 	list.Add("a")
@@ -181,5 +192,23 @@ func TestLinkedList_DeleteItems(t *testing.T) {
 	first, _ := list.Read(0)
 	assert.Equal(t, first, "a")
 	second, _ := list.Read(1)
-	assert.Equal(t, second, "b")
+	assert.Equal(t, "b", second)
+}
+
+func TestLinkedList_PrintItems(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+
+	assert.Equal(t, "a -> b -> c -> nil", list.PrintItems())
+}
+
+func TestLinkedList_PrintItemsInReverse(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+
+	assert.Equal(t, "c -> b -> a -> nil", list.PrintItemsInReverse())
 }
