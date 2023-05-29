@@ -262,14 +262,14 @@ func (d *doublyLinkedList[T]) Size() int {
 }
 
 func (d *doublyLinkedList[T]) Reverse() {
-	curr := d.head
-	var prev *node[T]
-	for curr != nil {
-		next := curr.next
-		curr.next = prev
-		curr.previous = next
-		prev = curr
-		curr = next
+	currentTop := d.head
+	currentBottom := d.tail
+	for currentTop != currentBottom {
+		t := currentTop.data
+		b := currentBottom.data
+		currentTop.data = b
+		currentBottom.data = t
+		currentBottom = currentBottom.previous
+		currentTop = currentTop.next
 	}
-	d.head = prev
 }
