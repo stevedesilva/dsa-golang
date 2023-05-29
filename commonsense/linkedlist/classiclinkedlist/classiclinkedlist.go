@@ -27,6 +27,7 @@ type ClassicLinkedList[T comparable] interface {
 	PrintItems() string
 	PrintItemsInReverse() string
 	ReadLastItem() (T, error)
+	Reverse()
 }
 
 func NewClassicLinkedList[T comparable]() ClassicLinkedList[T] {
@@ -194,4 +195,14 @@ func (l *LinkedList[T]) ReadLastItem() (T, error) {
 		current = current.next
 	}
 	return current.data, nil
+}
+
+func (l *LinkedList[T]) Reverse() {
+	reversedList := NewClassicLinkedList[T]()
+	current := l.head
+	for current != nil {
+		_ = reversedList.AddByIndex(0, current.data)
+		current = current.next
+	}
+	l.head = reversedList.GetHead()
 }

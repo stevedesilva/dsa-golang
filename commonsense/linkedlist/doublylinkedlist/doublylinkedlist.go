@@ -26,6 +26,7 @@ type AllowedDoublyLinkedListFunc[T comparable] interface {
 	Size() int
 	Head() *node[T]
 	Tail() *node[T]
+	Reverse()
 }
 
 func NewDoublyLinkedList[T comparable]() AllowedDoublyLinkedListFunc[T] {
@@ -258,4 +259,17 @@ func (d *doublyLinkedList[T]) PrintItemsInReverse() string {
 
 func (d *doublyLinkedList[T]) Size() int {
 	return d.size
+}
+
+func (d *doublyLinkedList[T]) Reverse() {
+	curr := d.head
+	var prev *node[T]
+	for curr != nil {
+		next := curr.next
+		curr.next = prev
+		curr.previous = next
+		prev = curr
+		curr = next
+	}
+	d.head = prev
 }

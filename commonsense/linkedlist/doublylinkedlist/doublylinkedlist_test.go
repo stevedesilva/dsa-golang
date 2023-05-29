@@ -547,3 +547,38 @@ func TestLinkedList_PrintItemsInReverse(t *testing.T) {
 	val := list.PrintItemsInReverse()
 	assert.Equal(t, "c,b,a", val)
 }
+
+func TestLinkedList_Reverse(t *testing.T) {
+	list := NewDoublyLinkedList[string]()
+	list.AddAtEnd("a")
+	list.AddAtEnd("b")
+	list.AddAtEnd("c")
+	list.AddAtEnd("d")
+	list.AddAtEnd("e")
+
+	list.Reverse()
+	assert.Equal(t, "e", list.Head().data)
+	assert.Equal(t, "d", list.Head().next.data)
+	assert.Equal(t, "c", list.Head().next.next.data)
+	assert.Equal(t, "b", list.Head().next.next.next.data)
+	assert.Equal(t, "a", list.Head().next.next.next.next.data)
+	read, err := list.ReadByIndex(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "e", read)
+
+	read, err = list.ReadByIndex(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "d", read)
+
+	read, err = list.ReadByIndex(2)
+	assert.Nil(t, err)
+	assert.Equal(t, "c", read)
+
+	read, err = list.ReadByIndex(3)
+	assert.Nil(t, err)
+	assert.Equal(t, "b", read)
+
+	read, err = list.ReadByIndex(4)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", read)
+}

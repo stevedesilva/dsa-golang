@@ -212,3 +212,24 @@ func TestLinkedList_PrintItemsInReverse(t *testing.T) {
 
 	assert.Equal(t, "c -> b -> a -> nil", list.PrintItemsInReverse())
 }
+
+func TestLinkedList_Reverse(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+
+	list.Reverse()
+	assert.Equal(t, "c", list.GetHead().data)
+	assert.Equal(t, "b", list.GetHead().next.data)
+	assert.Equal(t, "a", list.GetHead().next.next.data)
+	read, err := list.Read(0)
+	assert.Nil(t, err)
+	assert.Equal(t, "c", read)
+	read, err = list.Read(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "b", read)
+	read, err = list.Read(2)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", read)
+}
