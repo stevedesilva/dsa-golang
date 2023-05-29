@@ -562,6 +562,8 @@ func TestLinkedList_Reverse(t *testing.T) {
 	assert.Equal(t, "c", list.Head().next.next.data)
 	assert.Equal(t, "b", list.Head().next.next.next.data)
 	assert.Equal(t, "a", list.Head().next.next.next.next.data)
+	assert.Equal(t, "a", list.Tail().data)
+	assert.Equal(t, "b", list.Tail().previous.data)
 	read, err := list.ReadByIndex(0)
 	assert.Nil(t, err)
 	assert.Equal(t, "e", read)
