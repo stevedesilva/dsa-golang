@@ -21,6 +21,7 @@ type ClassicLinkedList[T comparable] interface {
 	Read(index int) (T, error)
 	Search(value T) (int, error)
 	Delete(index int) error
+	DeleteNode(*Node[T]) error
 	DeleteItems(predicate func(T) bool)
 	GetHead() *Node[T]
 	SetHead(*Node[T])
@@ -205,4 +206,8 @@ func (l *LinkedList[T]) Reverse() {
 		current = current.next
 	}
 	l.head = reversedList.GetHead()
+}
+
+func (l *LinkedList[T]) DeleteNode(node *Node[T]) {
+
 }
