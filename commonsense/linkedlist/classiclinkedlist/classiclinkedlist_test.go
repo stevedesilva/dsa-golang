@@ -239,10 +239,12 @@ func TestLinkedList_GetNode(t *testing.T) {
 	list.Add("a")
 	list.Add("b")
 	list.Add("c")
-
-	assert.Equal(t, list.GetNode(0).data, "a")
-	assert.Equal(t, list.GetNode(0).data, "b")
-	assert.Equal(t, list.GetNode(0).data, "c")
+	res, _ := list.GetNode(0)
+	assert.Equal(t, res.data, "a")
+	res, _ = list.GetNode(1)
+	assert.Equal(t, res.data, "b")
+	res, _ = list.GetNode(2)
+	assert.Equal(t, res.data, "c")
 }
 
 func TestLinkedList_DeleteStartNode(t *testing.T) {

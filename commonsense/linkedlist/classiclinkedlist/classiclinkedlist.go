@@ -24,6 +24,7 @@ type ClassicLinkedList[T comparable] interface {
 	DeleteNode(*Node[T]) error
 	DeleteItems(predicate func(T) bool)
 	GetHead() *Node[T]
+	GetNode(index int) (*Node[T], error)
 	SetHead(*Node[T])
 	PrintItems() string
 	PrintItemsInReverse() string
@@ -37,6 +38,25 @@ func NewClassicLinkedList[T comparable]() ClassicLinkedList[T] {
 
 func (l *LinkedList[T]) GetHead() *Node[T] {
 	return l.head
+}
+
+func (l *LinkedList[T]) GetNode(index int) (*Node[T], error) {
+	if index < 0 {
+		return nil, errors.New("index out of bounds")
+	}
+	if index == 0 {
+		return l.head, nil
+	}
+	current := l.head
+	currentIdx := 0
+	for currentIdx < index {
+		current = current.next
+		currentIdx++
+		if current == nil {
+			return nil, errors.New("index out of bounds")
+		}
+	}
+	return current, nil
 }
 func (l *LinkedList[T]) SetHead(head *Node[T]) {
 	l.head = head
@@ -208,6 +228,6 @@ func (l *LinkedList[T]) Reverse() {
 	l.head = reversedList.GetHead()
 }
 
-func (l *LinkedList[T]) DeleteNode(node *Node[T]) {
-
+func (l *LinkedList[T]) DeleteNode(node *Node[T]) error {
+	return nil
 }
