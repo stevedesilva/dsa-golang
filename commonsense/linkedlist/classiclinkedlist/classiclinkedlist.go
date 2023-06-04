@@ -229,5 +229,24 @@ func (l *LinkedList[T]) Reverse() {
 }
 
 func (l *LinkedList[T]) DeleteNode(node *Node[T]) error {
+	if node == nil {
+		return errors.New("node is nil")
+	}
+	if l.head == node {
+		l.head = node.next
+		return nil
+	}
+	var previous *Node[T] = nil
+	current := l.head
+	for current != nil {
+		if current == node {
+			previous.next = current.next
+			return nil
+		} else {
+			previous = current
+			current = current.next
+		}
+	}
+
 	return nil
 }
