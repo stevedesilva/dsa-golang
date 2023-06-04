@@ -248,82 +248,47 @@ func TestLinkedList_GetNode(t *testing.T) {
 }
 
 func TestLinkedList_DeleteStartNode(t *testing.T) {
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	node, _ := list.GetNode(0)
+	err := list.DeleteNode(node)
+	assert.Nil(t, err)
+	assert.Equal(t, list.GetHead().data, "b")
+	res, _ := list.GetNode(0)
+	assert.Equal(t, res.data, "b")
+	res, _ = list.GetNode(1)
+	assert.Equal(t, res.data, "c")
 
 }
 
 func TestLinkedList_DeleteMidNode(t *testing.T) {
-
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	node, _ := list.GetNode(1)
+	err := list.DeleteNode(node)
+	assert.Equal(t, list.GetHead().data, "a")
+	assert.Nil(t, err)
+	res, _ := list.GetNode(0)
+	assert.Equal(t, res.data, "a")
+	res, _ = list.GetNode(1)
+	assert.Equal(t, res.data, "c")
 }
+
 func TestLinkedList_DeleteEndNode(t *testing.T) {
-
+	list := NewClassicLinkedList[string]()
+	list.Add("a")
+	list.Add("b")
+	list.Add("c")
+	node, _ := list.GetNode(2)
+	err := list.DeleteNode(node)
+	assert.Equal(t, list.GetHead().data, "a")
+	assert.Nil(t, err)
+	res, _ := list.GetNode(0)
+	assert.Equal(t, res.data, "a")
+	res, _ = list.GetNode(1)
+	assert.Equal(t, res.data, "b")
 }
-
-/*
-
-
-   @Test
-   public void shouldDeleteStartNodeFromLinkedList() {
-       ClassicLinkedList<String> classicLinkedList = new ClassicLinkedList<>();
-       classicLinkedList.add("a");
-       classicLinkedList.add("b");
-       classicLinkedList.add("c");
-       classicLinkedList.add("d");
-       classicLinkedList.add("e");
-       final Node<String> start = classicLinkedList.getNode(0);
-       classicLinkedList.delete(start);
-
-
-       MatcherAssert.assertThat(classicLinkedList.getHead().data, Matchers.equalTo("b"));
-       MatcherAssert.assertThat(classicLinkedList.read(0), Matchers.equalTo("b"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.data, Matchers.equalTo("c"));
-       MatcherAssert.assertThat(classicLinkedList.read(1), Matchers.equalTo("c"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.next.data, Matchers.equalTo("d"));
-       MatcherAssert.assertThat(classicLinkedList.read(2), Matchers.equalTo("d"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.next.next.data, Matchers.equalTo("e"));
-       MatcherAssert.assertThat(classicLinkedList.read(3), Matchers.equalTo("e"));
-   }
-
-   @Test
-   public void shouldDeleteMidNodeFromLinkedList() {
-       ClassicLinkedList<String> classicLinkedList = new ClassicLinkedList<>();
-       classicLinkedList.add("a");
-       classicLinkedList.add("b");
-       classicLinkedList.add("c");
-       classicLinkedList.add("d");
-       classicLinkedList.add("e");
-       final Node<String> mid = classicLinkedList.getNode(1);
-       classicLinkedList.delete(mid);
-
-
-       MatcherAssert.assertThat(classicLinkedList.getHead().data, Matchers.equalTo("a"));
-       MatcherAssert.assertThat(classicLinkedList.read(0), Matchers.equalTo("a"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.data, Matchers.equalTo("c"));
-       MatcherAssert.assertThat(classicLinkedList.read(1), Matchers.equalTo("c"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.next.data, Matchers.equalTo("d"));
-       MatcherAssert.assertThat(classicLinkedList.read(2), Matchers.equalTo("d"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.next.next.data, Matchers.equalTo("e"));
-       MatcherAssert.assertThat(classicLinkedList.read(3), Matchers.equalTo("e"));
-   }
-
-   @Test
-   public void shouldDeleteEndNodeFromLinkedList() {
-       ClassicLinkedList<String> classicLinkedList = new ClassicLinkedList<>();
-       classicLinkedList.add("a");
-       classicLinkedList.add("b");
-       classicLinkedList.add("c");
-       classicLinkedList.add("d");
-       classicLinkedList.add("e");
-       final Node<String> end = classicLinkedList.getNode(4);
-       classicLinkedList.delete(end);
-
-
-       MatcherAssert.assertThat(classicLinkedList.getHead().data, Matchers.equalTo("a"));
-       MatcherAssert.assertThat(classicLinkedList.read(0), Matchers.equalTo("a"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.data, Matchers.equalTo("b"));
-       MatcherAssert.assertThat(classicLinkedList.read(1), Matchers.equalTo("b"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.next.data, Matchers.equalTo("c"));
-       MatcherAssert.assertThat(classicLinkedList.read(2), Matchers.equalTo("c"));
-       MatcherAssert.assertThat(classicLinkedList.getHead().next.next.next.data, Matchers.equalTo("d"));
-       MatcherAssert.assertThat(classicLinkedList.read(3), Matchers.equalTo("d"));
-   }
-*/
