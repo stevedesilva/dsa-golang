@@ -5,3 +5,8 @@ type TreeNode[T comparable] struct {
 	left  *TreeNode[T]
 	right *TreeNode[T]
 }
+
+func (t *TreeNode[T]) Search(value T) bool {
+	return false
+
+}
