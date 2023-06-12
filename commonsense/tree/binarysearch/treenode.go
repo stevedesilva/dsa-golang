@@ -8,7 +8,7 @@ type TreeNode[T constraints.Ordered] struct {
 	right *TreeNode[T]
 }
 
-func (t *TreeNode[T]) Search(value interface{}) *TreeNode[T] {
+func (t *TreeNode[T]) Search(value T) *TreeNode[T] {
 	return t.search(value, t)
 }
 
@@ -18,6 +18,7 @@ func (t *TreeNode[T]) search(value T, node *TreeNode[T]) *TreeNode[T] {
 	}
 	if value <= node.data {
 		return t.search(value, node.left)
+	} else {
+		return t.search(value, node.right)
 	}
-	return t.search(value, node.right)
 }
