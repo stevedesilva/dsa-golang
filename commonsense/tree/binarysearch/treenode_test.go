@@ -15,11 +15,16 @@ func TestTreeNode(t *testing.T) {
 }
 
 func TestTreeNodeSearch(t *testing.T) {
-	left := TreeNode[int]{1, nil, nil}
-	right := TreeNode[int]{3, nil, nil}
-	root := TreeNode[int]{2, &left, &right}
-	assert.Equal(t, 1, root.Search(1).data)
-	assert.Equal(t, 2, root.Search(2).data)
-	assert.Equal(t, 3, root.Search(3).data)
-	assert.Nil(t, root.Search(13))
+
+	leftChild := TreeNode[int]{5, nil, nil}
+	rightChild := TreeNode[int]{7, nil, nil}
+	left := TreeNode[int]{6, &leftChild, &rightChild}
+	right := TreeNode[int]{13, nil, nil}
+	root := TreeNode[int]{12, &left, &right}
+	assert.Equal(t, 12, root.Search(12).data)
+	assert.Equal(t, 13, root.Search(13).data)
+	assert.Equal(t, 5, root.Search(5).data)
+	assert.Equal(t, 6, root.Search(6).data)
+	assert.Equal(t, 7, root.Search(7).data)
+	assert.Nil(t, root.Search(19))
 }
