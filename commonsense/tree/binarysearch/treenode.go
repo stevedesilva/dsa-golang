@@ -42,3 +42,7 @@ func (t *TreeNode[T]) insert(value T, node *TreeNode[T]) *TreeNode[T] {
 		return t.insert(value, node.right)
 	}
 }
+
+func (t *TreeNode[T]) Delete(i int) {
+	panic("implement me")
+}

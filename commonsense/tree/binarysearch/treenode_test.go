@@ -77,3 +77,22 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 	assert.Equal(t, 6, root.Search(6).data)
 	assert.Equal(t, 7, root.Search(7).data)
 }
+
+func TestTreeNode_DeleteLeafNode(t *testing.T) {
+	//      4
+	//     / \
+	//    3   5
+	//   / \  / \
+	//  1  2  6  7
+	root := TreeNode[int]{}
+	root.Insert(4)
+	root.Insert(5)
+	root.Insert(3)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(2)
+	root.Insert(7)
+
+	root.Delete(1)
+	assert.Nil(t, root.Search(1))
+}
