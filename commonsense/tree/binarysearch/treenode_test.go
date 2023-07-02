@@ -126,3 +126,22 @@ func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
 	root.Delete(7)
 	assert.Nil(t, root.Search(7))
 }
+
+func TestTreeNode_DeleteRootNode(t *testing.T) {
+	//      4
+	//     / \
+	//    3   5
+	//   / \  / \
+	//  1  2  6  7
+	root := TreeNode[int]{}
+	root.Insert(4)
+	root.Insert(5)
+	root.Insert(3)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(2)
+	root.Insert(7)
+
+	root.Delete(4)
+	assert.Nil(t, root.Search(4))
+}
