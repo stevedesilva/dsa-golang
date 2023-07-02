@@ -78,7 +78,7 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 	assert.Equal(t, 7, root.Search(7).data)
 }
 
-func TestTreeNode_DeleteLeafNode(t *testing.T) {
+func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	//      4
 	//     / \
 	//    3   5
@@ -95,4 +95,34 @@ func TestTreeNode_DeleteLeafNode(t *testing.T) {
 
 	root.Delete(1)
 	assert.Nil(t, root.Search(1))
+	root.Delete(2)
+	assert.Nil(t, root.Search(2))
+	root.Delete(6)
+	assert.Nil(t, root.Search(2))
+	root.Delete(7)
+	assert.Nil(t, root.Search(2))
+}
+
+func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
+	//      4
+	//     / \
+	//    3   5
+	//   /    / \
+	//  1    6   7
+	//            \
+	//             9
+	root := TreeNode[int]{}
+	root.Insert(4)
+	root.Insert(5)
+	root.Insert(3)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(7)
+	root.Insert(9)
+
+	root.Delete(3)
+	assert.Nil(t, root.Search(3))
+
+	root.Delete(7)
+	assert.Nil(t, root.Search(7))
 }
