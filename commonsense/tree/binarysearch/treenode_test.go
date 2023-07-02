@@ -104,44 +104,87 @@ func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 }
 
 func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
-	//      4
-	//     / \
-	//    3   5
-	//   /    / \
-	//  1    6   7
-	//            \
-	//             9
+	//         50
+	//      / 	    \
+	//     /         \
+	//   25          75
+	//   / \        /  \
+	// 10   33      56    89
+	//  \    /  \    / \    / \
+	//  11  30  40  52 61  82  95
+
 	root := TreeNode[int]{}
-	root.Insert(4)
-	root.Insert(5)
-	root.Insert(3)
-	root.Insert(6)
-	root.Insert(1)
-	root.Insert(7)
-	root.Insert(9)
+	root.Insert(50)
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(56)
+	root.Insert(89)
+	root.Insert(11)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(61)
+	root.Insert(95)
 
-	root.Delete(3)
-	assert.Nil(t, root.Search(3))
-
-	root.Delete(7)
-	assert.Nil(t, root.Search(7))
+	root.Delete(10)
+	assert.Nil(t, root.Search(10))
 }
 
-func TestTreeNode_DeleteRootNode(t *testing.T) {
-	//      4
-	//     / \
-	//    3   5
-	//   / \  / \
-	//  1  2  6  7
-	root := TreeNode[int]{}
-	root.Insert(4)
-	root.Insert(5)
-	root.Insert(3)
-	root.Insert(6)
-	root.Insert(1)
-	root.Insert(2)
-	root.Insert(7)
+func TestTreeNode_DeleteNodeWithTwoChildren(t *testing.T) {
+	//          50
+	//     /         \
+	//   25          75
+	//   / \        /  \
+	// 11  33      56    89
+	//    /  \    / \    / \
+	//   30  40  52 61  82  95
 
-	root.Delete(4)
-	assert.Nil(t, root.Search(4))
+	root := TreeNode[int]{}
+	root.Insert(50)
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(56)
+	root.Insert(89)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(61)
+	root.Insert(95)
+
+	root.Delete(56)
+	assert.Nil(t, root.Search(56))
+}
+
+func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
+	//          50
+	//     /        \
+	//   25         75
+	//   / \        / \
+	// 11  33      61  89
+	//    /  \    /   / \
+	//   30  40  52  82  95
+	//            \
+	//            55
+
+	root := TreeNode[int]{}
+	root.Insert(50)
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(61)
+	root.Insert(89)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(82)
+	root.Insert(95)
+	root.Insert(55)
+
+	root.Delete(50)
+	assert.Nil(t, root.Search(50))
 }
