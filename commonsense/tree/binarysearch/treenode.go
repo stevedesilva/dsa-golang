@@ -44,5 +44,9 @@ func (t *TreeNode[T]) insert(value T, node *TreeNode[T]) *TreeNode[T] {
 }
 
 func (t *TreeNode[T]) Delete(i int) {
+	// if node to delete has no children, just delete it
+	// if node to delete has one child, replace it with its child
+	// if node to delete has two children, replace it with its successor
+	// successor is the smallest node in the right subtree
 	panic("implement me")
 }
