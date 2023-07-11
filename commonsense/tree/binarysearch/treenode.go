@@ -43,10 +43,39 @@ func (t *TreeNode[T]) insert(value T, node *TreeNode[T]) *TreeNode[T] {
 	}
 }
 
-func (t *TreeNode[T]) Delete(i int) {
+func (t *TreeNode[T]) Delete(value T, node *TreeNode[T]) *TreeNode[T] {
+	if node == nil {
+		return nil
+	} else if node.data < value {
+		node.left = t.Delete(value, node.left)
+		return node
+	} else if node.data > value {
+		node.right = t.Delete(value, node.right)
+		return node
+	} else if node.data == value {
+		if node.left == nil {
+			return node.right
+		} else if node.right == nil {
+			return node.left
+		} else {
+			node.right = t.lift(node.right, node)
+			return node
+		}
+	}
+
 	// if node to delete has no children, just delete it
 	// if node to delete has one child, replace it with its child
 	// if node to delete has two children, replace it with its successor
 	// successor is the smallest node in the right subtree
-	panic("implement me")
+	return nil
+}
+
+func (t *TreeNode[T]) lift(node *TreeNode[T], nodeToDelete *TreeNode[T]) *TreeNode[T] {
+	if node.left != nil {
+		node.left = t.lift(node.left, nodeToDelete)
+		return node
+	} else {
+		nodeToDelete.data = node.data
+		return node.right
+	}
 }

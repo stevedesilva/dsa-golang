@@ -78,6 +78,21 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 	assert.Equal(t, 7, root.Search(7).data)
 }
 
+func TestTreeNode_DeleteNodeNotFound(t *testing.T) {
+	root := TreeNode[int]{}
+	root.Insert(4)
+	root.Insert(5)
+	root.Insert(3)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(2)
+	root.Insert(7)
+
+	root.Delete(10, &root)
+	assert.Nil(t, root.Search(1))
+
+}
+
 func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	//      4
 	//     / \
@@ -93,13 +108,13 @@ func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	root.Insert(2)
 	root.Insert(7)
 
-	root.Delete(1)
+	root.Delete(1, &root)
 	assert.Nil(t, root.Search(1))
-	root.Delete(2)
+	root.Delete(2, &root)
 	assert.Nil(t, root.Search(2))
-	root.Delete(6)
+	root.Delete(6, &root)
 	assert.Nil(t, root.Search(2))
-	root.Delete(7)
+	root.Delete(7, &root)
 	assert.Nil(t, root.Search(2))
 }
 
@@ -128,7 +143,7 @@ func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
 	root.Insert(61)
 	root.Insert(95)
 
-	root.Delete(10)
+	root.Delete(10, &root)
 	assert.Nil(t, root.Search(10))
 }
 
@@ -155,7 +170,7 @@ func TestTreeNode_DeleteNodeWithTwoChildren(t *testing.T) {
 	root.Insert(61)
 	root.Insert(95)
 
-	root.Delete(56)
+	root.Delete(56, &root)
 	assert.Nil(t, root.Search(56))
 }
 
@@ -185,6 +200,6 @@ func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
 	root.Insert(95)
 	root.Insert(55)
 
-	root.Delete(50)
+	root.Delete(50, &root)
 	assert.Nil(t, root.Search(50))
 }
