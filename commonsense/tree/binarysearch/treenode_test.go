@@ -36,8 +36,7 @@ func TestTreeNodeInsertInOrder(t *testing.T) {
 	//    ..
 	//   /
 	//  7
-	root := TreeNode[int]{}
-	root.Insert(1)
+	root := TreeNode[int]{1, nil, nil}
 	root.Insert(2)
 	root.Insert(3)
 	root.Insert(4)
@@ -60,8 +59,7 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 	//    3   5
 	//   / \  / \
 	//  1  2  6  7
-	root := TreeNode[int]{}
-	root.Insert(4)
+	root := TreeNode[int]{4, nil, nil}
 	root.Insert(5)
 	root.Insert(3)
 	root.Insert(6)
@@ -79,8 +77,7 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 }
 
 func TestTreeNode_DeleteNodeNotFound(t *testing.T) {
-	root := TreeNode[int]{}
-	root.Insert(4)
+	root := TreeNode[int]{4, nil, nil}
 	root.Insert(5)
 	root.Insert(3)
 	root.Insert(6)
@@ -99,8 +96,7 @@ func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	//    3   5
 	//   / \  / \
 	//  1  2  6  7
-	root := TreeNode[int]{}
-	root.Insert(4)
+	root := TreeNode[int]{4, nil, nil}
 	root.Insert(5)
 	root.Insert(3)
 	root.Insert(6)
@@ -128,8 +124,7 @@ func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
 	//  \    /  \    / \    / \
 	//  11  30  40  52 61  82  95
 
-	root := TreeNode[int]{}
-	root.Insert(50)
+	root := TreeNode[int]{50, nil, nil}
 	root.Insert(25)
 	root.Insert(75)
 	root.Insert(11)
@@ -156,8 +151,7 @@ func TestTreeNode_DeleteNodeWithTwoChildren(t *testing.T) {
 	//    /  \    / \    / \
 	//   30  40  52 61  82  95
 
-	root := TreeNode[int]{}
-	root.Insert(50)
+	root := TreeNode[int]{50, nil, nil}
 	root.Insert(25)
 	root.Insert(75)
 	root.Insert(11)
@@ -185,8 +179,7 @@ func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
 	//            \
 	//            55
 
-	root := TreeNode[int]{}
-	root.Insert(50)
+	root := TreeNode[int]{50, nil, nil}
 	root.Insert(25)
 	root.Insert(75)
 	root.Insert(11)
