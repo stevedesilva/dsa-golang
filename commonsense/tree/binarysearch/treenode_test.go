@@ -86,8 +86,7 @@ func TestTreeNode_DeleteNodeNotFound(t *testing.T) {
 	root.Insert(7)
 
 	root.Delete(10, &root)
-	assert.Nil(t, root.Search(1))
-
+	assert.Nil(t, root.Search(10))
 }
 
 func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
@@ -111,7 +110,7 @@ func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	root.Delete(6, &root)
 	assert.Nil(t, root.Search(2))
 	root.Delete(7, &root)
-	assert.Nil(t, root.Search(2))
+	assert.Nil(t, root.Search(7))
 }
 
 func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
