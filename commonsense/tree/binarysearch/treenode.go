@@ -46,10 +46,10 @@ func (t *TreeNode[T]) insert(value T, node *TreeNode[T]) *TreeNode[T] {
 func (t *TreeNode[T]) Delete(value T, node *TreeNode[T]) *TreeNode[T] {
 	if node == nil {
 		return nil
-	} else if node.data < value {
+	} else if value < node.data {
 		node.left = t.Delete(value, node.left)
 		return node
-	} else if node.data > value {
+	} else if value > node.data {
 		node.right = t.Delete(value, node.right)
 		return node
 	} else if node.data == value {
