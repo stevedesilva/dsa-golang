@@ -89,6 +89,19 @@ func TestTreeNode_DeleteNodeNotFound(t *testing.T) {
 	assert.Nil(t, root.Search(10))
 }
 
+func TestTreeNode_DeleteNodeNotFoundAlt(t *testing.T) {
+	root := TreeNode[int]{4, nil, nil}
+	root.Insert(5)
+	root.Insert(3)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(2)
+	root.Insert(7)
+
+	root.DeleteAlt(10, &root)
+	assert.Nil(t, root.Search(10))
+}
+
 func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	//       4
 	//     /   \
@@ -113,7 +126,98 @@ func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	assert.Nil(t, root.Search(7))
 }
 
-func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
+func TestTreeNode_DeleteNodeWithNoChildrenAlt(t *testing.T) {
+	//       4
+	//     /   \
+	//    2     6
+	//   / \   / \
+	//  1   3 5   7
+	root := TreeNode[int]{4, nil, nil}
+	root.Insert(2)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(3)
+	root.Insert(5)
+	root.Insert(7)
+
+	root.DeleteAlt(1, &root)
+	assert.Nil(t, root.Search(1))
+	root.DeleteAlt(3, &root)
+	assert.Nil(t, root.Search(3))
+	root.DeleteAlt(5, &root)
+	assert.Nil(t, root.Search(5))
+	root.DeleteAlt(7, &root)
+	assert.Nil(t, root.Search(7))
+}
+
+func TestTreeNode_DeleteNodeWithOneChildRight(t *testing.T) {
+	//       4
+	//     /   \
+	//    2     6
+	//     \    / \
+	//      3  5   7
+	root := TreeNode[int]{4, nil, nil}
+	root.Insert(2)
+	root.Insert(6)
+	root.Insert(3)
+	root.Insert(5)
+	root.Insert(7)
+
+	root.Delete(2, &root)
+	assert.Nil(t, root.Search(2))
+}
+
+func TestTreeNode_DeleteNodeWithOneChildRightAlt(t *testing.T) {
+	//       4
+	//     /   \
+	//    2     6
+	//     \    / \
+	//      3  5   7
+	root := TreeNode[int]{4, nil, nil}
+	root.Insert(2)
+	root.Insert(6)
+	root.Insert(3)
+	root.Insert(5)
+	root.Insert(7)
+
+	root.DeleteAlt(2, &root)
+	assert.Nil(t, root.Search(2))
+}
+
+func TestTreeNode_DeleteNodeWithOneChildLeft(t *testing.T) {
+	//       4
+	//     /   \
+	//    2     6
+	//   /     / \
+	//  1     5   7
+	root := TreeNode[int]{4, nil, nil}
+	root.Insert(2)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(5)
+	root.Insert(7)
+
+	root.Delete(2, &root)
+	assert.Nil(t, root.Search(2))
+}
+func TestTreeNode_DeleteNodeWithOneChildLeftAlt(t *testing.T) {
+	//       4
+	//     /   \
+	//    2     6
+	//   /     / \
+	//  1     5   7
+	root := TreeNode[int]{4, nil, nil}
+	root.Insert(2)
+	root.Insert(6)
+	root.Insert(1)
+	root.Insert(5)
+	root.Insert(7)
+
+	root.DeleteAlt(2, &root)
+	assert.Nil(t, root.Search(2))
+}
+
+func TestTreeNode_DeleteNodeWithOneChild_LargerTree(t *testing.T) {
 	//         50
 	//      / 	    \
 	//     /         \
@@ -141,6 +245,34 @@ func TestTreeNode_DeleteNodeWithOneChild(t *testing.T) {
 	assert.Nil(t, root.Search(10))
 }
 
+func TestTreeNode_DeleteNodeWithOneChild_LargerTreeAlt(t *testing.T) {
+	//         50
+	//      / 	    \
+	//     /         \
+	//   25          75
+	//   / \        /  \
+	// 10   33      56    89
+	//  \    /  \    / \    / \
+	//  11  30  40  52 61  82  95
+
+	root := TreeNode[int]{50, nil, nil}
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(56)
+	root.Insert(89)
+	root.Insert(11)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(61)
+	root.Insert(95)
+
+	root.DeleteAlt(10, &root)
+	assert.Nil(t, root.Search(10))
+}
+
 func TestTreeNode_DeleteNodeWithTwoChildren(t *testing.T) {
 	//          50
 	//     /         \
@@ -164,6 +296,32 @@ func TestTreeNode_DeleteNodeWithTwoChildren(t *testing.T) {
 	root.Insert(95)
 
 	root.Delete(56, &root)
+	assert.Nil(t, root.Search(56))
+}
+
+func TestTreeNode_DeleteNodeWithTwoChildrenAlt(t *testing.T) {
+	//          50
+	//     /         \
+	//   25          75
+	//   / \        /  \
+	// 11  33      56    89
+	//    /  \    / \    / \
+	//   30  40  52 61  82  95
+
+	root := TreeNode[int]{50, nil, nil}
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(56)
+	root.Insert(89)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(61)
+	root.Insert(95)
+
+	root.DeleteAlt(56, &root)
 	assert.Nil(t, root.Search(56))
 }
 
