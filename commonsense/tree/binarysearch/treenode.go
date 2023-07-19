@@ -28,7 +28,15 @@ func (t *TreeNode[T]) Insert(value T) *TreeNode[T] {
 }
 
 func (t *TreeNode[T]) insert(value T, node *TreeNode[T]) *TreeNode[T] {
-	if node == nil || node.data == value {
+	if node == nil || node.data == nil || node.data == value {
+		if node == nil {
+			node = &TreeNode[T]{value, nil, nil}
+		} else if node.data == nil {
+			node.data = value
+		}
+		//else {
+		//	return node
+		//}
 		return node
 	} else if value < node.data {
 		if node.left == nil {
