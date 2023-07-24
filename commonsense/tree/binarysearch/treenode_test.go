@@ -6,21 +6,24 @@ import (
 )
 
 func TestTreeNode(t *testing.T) {
-	left := TreeNode[int]{1, nil, nil}
-	right := TreeNode[int]{3, nil, nil}
-	root := TreeNode[int]{2, &left, &right}
+	left := TreeNode[int]{toPointer(1), nil, nil}
+	right := TreeNode[int]{toPointer(3), nil, nil}
+	root := TreeNode[int]{toPointer(2), &left, &right}
 	assert.Equal(t, root.data, 2)
 	assert.Equal(t, root.right.data, 3)
 	assert.Equal(t, root.left.data, 1)
 }
 
+func toPointer(val int) *int {
+	return &val
+}
 func TestTreeNodeSearch(t *testing.T) {
 
-	leftChild := TreeNode[int]{5, nil, nil}
-	rightChild := TreeNode[int]{7, nil, nil}
-	left := TreeNode[int]{6, &leftChild, &rightChild}
-	right := TreeNode[int]{13, nil, nil}
-	root := TreeNode[int]{12, &left, &right}
+	leftChild := TreeNode[int]{toPointer(5), nil, nil}
+	rightChild := TreeNode[int]{toPointer(7), nil, nil}
+	left := TreeNode[int]{toPointer(6), &leftChild, &rightChild}
+	right := TreeNode[int]{toPointer(13), nil, nil}
+	root := TreeNode[int]{toPointer(12), &left, &right}
 	assert.Equal(t, 12, root.Search(12).data)
 	assert.Equal(t, 13, root.Search(13).data)
 	assert.Equal(t, 5, root.Search(5).data)
@@ -36,7 +39,7 @@ func TestTreeNodeInsertInOrder(t *testing.T) {
 	//    ..
 	//   /
 	//  7
-	root := TreeNode[int]{1, nil, nil}
+	root := TreeNode[int]{toPointer(1), nil, nil}
 	root.Insert(2)
 	root.Insert(3)
 	root.Insert(4)
@@ -59,7 +62,7 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 	//    3   5
 	//   / \  / \
 	//  1  2  6  7
-	root := TreeNode[int]{4, nil, nil}
+	root := TreeNode[int]{toPointer(4), nil, nil}
 	root.Insert(5)
 	root.Insert(3)
 	root.Insert(6)
@@ -77,7 +80,7 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 }
 
 func TestTreeNode_DeleteNodeNotFound(t *testing.T) {
-	root := TreeNode[int]{4, nil, nil}
+	root := TreeNode[int]{toPointer(4), nil, nil}
 	root.Insert(5)
 	root.Insert(3)
 	root.Insert(6)
@@ -95,7 +98,7 @@ func TestTreeNode_DeleteNodeWithNoChildren(t *testing.T) {
 	//    2     6
 	//   / \   / \
 	//  1   3 5   7
-	root := TreeNode[int]{4, nil, nil}
+	root := TreeNode[int]{toPointer(4), nil, nil}
 	root.Insert(2)
 	root.Insert(6)
 	root.Insert(1)
@@ -119,7 +122,7 @@ func TestTreeNode_DeleteNodeWithOneChildRight(t *testing.T) {
 	//    2     6
 	//     \    / \
 	//      3  5   7
-	root := TreeNode[int]{4, nil, nil}
+	root := TreeNode[int]{toPointer(4), nil, nil}
 	root.Insert(2)
 	root.Insert(6)
 	root.Insert(3)
@@ -136,7 +139,7 @@ func TestTreeNode_DeleteNodeWithOneChildLeft(t *testing.T) {
 	//    2     6
 	//   /     / \
 	//  1     5   7
-	root := TreeNode[int]{4, nil, nil}
+	root := TreeNode[int]{toPointer(4), nil, nil}
 	root.Insert(2)
 	root.Insert(6)
 	root.Insert(1)
@@ -157,7 +160,7 @@ func TestTreeNode_DeleteNodeWithOneChild_LargerTree(t *testing.T) {
 	//  \    /  \    / \    / \
 	//  11  30  40  52 61  82  95
 
-	root := TreeNode[int]{50, nil, nil}
+	root := TreeNode[int]{toPointer(50), nil, nil}
 	root.Insert(25)
 	root.Insert(75)
 	root.Insert(11)
@@ -184,7 +187,7 @@ func TestTreeNode_DeleteNodeWithTwoChildren(t *testing.T) {
 	//    /  \    / \    / \
 	//   30  40  52 61  82  95
 
-	root := TreeNode[int]{50, nil, nil}
+	root := TreeNode[int]{toPointer(50), nil, nil}
 	root.Insert(25)
 	root.Insert(75)
 	root.Insert(11)
@@ -212,7 +215,7 @@ func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
 	//            \
 	//            55
 
-	root := TreeNode[int]{50, nil, nil}
+	root := TreeNode[int]{toPointer(50), nil, nil}
 	root.Insert(25)
 	root.Insert(75)
 	root.Insert(11)

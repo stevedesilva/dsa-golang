@@ -3,20 +3,24 @@ package binarysearch
 import "golang.org/x/exp/constraints"
 
 type TreeNode[T constraints.Ordered] struct {
-	data  T
+	data  *T
 	left  *TreeNode[T]
 	right *TreeNode[T]
 }
 
-func (t *TreeNode[T]) Search(value T) *TreeNode[T] {
-	return t.search(value, t)
+func (t *TreeNode[T]) toPointer(val T) *T {
+	return &val
 }
 
-func (t *TreeNode[T]) search(value T, node *TreeNode[T]) *TreeNode[T] {
+func (t *TreeNode[T]) Search(value T) *TreeNode[T] {
+	return t.search(t.toPointer(value), t)
+}
+
+func (t *TreeNode[T]) search(value *T, node *TreeNode[T]) *TreeNode[T] {
 	if node == nil || value == node.data {
 		return node
 	}
-	if value <= node.data {
+	if *value <= *node.data {
 		return t.search(value, node.left)
 	} else {
 		return t.search(value, node.right)
@@ -24,21 +28,19 @@ func (t *TreeNode[T]) search(value T, node *TreeNode[T]) *TreeNode[T] {
 }
 
 func (t *TreeNode[T]) Insert(value T) *TreeNode[T] {
-	return t.insert(value, t)
+	return t.insert(t.toPointer(value), t)
 }
 
-func (t *TreeNode[T]) insert(value T, node *TreeNode[T]) *TreeNode[T] {
+func (t *TreeNode[T]) insert(value *T, node *TreeNode[T]) *TreeNode[T] {
 	if node == nil || node.data == nil || node.data == value {
 		if node == nil {
 			node = &TreeNode[T]{value, nil, nil}
 		} else if node.data == nil {
 			node.data = value
 		}
-		//else {
-		//	return node
-		//}
 		return node
-	} else if value < node.data {
+
+	} else if *value < *node.data {
 		if node.left == nil {
 			node.left = &TreeNode[T]{value, nil, nil}
 		}
@@ -50,15 +52,17 @@ func (t *TreeNode[T]) insert(value T, node *TreeNode[T]) *TreeNode[T] {
 		return t.insert(value, node.right)
 	}
 }
-
 func (t *TreeNode[T]) Delete(value T, node *TreeNode[T]) *TreeNode[T] {
+	return t.delete(t.toPointer(value), node)
+}
+func (t *TreeNode[T]) delete(value *T, node *TreeNode[T]) *TreeNode[T] {
 	if node == nil {
 		return nil
-	} else if value < node.data {
-		node.left = t.Delete(value, node.left)
+	} else if *value < *node.data {
+		node.left = t.delete(value, node.left)
 		return node
-	} else if value > node.data {
-		node.right = t.Delete(value, node.right)
+	} else if *value > *node.data {
+		node.right = t.delete(value, node.right)
 		return node
 	} else if node.data == value {
 		if node.left == nil {
