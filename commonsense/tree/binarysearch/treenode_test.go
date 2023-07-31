@@ -130,6 +130,7 @@ func TestTreeNode_DeleteNodeWithOneChildRight(t *testing.T) {
 
 	root.Delete(2, &root)
 	assert.Nil(t, root.Search(2))
+	assert.Equal(t, 3, *root.Search(3).data)
 }
 
 func TestTreeNode_DeleteNodeWithOneChildLeft(t *testing.T) {
@@ -147,6 +148,8 @@ func TestTreeNode_DeleteNodeWithOneChildLeft(t *testing.T) {
 
 	root.Delete(2, &root)
 	assert.Nil(t, root.Search(2))
+	assert.Equal(t, 1, *root.Search(1).data)
+
 }
 
 func TestTreeNode_DeleteNodeWithOneChild_LargerTree(t *testing.T) {
@@ -174,6 +177,7 @@ func TestTreeNode_DeleteNodeWithOneChild_LargerTree(t *testing.T) {
 	root.Insert(95)
 
 	root.Delete(10, &root)
+	assert.Equal(t, 11, *root.Search(11).data)
 	assert.Nil(t, root.Search(10))
 }
 
@@ -201,6 +205,7 @@ func TestTreeNode_DeleteNodeWithTwoChildren(t *testing.T) {
 
 	root.Delete(56, &root)
 	assert.Nil(t, root.Search(56))
+	assert.Equal(t, 61, *root.Search(61).data)
 }
 
 func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
@@ -230,4 +235,6 @@ func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
 
 	root.Delete(50, &root)
 	assert.Nil(t, root.Search(50))
+	assert.Equal(t, 52, *root.Search(52).data)
+	assert.Equal(t, 55, *root.Search(55).data)
 }
