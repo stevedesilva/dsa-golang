@@ -12,12 +12,18 @@ func (t *TreeNode[T]) toPointer(val T) *T {
 	return &val
 }
 
+// pointer to value
+func (t *TreeNode[T]) toValue(val *T) T {
+	return *val
+}
+
 func (t *TreeNode[T]) Search(value T) *TreeNode[T] {
 	return t.search(t.toPointer(value), t)
 }
 
 func (t *TreeNode[T]) search(value *T, node *TreeNode[T]) *TreeNode[T] {
-	if node == nil || value == node.data {
+
+	if node == nil || *value == *node.data {
 		return node
 	}
 	if *value <= *node.data {
@@ -64,7 +70,7 @@ func (t *TreeNode[T]) delete(value *T, node *TreeNode[T]) *TreeNode[T] {
 	} else if *value > *node.data {
 		node.right = t.delete(value, node.right)
 		return node
-	} else if node.data == value {
+	} else if *node.data == *value {
 		if node.left == nil {
 			return node.right
 		} else if node.right == nil {

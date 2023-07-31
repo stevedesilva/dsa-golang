@@ -9,26 +9,25 @@ func TestTreeNode(t *testing.T) {
 	left := TreeNode[int]{toPointer(1), nil, nil}
 	right := TreeNode[int]{toPointer(3), nil, nil}
 	root := TreeNode[int]{toPointer(2), &left, &right}
-	assert.Equal(t, root.data, 2)
-	assert.Equal(t, root.right.data, 3)
-	assert.Equal(t, root.left.data, 1)
+	assert.Equal(t, *root.data, 2)
+	assert.Equal(t, *root.right.data, 3)
+	assert.Equal(t, *root.left.data, 1)
 }
 
 func toPointer(val int) *int {
 	return &val
 }
 func TestTreeNodeSearch(t *testing.T) {
-
 	leftChild := TreeNode[int]{toPointer(5), nil, nil}
 	rightChild := TreeNode[int]{toPointer(7), nil, nil}
 	left := TreeNode[int]{toPointer(6), &leftChild, &rightChild}
 	right := TreeNode[int]{toPointer(13), nil, nil}
 	root := TreeNode[int]{toPointer(12), &left, &right}
-	assert.Equal(t, 12, root.Search(12).data)
-	assert.Equal(t, 13, root.Search(13).data)
-	assert.Equal(t, 5, root.Search(5).data)
-	assert.Equal(t, 6, root.Search(6).data)
-	assert.Equal(t, 7, root.Search(7).data)
+	assert.Equal(t, 12, *root.Search(12).data)
+	assert.Equal(t, 13, *root.Search(13).data)
+	assert.Equal(t, 5, *root.Search(5).data)
+	assert.Equal(t, 6, *root.Search(6).data)
+	assert.Equal(t, 7, *root.Search(7).data)
 	assert.Nil(t, root.Search(19))
 }
 
@@ -47,13 +46,13 @@ func TestTreeNodeInsertInOrder(t *testing.T) {
 	root.Insert(6)
 	root.Insert(7)
 
-	assert.Equal(t, 1, root.Search(1).data)
-	assert.Equal(t, 2, root.Search(2).data)
-	assert.Equal(t, 3, root.Search(3).data)
-	assert.Equal(t, 4, root.Search(4).data)
-	assert.Equal(t, 5, root.Search(5).data)
-	assert.Equal(t, 6, root.Search(6).data)
-	assert.Equal(t, 7, root.Search(7).data)
+	assert.Equal(t, 1, *root.Search(1).data)
+	assert.Equal(t, 2, *root.Search(2).data)
+	assert.Equal(t, 3, *root.Search(3).data)
+	assert.Equal(t, 4, *root.Search(4).data)
+	assert.Equal(t, 5, *root.Search(5).data)
+	assert.Equal(t, 6, *root.Search(6).data)
+	assert.Equal(t, 7, *root.Search(7).data)
 }
 
 func TestTreeNodeInsertRandom(t *testing.T) {
@@ -70,13 +69,13 @@ func TestTreeNodeInsertRandom(t *testing.T) {
 	root.Insert(2)
 	root.Insert(7)
 
-	assert.Equal(t, 1, root.Search(1).data)
-	assert.Equal(t, 2, root.Search(2).data)
-	assert.Equal(t, 3, root.Search(3).data)
-	assert.Equal(t, 4, root.Search(4).data)
-	assert.Equal(t, 5, root.Search(5).data)
-	assert.Equal(t, 6, root.Search(6).data)
-	assert.Equal(t, 7, root.Search(7).data)
+	assert.Equal(t, 1, *root.Search(1).data)
+	assert.Equal(t, 2, *root.Search(2).data)
+	assert.Equal(t, 3, *root.Search(3).data)
+	assert.Equal(t, 4, *root.Search(4).data)
+	assert.Equal(t, 5, *root.Search(5).data)
+	assert.Equal(t, 6, *root.Search(6).data)
+	assert.Equal(t, 7, *root.Search(7).data)
 }
 
 func TestTreeNode_DeleteNodeNotFound(t *testing.T) {
