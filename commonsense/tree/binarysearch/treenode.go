@@ -1,6 +1,9 @@
 package binarysearch
 
-import "golang.org/x/exp/constraints"
+import (
+	"fmt"
+	"golang.org/x/exp/constraints"
+)
 
 type TreeNode[T constraints.Ordered] struct {
 	data  *T
@@ -95,5 +98,22 @@ func (t *TreeNode[T]) lift(node *TreeNode[T], nodeToDelete *TreeNode[T]) *TreeNo
 	} else {
 		nodeToDelete.data = node.data
 		return node.right
+	}
+}
+
+func (t *TreeNode[T]) Print() {
+	t.print(t)
+}
+
+func (t *TreeNode[T]) print(root *TreeNode[T]) {
+	if root == nil {
+		return
+	}
+	if root.left != nil {
+		t.print(root.left)
+	}
+	fmt.Println(*root.data)
+	if root.right != nil {
+		t.print(root.right)
 	}
 }

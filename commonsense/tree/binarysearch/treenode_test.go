@@ -238,3 +238,31 @@ func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
 	assert.Equal(t, 52, *root.Search(52).data)
 	assert.Equal(t, 55, *root.Search(55).data)
 }
+
+func TestTreeNode_PrintTree(t *testing.T) {
+	//          50
+	//     /        \
+	//   25         75
+	//   / \        / \
+	// 11  33      61  89
+	//    /  \    /   / \
+	//   30  40  52  82  95
+	//            \
+	//            55
+
+	root := TreeNode[int]{toPointer(50), nil, nil}
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(61)
+	root.Insert(89)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(82)
+	root.Insert(95)
+	root.Insert(55)
+
+	root.Print()
+}
