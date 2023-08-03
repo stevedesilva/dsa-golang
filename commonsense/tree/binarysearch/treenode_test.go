@@ -2,6 +2,7 @@ package binarysearch
 
 import (
 	"github.com/stretchr/testify/assert"
+	"os"
 	"testing"
 )
 
@@ -265,4 +266,35 @@ func TestTreeNode_PrintTree(t *testing.T) {
 	root.Insert(55)
 
 	root.Print()
+}
+
+func captureOutput(f func()) string {
+	// redirect stand output
+	old := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+	_ = old
+
+	// call function
+	f()
+
+	// reset standard output
+	w.Close()
+	os.Stdout = old
+
+	// read the capture output from the buffer
+	output := make(chan string)
+	go func() {
+		var buf string
+		b := make([]byte, 100)
+		for {
+			read, err := r.Read(b)
+			if err != nil {
+				break
+			}
+			buf += string(b[:read])
+		}
+		output <- buf
+	}()
+	return <-output
 }
