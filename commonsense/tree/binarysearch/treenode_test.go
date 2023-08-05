@@ -264,8 +264,12 @@ func TestTreeNode_PrintTree(t *testing.T) {
 	root.Insert(82)
 	root.Insert(95)
 	root.Insert(55)
-
-	root.Print()
+	outputCapture := captureOutput(
+		func() {
+			root.Print()
+		})
+	expectedOutput := "11\n25\n30\n33\n40\n50\n52\n55\n61\n75\n82\n89\n95\n"
+	assert.Equal(t, expectedOutput, outputCapture)
 }
 
 func captureOutput(f func()) string {
