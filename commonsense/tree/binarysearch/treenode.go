@@ -101,19 +101,92 @@ func (t *TreeNode[T]) lift(node *TreeNode[T], nodeToDelete *TreeNode[T]) *TreeNo
 	}
 }
 
-func (t *TreeNode[T]) Print() {
-	t.print(t)
-}
-
-func (t *TreeNode[T]) print(root *TreeNode[T]) {
+func (t *TreeNode[T]) PrintInOrder(root *TreeNode[T]) {
 	if root == nil {
 		return
 	}
 	if root.left != nil {
-		t.print(root.left)
+		t.PrintInOrder(root.left)
 	}
 	fmt.Println(*root.data)
 	if root.right != nil {
-		t.print(root.right)
+		t.PrintInOrder(root.right)
 	}
 }
+
+func (t *TreeNode[T]) PrintPreOrder(root *TreeNode[T]) {
+	if root == nil {
+		return
+	}
+	fmt.Println(*root.data)
+	if root.left != nil {
+		t.PrintPreOrder(root.left)
+	}
+	if root.right != nil {
+		t.PrintPreOrder(root.right)
+	}
+}
+
+func (t *TreeNode[T]) PrintPostOrder(root *TreeNode[T]) {
+	if root == nil {
+		return
+	}
+	if root.left != nil {
+		t.PrintPostOrder(root.left)
+	}
+	if root.right != nil {
+		t.PrintPostOrder(root.right)
+	}
+	fmt.Println(*root.data)
+}
+
+func (t *TreeNode[T]) FindLargestItem(root *TreeNode[T]) *T {
+	if root == nil {
+		return nil
+	}
+	if root.right != nil {
+		return t.FindLargestItem(root.right)
+	} else {
+		return root.data
+	}
+}
+
+/*
+
+
+   public void printPreOrder(TreeNode<T> node) {
+       if (node == null) {
+           return;
+       }
+       System.out.println(node.value);
+       if (node.left != null) {
+           printPreOrder(node.left);
+       }
+       if (node.right != null) {
+           printPreOrder(node.right);
+       }
+   }
+
+   public void printPostOrder(TreeNode<T> node) {
+       if (node == null) {
+           return;
+       }
+       if (node.left != null) {
+           printPostOrder(node.left);
+       }
+       if (node.right != null) {
+           printPostOrder(node.right);
+       }
+       System.out.println(node.value);
+   }
+
+   public T findLargestItem(TreeNode<T> node) {
+       if (node == null) {
+           return null;
+       } else if (node.right == null) {
+           return node.value;
+       } else {
+           return findLargestItem(node.right);
+       }
+   }
+*/

@@ -150,7 +150,6 @@ func TestTreeNode_DeleteNodeWithOneChildLeft(t *testing.T) {
 	root.Delete(2, &root)
 	assert.Nil(t, root.Search(2))
 	assert.Equal(t, 1, *root.Search(1).data)
-
 }
 
 func TestTreeNode_DeleteNodeWithOneChild_LargerTree(t *testing.T) {
@@ -240,7 +239,7 @@ func TestTreeNode_DeleteNodeWhereSuccessorNodeHasRightChild(t *testing.T) {
 	assert.Equal(t, 55, *root.Search(55).data)
 }
 
-func TestTreeNode_PrintTree(t *testing.T) {
+func TestTreeNode_PrintInOrderTree(t *testing.T) {
 	//          50
 	//     /        \
 	//   25         75
@@ -266,7 +265,7 @@ func TestTreeNode_PrintTree(t *testing.T) {
 	root.Insert(55)
 	outputCapture := captureOutput(
 		func() {
-			root.Print()
+			root.PrintInOrder(&root)
 		})
 	expectedOutput := "11\n25\n30\n33\n40\n50\n52\n55\n61\n75\n82\n89\n95\n"
 	assert.Equal(t, expectedOutput, outputCapture)
@@ -301,4 +300,94 @@ func captureOutput(f func()) string {
 		output <- buf
 	}()
 	return <-output
+}
+
+func TestTreeNode_PrintPreOrderTree(t *testing.T) {
+	//          50
+	//     /        \
+	//   25         75
+	//   / \        / \
+	// 11  33      61  89
+	//    /  \    /   / \
+	//   30  40  52  82  95
+	//            \
+	//            55
+	root := TreeNode[int]{toPointer(50), nil, nil}
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(61)
+	root.Insert(89)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(82)
+	root.Insert(95)
+	root.Insert(55)
+	outputCapture := captureOutput(
+		func() {
+			root.PrintPreOrder(&root)
+		})
+	expectedOutput := "11\n25\n30\n33\n40\n50\n52\n55\n61\n75\n82\n89\n95\n"
+	assert.Equal(t, expectedOutput, outputCapture)
+}
+func TestTreeNode_PrintPostOrderTree(t *testing.T) {
+	//          50
+	//     /        \
+	//   25         75
+	//   / \        / \
+	// 11  33      61  89
+	//    /  \    /   / \
+	//   30  40  52  82  95
+	//            \
+	//            55
+
+	root := TreeNode[int]{toPointer(50), nil, nil}
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(61)
+	root.Insert(89)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(82)
+	root.Insert(95)
+	root.Insert(55)
+	outputCapture := captureOutput(
+		func() {
+			root.PrintPostOrder(&root)
+		})
+	expectedOutput := "11\n30\n40\n33\n25\n55\n52\n61\n82\n95\n89\n75\n50\n"
+	assert.Equal(t, expectedOutput, outputCapture)
+}
+
+func TestTreeNode_FindLargestItem(t *testing.T) {
+	//          50
+	//     /        \
+	//   25         75
+	//   / \        / \
+	// 11  33      61  89
+	//    /  \    /   / \
+	//   30  40  52  82  95
+	//            \
+	//            55
+	root := TreeNode[int]{toPointer(50), nil, nil}
+	root.Insert(25)
+	root.Insert(75)
+	root.Insert(11)
+	root.Insert(33)
+	root.Insert(61)
+	root.Insert(89)
+	root.Insert(30)
+	root.Insert(40)
+	root.Insert(52)
+	root.Insert(82)
+	root.Insert(95)
+	root.Insert(55)
+
+	expectedOutput := 95
+	assert.Equal(t, expectedOutput, root.FindLargestItem(&root))
 }
