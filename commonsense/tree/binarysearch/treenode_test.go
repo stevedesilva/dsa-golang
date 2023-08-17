@@ -329,7 +329,7 @@ func TestTreeNode_PrintPreOrderTree(t *testing.T) {
 		func() {
 			root.PrintPreOrder(&root)
 		})
-	expectedOutput := "11\n25\n30\n33\n40\n50\n52\n55\n61\n75\n82\n89\n95\n"
+	expectedOutput := "50\n25\n11\n33\n30\n40\n75\n61\n52\n55\n89\n82\n95\n"
 	assert.Equal(t, expectedOutput, outputCapture)
 }
 func TestTreeNode_PrintPostOrderTree(t *testing.T) {
