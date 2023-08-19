@@ -389,5 +389,6 @@ func TestTreeNode_FindLargestItem(t *testing.T) {
 	root.Insert(55)
 
 	expectedOutput := 95
-	assert.Equal(t, expectedOutput, root.FindLargestItem(&root))
+	item := root.FindLargestItem(&root)
+	assert.Equal(t, expectedOutput, *item)
 }
