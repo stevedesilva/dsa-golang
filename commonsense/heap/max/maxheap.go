@@ -20,3 +20,12 @@ func (h *Heap[T]) Root() (*T, error) {
 	}
 	return &h.data[0], nil
 }
+
+func (h *Heap[T]) Insert(value T) error {
+	return nil
+}
+
+func (h *Heap[T]) Delete() (*T, error) {
+	var val T
+	return &val, nil
+}
