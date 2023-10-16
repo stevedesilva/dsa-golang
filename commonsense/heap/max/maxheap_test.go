@@ -25,6 +25,38 @@ func TestHeap_InsertSingleValue(t *testing.T) {
 	assert.Equal(t, 1, *root)
 }
 
+/*
+ //0,1,2,3,4,5,6,7,8,9,10
+        //           0
+        //      /          \
+        //     1            2
+        //    /  \        /  \
+        //   3    4      5    6
+        //  / \  / \    / \   / \
+        // 7  8  9  10 11 12 12 14
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+        maxHeap.insert(9);
+        maxHeap.insert(6);
+        maxHeap.insert(5);
+        maxHeap.insert(1);
+        maxHeap.insert(2);
+        maxHeap.insert(10);
+        maxHeap.insert(3);
+        maxHeap.insert(7);
+        maxHeap.insert(8);
+        maxHeap.insert(4);
+        MatcherAssert.assertThat( MaxHeap.getParentNode(1), Matchers.equalTo(0));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(2), Matchers.equalTo(0));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(3), Matchers.equalTo(1));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(4), Matchers.equalTo(1));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(5), Matchers.equalTo(2));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(6), Matchers.equalTo(2));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(7), Matchers.equalTo(3));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(8), Matchers.equalTo(3));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(11), Matchers.equalTo(5));
+        MatcherAssert.assertThat( MaxHeap.getParentNode(14), Matchers.equalTo(6));
+*/
+
 // insert node
 func TestHeap_Insert(t *testing.T) {
 	heap := max.New[int]()
@@ -52,6 +84,18 @@ func TestHeap_Insert(t *testing.T) {
 	root, err = heap.Root()
 	assert.Nil(t, err)
 	assert.Equal(t, 10, *root)
+
+	err = heap.Insert(12)
+	assert.Nil(t, err)
+	root, err = heap.Root()
+	assert.Nil(t, err)
+	assert.Equal(t, 12, *root)
+
+	err = heap.Insert(6)
+	assert.Nil(t, err)
+	root, err = heap.Root()
+	assert.Nil(t, err)
+	assert.Equal(t, 12, *root)
 }
 
 // delete node

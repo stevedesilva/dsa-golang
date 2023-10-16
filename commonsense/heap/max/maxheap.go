@@ -25,7 +25,24 @@ func (h *Heap[T]) Insert(value T) error {
 	// insert at last node
 	h.data = append(h.data, value)
 	// trickle up
+	currIdx := len(h.data) - 1
+	parentIdx := parentIndex(currIdx)
+	for currIdx > 0 && h.data[currIdx] > h.data[parentIdx] {
+		h.data[currIdx], h.data[parentIdx] = h.data[parentIdx], h.data[currIdx]
+		currIdx = parentIdx
+		parentIdx = parentIndex(currIdx)
+	}
 	return nil
+}
+
+func parentIndex(index int) int {
+	return (index - 1) / 2
+}
+func childLeftIndex(index int) int {
+	return (index * 2) + 1
+}
+func childRightIndex(index int) int {
+	return (index * 2) + 2
 }
 
 func (h *Heap[T]) Delete() (*T, error) {
