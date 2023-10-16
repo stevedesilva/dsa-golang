@@ -22,6 +22,9 @@ func (h *Heap[T]) Root() (*T, error) {
 }
 
 func (h *Heap[T]) Insert(value T) error {
+	// insert at last node
+	h.data = append(h.data, value)
+	// trickle up
 	return nil
 }
 
