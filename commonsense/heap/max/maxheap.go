@@ -47,18 +47,54 @@ func (h *Heap[T]) Delete() (*T, error) {
 	// swap last child with root
 	h.data[0] = h.data[len(h.data)-1]
 	h.data = h.data[:len(h.data)-1]
-	//lastNodeVal := h.data[len(h.data) -1]
-	//
-	//for len(h.data) > 0 {
-	//
-	//}
+	// trickle down
+	currIdx := 0
+	for len(h.data) > 0 {
+		if h.data[currIdx] > h.data[childLeftIndex(currIdx)] || h.data[currIdx] > h.data[childRightIndex(currIdx)] {
+			// swap curr with larger child
+			greaterChildIdx := h.indexOfGreaterChild(currIdx)
+			h.data[currIdx], h.data[greaterChildIdx] = h.data[greaterChildIdx], h.data[currIdx]
+			currIdx = greaterChildIdx
+		}
+	}
 	//var val T
 	return &val, nil
 }
+
+//func (h *Heap[T]) indexOfGreaterChild(currIdx int) int {
+//	if h.data[childRightIndex(currIdx)] == nil {
+//		return childLeftIndex(currIdx)
+//	}
+//	if h.data[childLeftIndex(currIdx)] > h.data[childRightIndex(currIdx)] {
+//		return childLeftIndex(currIdx)
+//	} else {
+//		return childRightIndex(currIdx)
+//	}
+//}
+
+func (h *Heap[T]) indexOfGreaterChild(currIdx int) int {
+	leftIndex := childLeftIndex(currIdx)
+	rightIndex := childRightIndex(currIdx)
+
+	// Assuming that -1 (or any other sentinel value) indicates missing data
+	if h.data[rightIndex] == -1 {
+		return leftIndex
+	}
+	if h.data[leftIndex] > h.data[rightIndex] {
+		return leftIndex
+	} else {
+		return rightIndex
+	}
+}
+
 func childLeftIndex(index int) int {
 	return (index * 2) + 1
 }
-
 func childRightIndex(index int) int {
 	return (index * 2) + 2
+}
+
+func (h *Heap[T]) Delete() (*T, error) {
+	var val T
+	return &val, nil
 }
