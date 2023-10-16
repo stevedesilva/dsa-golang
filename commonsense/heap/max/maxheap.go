@@ -38,14 +38,27 @@ func (h *Heap[T]) Insert(value T) error {
 func parentIndex(index int) int {
 	return (index - 1) / 2
 }
+func (h *Heap[T]) Delete() (*T, error) {
+	// delete top node
+	if len(h.data) == 0 {
+		return nil, errors.New("no value found")
+	}
+	val := h.data[0]
+	// swap last child with root
+	h.data[0] = h.data[len(h.data)-1]
+	h.data = h.data[:len(h.data)-1]
+	//lastNodeVal := h.data[len(h.data) -1]
+	//
+	//for len(h.data) > 0 {
+	//
+	//}
+	//var val T
+	return &val, nil
+}
 func childLeftIndex(index int) int {
 	return (index * 2) + 1
 }
+
 func childRightIndex(index int) int {
 	return (index * 2) + 2
-}
-
-func (h *Heap[T]) Delete() (*T, error) {
-	var val T
-	return &val, nil
 }

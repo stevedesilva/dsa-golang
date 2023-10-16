@@ -98,6 +98,26 @@ func TestHeap_Insert(t *testing.T) {
 	assert.Equal(t, 12, *root)
 }
 
+func TestHeap_DeleteEmptyHeap(t *testing.T) {
+	maxHeap := max.New[int]()
+	v, err := maxHeap.Delete()
+	assert.Nil(t, v)
+	assert.NotNil(t, err)
+}
+
+func TestHeap_DeleteSingleItem(t *testing.T) {
+	maxHeap := max.New[int]()
+	_ = maxHeap.Insert(9)
+
+	v, err := maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 9, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, v)
+	assert.NotNil(t, err)
+}
+
 func TestHeap_Delete(t *testing.T) {
 	maxHeap := max.New[int]()
 	_ = maxHeap.Insert(9)
@@ -158,5 +178,3 @@ func TestHeap_Delete(t *testing.T) {
 	assert.Nil(t, v)
 	assert.NotNil(t, err)
 }
-
-// delete node
