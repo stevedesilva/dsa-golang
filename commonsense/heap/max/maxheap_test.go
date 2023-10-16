@@ -112,13 +112,51 @@ func TestHeap_Delete(t *testing.T) {
 	_ = maxHeap.Insert(4)
 	root, err := maxHeap.Root()
 
-	assert.Nil(t, err)
-	assert.NotNil(t, root)
 	assert.Equal(t, 10, *root)
 
 	v, err := maxHeap.Delete()
 	assert.Nil(t, err)
 	assert.Equal(t, 10, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 9, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 8, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 7, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 6, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 5, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 4, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 3, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 2, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 1, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, v)
+	assert.NotNil(t, err)
 }
 
 // delete node
