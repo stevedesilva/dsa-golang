@@ -38,6 +38,44 @@ func (h *Heap[T]) Insert(value T) error {
 func parentIndex(index int) int {
 	return (index - 1) / 2
 }
+
+/*
+	public E delete() throws NoSuchElementException {
+	        //           0
+	        //      /          \
+	        //     1            2
+	        //    /  \        /  \
+	        //   3    4      5    6
+	        //  / \  / \    / \   / \
+	        // 7  8  9  10 11 12 13 14
+	        if (data.size() == 0) {
+	            throw new NoSuchElementException("no element found");
+	        }
+
+	        // move last node into root node position
+	        E rootNode = rootNode();
+	        // remove last node and store value in root
+	        E lastItem = data.remove(lastNodeIndex());
+	        if (data.size() > 0) {
+	            data.set(rootNodeIndex(), lastItem);
+	            int newNodeIndex = 0;
+	            // trickle to root node down into its proper place
+	            while (hasChildren(newNodeIndex)) {
+	                int indexOfLargestChild = findIndexOfLargestChild(newNodeIndex);
+	                final E childValue = data.get(indexOfLargestChild);
+	                final E currentValue = data.get(newNodeIndex);
+	                if (childValue.compareTo(currentValue) > 0) {
+	                    data.set(newNodeIndex, childValue);
+	                    data.set(indexOfLargestChild, currentValue);
+	                    newNodeIndex = indexOfLargestChild;
+	                } else {
+	                    break;
+	                }
+	            }
+	        }
+	        return rootNode;
+	    }
+*/
 func (h *Heap[T]) Delete() (*T, error) {
 	// delete top node
 	if len(h.data) == 0 {
@@ -49,17 +87,27 @@ func (h *Heap[T]) Delete() (*T, error) {
 	h.data = h.data[:len(h.data)-1]
 	// trickle down
 	currIdx := 0
-	for len(h.data) > 1 {
-		// while curr has children
-		if childLeftIndex(currIdx) >= len(h.data) {
-			// swap curr with larger child
-			greaterChildIdx := h.indexOfGreaterChild(currIdx)
-			h.data[currIdx], h.data[greaterChildIdx] = h.data[greaterChildIdx], h.data[currIdx]
-			currIdx = greaterChildIdx
+	if len(h.data) > 0 {
+		// trickle to root node down into its proper place
+		for h.hasChildren(currIdx) {
+			// swap curr with larger indexOfGreaterChild
+			indexOfGreaterChild := h.indexOfGreaterChild(currIdx)
+			if h.data[indexOfGreaterChild] > h.data[currIdx] {
+				h.data[currIdx], h.data[indexOfGreaterChild] = h.data[indexOfGreaterChild], h.data[currIdx]
+				currIdx = indexOfGreaterChild
+			} else {
+				break
+			}
+
 		}
 	}
 	//var val T
 	return &val, nil
+}
+
+func (h *Heap[T]) hasChildren(index int) bool {
+	// no need to check right child, if left child is not present (all fill from left to right)
+	return childLeftIndex(index) <= len(h.data)-1
 }
 
 /*
@@ -75,8 +123,11 @@ func (h *Heap[T]) Delete() (*T, error) {
 */
 func (h *Heap[T]) indexOfGreaterChild(parentIdx int) int {
 	// if no right child, return left child
-	if childRightIndex(parentIdx) >= len(h.data) {
-		return childLeftIndex(parentIdx)
+	rightIndex := childRightIndex(parentIdx)
+	totalLen := len(h.data) - 1
+	if rightIndex >= totalLen {
+		index := childLeftIndex(parentIdx)
+		return index
 	}
 	// if left child is greater than right child, return left child
 	if h.data[childLeftIndex(parentIdx)] > h.data[childRightIndex(parentIdx)] {
