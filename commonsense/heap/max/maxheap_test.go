@@ -118,6 +118,47 @@ func TestHeap_DeleteSingleItem(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
+func TestHeap_DeleteTwoItems(t *testing.T) {
+	maxHeap := max.New[int]()
+	_ = maxHeap.Insert(9)
+	_ = maxHeap.Insert(6)
+
+	v, err := maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 9, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 6, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, v)
+	assert.NotNil(t, err)
+}
+
+func TestHeap_DeleteThreeItems(t *testing.T) {
+	maxHeap := max.New[int]()
+	_ = maxHeap.Insert(9)
+	_ = maxHeap.Insert(6)
+	_ = maxHeap.Insert(5)
+
+	v, err := maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 9, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 6, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, err)
+	assert.Equal(t, 5, *v)
+
+	v, err = maxHeap.Delete()
+	assert.Nil(t, v)
+	assert.NotNil(t, err)
+}
+
 func TestHeap_Delete(t *testing.T) {
 	maxHeap := max.New[int]()
 	_ = maxHeap.Insert(9)

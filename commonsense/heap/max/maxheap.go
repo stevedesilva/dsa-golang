@@ -49,8 +49,9 @@ func (h *Heap[T]) Delete() (*T, error) {
 	h.data = h.data[:len(h.data)-1]
 	// trickle down
 	currIdx := 0
-	for len(h.data) > 0 {
-		if h.data[currIdx] > h.data[childLeftIndex(currIdx)] || h.data[currIdx] > h.data[childRightIndex(currIdx)] {
+	for len(h.data) > 1 {
+		// while curr has children
+		if childLeftIndex(currIdx) >= len(h.data) {
 			// swap curr with larger child
 			greaterChildIdx := h.indexOfGreaterChild(currIdx)
 			h.data[currIdx], h.data[greaterChildIdx] = h.data[greaterChildIdx], h.data[currIdx]
@@ -61,40 +62,33 @@ func (h *Heap[T]) Delete() (*T, error) {
 	return &val, nil
 }
 
-//func (h *Heap[T]) indexOfGreaterChild(currIdx int) int {
-//	if h.data[childRightIndex(currIdx)] == nil {
-//		return childLeftIndex(currIdx)
-//	}
-//	if h.data[childLeftIndex(currIdx)] > h.data[childRightIndex(currIdx)] {
-//		return childLeftIndex(currIdx)
-//	} else {
-//		return childRightIndex(currIdx)
-//	}
-//}
+/*
+//0,1,2,3,4,5,6,7,8,9,10
 
-func (h *Heap[T]) indexOfGreaterChild(currIdx int) int {
-	leftIndex := childLeftIndex(currIdx)
-	rightIndex := childRightIndex(currIdx)
-
-	// Assuming that -1 (or any other sentinel value) indicates missing data
-	if h.data[rightIndex] == -1 {
-		return leftIndex
+	//           0
+	//      /          \
+	//     1            2
+	//    /  \        /  \
+	//   3    4      5    6
+	//  / \  / \    / \   / \
+	// 7  8  9  10 11 12 12 14
+*/
+func (h *Heap[T]) indexOfGreaterChild(parentIdx int) int {
+	// if no right child, return left child
+	if childRightIndex(parentIdx) >= len(h.data) {
+		return childLeftIndex(parentIdx)
 	}
-	if h.data[leftIndex] > h.data[rightIndex] {
-		return leftIndex
+	// if left child is greater than right child, return left child
+	if h.data[childLeftIndex(parentIdx)] > h.data[childRightIndex(parentIdx)] {
+		return childLeftIndex(parentIdx)
 	} else {
-		return rightIndex
+		return childRightIndex(parentIdx)
 	}
 }
 
-func childLeftIndex(index int) int {
-	return (index * 2) + 1
+func childLeftIndex(parentIndex int) int {
+	return (parentIndex * 2) + 1
 }
-func childRightIndex(index int) int {
-	return (index * 2) + 2
-}
-
-func (h *Heap[T]) Delete() (*T, error) {
-	var val T
-	return &val, nil
+func childRightIndex(parentIndex int) int {
+	return (parentIndex * 2) + 2
 }
