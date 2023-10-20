@@ -3,7 +3,8 @@ package max_test
 import (
 	"testing"
 
-	"github.com/stevedesilva/dsa-golang.git/commonsense/heap/max"
+	"github.com/stevedesilva/dsa-golang.git/commonsense/tree/heap/max"
+
 	"github.com/stretchr/testify/assert"
 )
 
