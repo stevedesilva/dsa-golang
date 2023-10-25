@@ -1,46 +1,38 @@
 package trie
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestNewTrie(t *testing.T) {
-	tests := []struct {
-		name string
-		want *Trie
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := NewTrie(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewTrie() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+func TestTrie_Insert(t *testing.T) {
+	// create test to insert a single word into a trie
+	trie := NewTrie()
+	trie.Insert("a")
+	assert.Equal(t, 1, len(trie.Root.children))
+	assert.Equal(t, 1, len(trie.Root.children['a'].children))
+	assert.Equal(t, 0, len(trie.Root.children['a'].children['a'].children))
+
 }
 
-func TestTrie_Insert(t1 *testing.T) {
-	type fields struct {
-		Root *node
-	}
-	type args struct {
-		word string
-	}
-	tests := []struct {
-		name   string
-		fields fields
-		args   args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t1.Run(tt.name, func(t1 *testing.T) {
-			t := &Trie{
-				Root: tt.fields.Root,
-			}
-			t.Insert(tt.args.word)
-		})
-	}
-}
+//func TestTrie_Insert(t *testing.T) {
+//	tests := []struct {
+//		name string
+//		word string
+//		want []string
+//	}{
+//		{
+//			name: "exact match",
+//			word: "a",
+//			want: []string{"a"},
+//		},
+//	}
+//	for _, tt := range tests {
+//		t.Run(tt.name, func(t *testing.T) {
+//			res := NewTrie()
+//			res.Insert(tt.word)
+//
+//		})
+//	}
+//}
