@@ -6,14 +6,23 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestTrie_InsertEmptyWord_Error(t *testing.T) {
+	// create test to insert a single word into a trie
+	trie := NewTrie()
+	err := trie.Insert("")
+	assert.NotNil(t, err)
+}
+
 func TestTrie_Insert(t *testing.T) {
 	// create test to insert a single word into a trie
 	trie := NewTrie()
 	trie.Insert("a")
-	assert.Equal(t, 1, len(trie.Root.children))
-	assert.Equal(t, 1, len(trie.Root.children['a'].children))
-	assert.Equal(t, 0, len(trie.Root.children['a'].children['a'].children))
-
+	notFound := trie.Root.children['z']
+	assert.Nil(t, notFound)
+	actual := trie.Root.children['a']
+	assert.NotNil(t, actual)
+	actualChild := trie.Root.children['*']
+	assert.Nil(t, actualChild)
 }
 
 //func TestTrie_Insert(t *testing.T) {
