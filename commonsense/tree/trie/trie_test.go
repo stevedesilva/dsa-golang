@@ -13,7 +13,7 @@ func TestTrie_InsertEmptyWord_Error(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
-func TestTrie_Insert(t *testing.T) {
+func TestTrie_InsertSingleLetter(t *testing.T) {
 	// create test to insert a single word into a trie
 	trie := NewTrie()
 	trie.Insert("a")
@@ -23,6 +23,21 @@ func TestTrie_Insert(t *testing.T) {
 	assert.NotNil(t, actual)
 	actualChild := trie.Root.children['*']
 	assert.Nil(t, actualChild)
+}
+func TestTrie_InsertWord(t *testing.T) {
+	// create test to insert a single word into a trie
+	trie := NewTrie()
+	trie.Insert("test")
+	res := trie.Root.children['t']
+	assert.NotNil(t, res)
+	res = res.children['e']
+	assert.NotNil(t, res)
+	//res = res.children['s']
+	//assert.NotNil(t, res)
+	//res = res.children['t']
+	//assert.NotNil(t, res)
+	//res = res.children['*']
+	//assert.Nil(t, res)
 }
 
 //func TestTrie_Insert(t *testing.T) {

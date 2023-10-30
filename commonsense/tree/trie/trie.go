@@ -1,6 +1,8 @@
 package trie
 
-import "errors"
+import (
+	"errors"
+)
 
 type node struct {
 	children map[rune]*node
@@ -26,10 +28,11 @@ func (t *Trie) Insert(word string) error {
 	}
 	currNode := t.Root
 	for _, c := range word {
-		if _, found := currNode.children[c]; found {
+		if currNode.children[c] != nil {
 			currNode = currNode.children[c]
 		} else {
 			currNode.children[c] = newNode()
+			currNode = newNode()
 		}
 	}
 	currNode.children['*'] = nil
