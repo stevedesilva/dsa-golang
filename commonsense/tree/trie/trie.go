@@ -41,6 +41,16 @@ func (t *Trie) Insert(word string) error {
 	// insert into a map code
 }
 
-func (t *Trie) Search(word string) []string {
+func (t *Trie) Search(word string) (bool, error) {
+	if len(word) == 0 {
+		return false, errors.New("no word to input, word length is zero")
+	}
+	for _, c := range word {
+		if currNode.children[c] != nil {
+			currNode = currNode.children[c]
+		} else {
+			return false, nil
+		}
+	}
 	return nil
 }
