@@ -2,18 +2,19 @@ package trie
 
 import (
 	"errors"
+	"fmt"
 )
 
-type node struct {
-	children map[rune]*node
+type Node struct {
+	children map[rune]*Node
 }
 
-func newNode() *node {
-	return &node{children: make(map[rune]*node)}
+func newNode() *Node {
+	return &Node{children: make(map[rune]*Node)}
 }
 
 type Trie struct {
-	Root *node
+	Root *Node
 }
 
 func NewTrie() *Trie {
@@ -31,8 +32,9 @@ func (t *Trie) Insert(word string) error {
 		if currNode.children[c] != nil {
 			currNode = currNode.children[c]
 		} else {
-			currNode.children[c] = newNode()
-			currNode = newNode()
+			node := newNode()
+			currNode.children[c] = node
+			currNode = node
 		}
 	}
 	currNode.children['*'] = nil
@@ -41,16 +43,24 @@ func (t *Trie) Insert(word string) error {
 	// insert into a map code
 }
 
-func (t *Trie) Search(word string) (bool, error) {
+func (t *Trie) Search(word string) (*Node, error) {
+	currNode := t.Root
 	if len(word) == 0 {
-		return false, errors.New("no word to input, word length is zero")
+		return currNode, errors.New("no word to input, word length is zero")
 	}
 	for _, c := range word {
-		if currNode.children[c] != nil {
+		currentRune := fmt.Sprintf("current rune is: %c", c)
+		fmt.Println(currentRune)
+		if v, found := currNode.children[c]; found {
+			currentRune := fmt.Sprintf("%v, current rune is: %c", v, c)
+			fmt.Println(currentRune)
 			currNode = currNode.children[c]
 		} else {
-			return false, nil
+			r := c
+			// rune not found Sprintf message
+			msg := fmt.Sprintf("rune %c not found", r)
+			return nil, errors.New(msg)
 		}
 	}
-	return nil
+	return currNode, nil
 }

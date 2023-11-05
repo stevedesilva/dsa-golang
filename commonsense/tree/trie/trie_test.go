@@ -16,7 +16,8 @@ func TestTrie_InsertEmptyWord_Error(t *testing.T) {
 func TestTrie_InsertSingleLetter(t *testing.T) {
 	// create test to insert a single word into a trie
 	trie := NewTrie()
-	trie.Insert("a")
+	err := trie.Insert("a")
+	assert.Nil(t, err)
 	notFound := trie.Root.children['z']
 	assert.Nil(t, notFound)
 	actual := trie.Root.children['a']
@@ -24,20 +25,31 @@ func TestTrie_InsertSingleLetter(t *testing.T) {
 	actualChild := trie.Root.children['*']
 	assert.Nil(t, actualChild)
 }
+func TestTrie_SearchWord(t *testing.T) {
+	// create test to insert a single word into a trie
+	trie := NewTrie()
+	err := trie.Insert("word")
+	assert.Nil(t, err)
+	res, err := trie.Search("word")
+	assert.NotNil(t, res)
+	assert.Nil(t, err)
+}
+
 func TestTrie_InsertWord(t *testing.T) {
 	// create test to insert a single word into a trie
 	trie := NewTrie()
-	trie.Insert("test")
+	err := trie.Insert("test")
+	assert.NotNil(t, err)
 	res := trie.Root.children['t']
 	assert.NotNil(t, res)
 	res = res.children['e']
 	assert.NotNil(t, res)
-	//res = res.children['s']
-	//assert.NotNil(t, res)
-	//res = res.children['t']
-	//assert.NotNil(t, res)
-	//res = res.children['*']
-	//assert.Nil(t, res)
+	res = res.children['s']
+	assert.NotNil(t, res)
+	res = res.children['t']
+	assert.NotNil(t, res)
+	res = res.children['*']
+	assert.Nil(t, res)
 }
 
 //func TestTrie_Insert(t *testing.T) {
@@ -60,3 +72,8 @@ func TestTrie_InsertWord(t *testing.T) {
 //		})
 //	}
 //}
+
+// create  test for search where word is found
+func TestFunctionalTest_Search(t *testing.T) {
+
+}
