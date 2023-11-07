@@ -76,4 +76,28 @@ func TestTrie_InsertWord(t *testing.T) {
 // create  test for search where word is found
 func TestFunctionalTest_Search(t *testing.T) {
 
+	tests := []struct {
+		name string
+		word string
+		err  error
+	}{
+		{
+			"word found",
+			"test1",
+			nil,
+		},
+		{
+			"word not found",
+			"test2",
+		},
+	}
+	trie := NewTrie()
+	_ = trie.Insert("test1")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := trie.Search(tt.word)
+
+		})
+	}
+
 }
