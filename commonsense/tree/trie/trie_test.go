@@ -1,6 +1,7 @@
 package trie
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -39,7 +40,7 @@ func TestTrie_InsertWord(t *testing.T) {
 	// create test to insert a single word into a trie
 	trie := NewTrie()
 	err := trie.Insert("test")
-	assert.NotNil(t, err)
+	assert.Nil(t, err)
 	res := trie.Root.children['t']
 	assert.NotNil(t, res)
 	res = res.children['e']
@@ -52,52 +53,85 @@ func TestTrie_InsertWord(t *testing.T) {
 	assert.Nil(t, res)
 }
 
-//func TestTrie_Insert(t *testing.T) {
-//	tests := []struct {
-//		name string
-//		word string
-//		want []string
-//	}{
-//		{
-//			name: "exact match",
-//			word: "a",
-//			want: []string{"a"},
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			res := NewTrie()
-//			res.Insert(tt.word)
-//
-//		})
-//	}
-//}
-
-// create  test for search where word is found
-func TestFunctionalTest_Search(t *testing.T) {
-
+func TestTrie_Search(t1 *testing.T) {
 	tests := []struct {
-		name string
-		word string
-		err  error
+		name    string
+		root    *Node
+		word    string
+		want    *Node
+		wantErr assert.ErrorAssertionFunc
 	}{
 		{
-			"word found",
-			"test1",
-			nil,
+			name: "word found",
+			root: &Node{
+				children: map[rune]*Node{
+					't': {
+						children: map[rune]*Node{
+							'e': {
+								children: map[rune]*Node{
+									's': {
+										children: map[rune]*Node{
+											't': {
+												children: map[rune]*Node{
+													'*': nil,
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			word: "test",
+			want: &Node{
+				children: map[rune]*Node{
+					'*': nil,
+				},
+			},
+			wantErr: assert.NoError,
 		},
 		{
-			"word not found",
-			"test2",
+			name: "word found",
+			root: &Node{
+				children: map[rune]*Node{
+					's': {
+						children: map[rune]*Node{
+							'e': {
+								children: map[rune]*Node{
+									'l': {
+										children: map[rune]*Node{
+											'l': {
+												children: map[rune]*Node{
+													'*': nil,
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			word:    "test",
+			want:    newNode(),
+			wantErr: assert.Error,
 		},
 	}
-	trie := NewTrie()
-	_ = trie.Insert("test1")
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := trie.Search(tt.word)
-
+		t1.Run(tt.name, func(t1 *testing.T) {
+			t := &Trie{
+				Root: tt.root,
+			}
+			got, err := t.Search(tt.word)
+			if !tt.wantErr(t1, err, fmt.Sprintf("Search(%v)", tt.word)) {
+				return
+			}
+			if err == nil {
+				assert.Equalf(t1, tt.want, got, "Search(%v)", tt.word)
+			}
 		})
 	}
-
 }
