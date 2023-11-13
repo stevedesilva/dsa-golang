@@ -135,3 +135,29 @@ func TestTrie_Search(t1 *testing.T) {
 		})
 	}
 }
+
+func TestTrie_PrintAllWords(t1 *testing.T) {
+	type fields struct {
+		Root *Node
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		want    []string
+		wantErr assert.ErrorAssertionFunc
+	}{
+		{},
+	}
+	for _, tt := range tests {
+		t1.Run(tt.name, func(t1 *testing.T) {
+			t := &Trie{
+				Root: tt.fields.Root,
+			}
+			got, err := t.PrintAllWords()
+			if !tt.wantErr(t1, err, fmt.Sprintf("PrintAllWords()")) {
+				return
+			}
+			assert.Equalf(t1, tt.want, got, "PrintAllWords()")
+		})
+	}
+}

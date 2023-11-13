@@ -64,3 +64,18 @@ func (t *Trie) Search(word string) (*Node, error) {
 	}
 	return currNode, nil
 }
+
+func (t *Trie) PrintAllWords() ([]string, error) {
+	// if trie is empty return error
+	if t.Root == nil {
+		return nil, errors.New("trie is empty")
+	}
+	word := ""
+	words := make([]string, 0)
+	printAllWords(t.Root, word, words)
+	return words, nil
+}
+
+func printAllWords(root *Node, word string, words []string) {
+	//
+}
