@@ -137,21 +137,36 @@ func TestTrie_Search(t1 *testing.T) {
 }
 
 func TestTrie_PrintAllWords(t1 *testing.T) {
-	type fields struct {
-		Root *Node
-	}
+
 	tests := []struct {
 		name    string
-		fields  fields
+		root    *Node
 		want    []string
 		wantErr assert.ErrorAssertionFunc
 	}{
-		{},
+		{
+			name:    "print word",
+			root:    testTrie("test"),
+			want:    []string{"test"},
+			wantErr: assert.NoError,
+		},
+		{
+			name:    "print words with same prefix",
+			root:    testTrie("test", "tester", "testing", "testify"),
+			want:    []string{"test", "tester", "testing", "testify"},
+			wantErr: assert.NoError,
+		},
+		{
+			name:    "print words with different prefix",
+			root:    testTrie("can", "banner", "testing", "testify", "cat", "dog", "canada", "candy"),
+			want:    []string{"can", "banner", "testing", "testify", "cat", "dog", "canada", "candy"},
+			wantErr: assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t1.Run(tt.name, func(t1 *testing.T) {
 			t := &Trie{
-				Root: tt.fields.Root,
+				Root: tt.root,
 			}
 			got, err := t.PrintAllWords()
 			if !tt.wantErr(t1, err, fmt.Sprintf("PrintAllWords()")) {
@@ -160,4 +175,12 @@ func TestTrie_PrintAllWords(t1 *testing.T) {
 			assert.Equalf(t1, tt.want, got, "PrintAllWords()")
 		})
 	}
+}
+
+func testTrie(words ...string) *Node {
+	trie := NewTrie()
+	for _, word := range words {
+		_ = trie.Insert(word)
+	}
+	return trie.Root
 }
