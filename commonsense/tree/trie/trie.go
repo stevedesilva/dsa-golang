@@ -77,5 +77,14 @@ func (t *Trie) PrintAllWords() ([]string, error) {
 }
 
 func printAllWords(root *Node, word string, words []string) {
-	//
+	for _, v := range root.children {
+		if v == '*' {
+			words = append(words, word)
+			continue
+		}
+		for k := range v.children {
+			word += string(k)
+			printAllWords(v, word, words)
+		}
+	}
 }
