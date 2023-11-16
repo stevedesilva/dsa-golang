@@ -70,21 +70,21 @@ func (t *Trie) PrintAllWords() ([]string, error) {
 	if t.Root == nil {
 		return nil, errors.New("trie is empty")
 	}
-	word := ""
-	words := make([]string, 0)
-	printAllWords(t.Root, word, words)
+	words := printAllWords(t.Root, "", make([]string, 0))
 	return words, nil
 }
 
-func printAllWords(root *Node, word string, words []string) {
-	for _, v := range root.children {
-		if v == '*' {
+func printAllWords(node *Node, word string, words []string) []string {
+	// loop over node children,
+	// if '*' then add current work to array and return
+	// else add key to word and call key node value
+	for k, child := range node.children {
+		if k == '*' {
 			words = append(words, word)
-			continue
-		}
-		for k := range v.children {
-			word += string(k)
-			printAllWords(v, word, words)
+		} else {
+			word = word + string(k)
+			words = printAllWords(child, word, words)
 		}
 	}
+	return words
 }
