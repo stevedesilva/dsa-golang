@@ -82,8 +82,8 @@ func printAllWords(node *Node, word string, words []string) []string {
 		if k == '*' {
 			words = append(words, word)
 		} else {
-			word = word + string(k)
-			words = printAllWords(child, word, words)
+			currentWordBeingBuilt := word + string(k)
+			words = printAllWords(child, currentWordBeingBuilt, words)
 		}
 	}
 	return words
