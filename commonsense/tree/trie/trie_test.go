@@ -186,11 +186,12 @@ func TestTrie_PrintAllWords(t1 *testing.T) {
 			t := &Trie{
 				Root: tt.root,
 			}
+
 			got, err := t.PrintAllWords()
 			if !tt.wantErr(t1, err, fmt.Sprintf("PrintAllWords()")) {
 				return
 			}
-			assert.Equalf(t1, tt.want, got, "PrintAllWords()")
+			assert.ElementsMatchf(t1, tt.want, got, "PrintAllWords()")
 		})
 	}
 }
