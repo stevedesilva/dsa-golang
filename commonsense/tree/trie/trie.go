@@ -56,10 +56,7 @@ func (t *Trie) Search(word string) (*Node, error) {
 			fmt.Println(currentRune)
 			currNode = currNode.children[c]
 		} else {
-			r := c
-			// rune not found Sprintf message
-			msg := fmt.Sprintf("rune %c not found", r)
-			return nil, errors.New(msg)
+			return nil, errors.New(fmt.Sprintf("rune %c not found", c))
 		}
 	}
 	return currNode, nil
@@ -87,4 +84,13 @@ func printAllWords(node *Node, word string, words []string) []string {
 		}
 	}
 	return words
+}
+
+func (t *Trie) AutoCompleteWord(word String) ([]string, error) {
+	// if trie is empty return error
+	if t.Root == nil {
+		return nil, errors.New("trie is empty")
+	}
+	words := printAllWords(t.Root, "", make([]string, 0))
+	return words, nil
 }

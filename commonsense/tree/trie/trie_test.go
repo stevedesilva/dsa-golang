@@ -196,6 +196,29 @@ func TestTrie_PrintAllWords(t1 *testing.T) {
 	}
 }
 
+/*
+ @Test
+    public void shouldAutoCompletePrefix() {
+        Trie t = new Trie();
+        final List<String> words = List.of("word","worker","starter","cube","candle","cat","canter");
+        words.forEach(t::insert);
+        final List<String> results = t.autoComplete("wor");
+        MatcherAssert.assertThat(results, Matchers.containsInAnyOrder( List.of("word","worker").toArray()));
+    }
+*/
+
+func TestTrie_AutoComplete(t1 *testing.T) {
+	t := NewTrie()
+	words := []string{"word", "worker", "starter", "cube", "candle", "cat", "canter"}
+	for _, word := range words {
+		_ = t.Insert(word)
+	}
+	got, err := t.AutoComplete("wor")
+	assert.NoError(t1, err)
+	want := []string{"word", "worker"}
+	assert.ElementsMatchf(t1, want, got, "AutoComplete()")
+}
+
 func testTrie(words ...string) *Node {
 	trie := NewTrie()
 	for _, word := range words {
