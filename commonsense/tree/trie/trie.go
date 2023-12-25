@@ -86,11 +86,16 @@ func printAllWords(node *Node, word string, words []string) []string {
 	return words
 }
 
-func (t *Trie) AutoCompleteWord(word String) ([]string, error) {
+func (t *Trie) AutoCompleteWord(word string) ([]string, error) {
 	// if trie is empty return error
 	if t.Root == nil {
 		return nil, errors.New("trie is empty")
 	}
 	words := printAllWords(t.Root, "", make([]string, 0))
 	return words, nil
+}
+
+func (t *Trie) PrintAllKeys() ([]string, error) {
+	// TODO
+	return nil, nil
 }
