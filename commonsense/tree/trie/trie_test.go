@@ -158,25 +158,25 @@ func TestTrie_PrintAllWords(t1 *testing.T) {
 		},
 		{
 			name:    "print single word",
-			root:    testTrie("test"),
+			root:    testTrieRoot("test"),
 			want:    []string{"test"},
 			wantErr: assert.NoError,
 		},
 		{
 			name:    "print words with different prefix",
-			root:    testTrie("test", "can", "man", "testing", "testify", "cat"),
+			root:    testTrieRoot("test", "can", "man", "testing", "testify", "cat"),
 			want:    []string{"test", "can", "man", "testing", "testify", "cat"},
 			wantErr: assert.NoError,
 		},
 		{
 			name:    "print words with same prefix",
-			root:    testTrie("test", "tester", "testing", "testify"),
+			root:    testTrieRoot("test", "tester", "testing", "testify"),
 			want:    []string{"test", "tester", "testing", "testify"},
 			wantErr: assert.NoError,
 		},
 		{
 			name:    "print words with different prefix",
-			root:    testTrie("can", "banner", "testing", "testify", "cat", "dog", "canada", "candy"),
+			root:    testTrieRoot("can", "banner", "testing", "testify", "cat", "dog", "canada", "candy"),
 			want:    []string{"can", "banner", "testing", "testify", "cat", "dog", "canada", "candy"},
 			wantErr: assert.NoError,
 		},
@@ -196,22 +196,12 @@ func TestTrie_PrintAllWords(t1 *testing.T) {
 	}
 }
 
-// @Test
-// public void shouldThrowExceptionWhenPrintKeysIsEmpty() {
-// Trie t = new Trie();
-// assertThrows(IllegalArgumentException.class, t::printAllKeys);
-// }
-func TestTrie_shouldErrorWhenPrintKeysIsEmpty(t *testing.T) {
-	trie := NewTrie()
-	_, err := trie.PrintAllKeys()
-	assert.NotNil(t, err)
-}
-
-func TestTrie_shouldPrintKeysIsTrie(t *testing.T) {
-	trie := NewTrie()
-	res, err := trie.PrintAllKeys()
+func TestTrie_shouldCollectKeysIsTrie(t *testing.T) {
+	trie := createTestTrie("word", "worker")
+	res, err := trie.CollectAllKeys()
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
+	assert.Equal(t, []rune{'w', 'o', 'r', 'd', '*', 'k', 'e', 'r', '*'}, res)
 }
 
 //
@@ -220,7 +210,7 @@ func TestTrie_shouldPrintKeysIsTrie(t *testing.T) {
 //Trie t = new Trie();
 //final List<String> words = List.of("word", "worker");
 //words.forEach(t::insert);
-//final List<Character> results = t.printAllKeys();
+//final List<Character> results = t.collectAllKeys();
 //MatcherAssert.assertThat(results, Matchers.containsInAnyOrder(List.of('w','o','r','d','*','k','e','r','*').toArray()));
 //}
 
@@ -246,10 +236,18 @@ func TestTrie_shouldPrintKeysIsTrie(t *testing.T) {
 //		want := []string{"word", "worker"}
 //		assert.ElementsMatchf(t1, want, got, "AutoComplete()")
 //	}
-func testTrie(words ...string) *Node {
+func testTrieRoot(words ...string) *Node {
 	trie := NewTrie()
 	for _, word := range words {
 		_ = trie.Insert(word)
 	}
 	return trie.Root
+}
+
+func createTestTrie(words ...string) *Trie {
+	trie := NewTrie()
+	for _, word := range words {
+		_ = trie.Insert(word)
+	}
+	return trie
 }

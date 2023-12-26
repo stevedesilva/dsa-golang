@@ -67,11 +67,11 @@ func (t *Trie) PrintAllWords() ([]string, error) {
 	if t.Root == nil {
 		return nil, errors.New("trie is empty")
 	}
-	words := printAllWords(t.Root, "", make([]string, 0))
+	words := collectAllWords(t.Root, "", make([]string, 0))
 	return words, nil
 }
 
-func printAllWords(node *Node, word string, words []string) []string {
+func collectAllWords(node *Node, word string, words []string) []string {
 	// loop over node children,
 	// if '*' then add current work to array and return
 	// else add key to word and call key node value
@@ -80,7 +80,7 @@ func printAllWords(node *Node, word string, words []string) []string {
 			words = append(words, word)
 		} else {
 			currentWordBeingBuilt := word + string(k)
-			words = printAllWords(child, currentWordBeingBuilt, words)
+			words = collectAllWords(child, currentWordBeingBuilt, words)
 		}
 	}
 	return words
@@ -91,11 +91,26 @@ func (t *Trie) AutoCompleteWord(word string) ([]string, error) {
 	if t.Root == nil {
 		return nil, errors.New("trie is empty")
 	}
-	words := printAllWords(t.Root, "", make([]string, 0))
+	words := collectAllWords(t.Root, "", make([]string, 0))
 	return words, nil
 }
 
-func (t *Trie) PrintAllKeys() ([]string, error) {
-	// TODO
-	return nil, nil
+func (t *Trie) CollectAllKeys() ([]rune, error) {
+	// if trie is empty return error
+	if t.Root == nil {
+		return nil, errors.New("trie is empty")
+	}
+	res := collectAllKeys(make([]rune, 0), t.Root)
+	return res, nil
+}
+
+func collectAllKeys(res []rune, current *Node) []rune {
+	for k, node := range current.children {
+		res = append(res, k)
+		if k != '*' {
+			current = node
+			res = collectAllKeys(res, current)
+		}
+	}
+	return res
 }
