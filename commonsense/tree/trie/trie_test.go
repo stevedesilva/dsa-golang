@@ -187,11 +187,11 @@ func TestTrie_PrintAllWords(t1 *testing.T) {
 				Root: tt.root,
 			}
 
-			got, err := t.PrintAllWords()
-			if !tt.wantErr(t1, err, fmt.Sprintf("PrintAllWords()")) {
+			got, err := t.CollectAllWords()
+			if !tt.wantErr(t1, err, fmt.Sprintf("CollectAllWords()")) {
 				return
 			}
-			assert.ElementsMatchf(t1, tt.want, got, "PrintAllWords()")
+			assert.ElementsMatchf(t1, tt.want, got, "CollectAllWords()")
 		})
 	}
 }
@@ -204,38 +204,28 @@ func TestTrie_shouldCollectKeysIsTrie(t *testing.T) {
 	assert.Equal(t, []rune{'w', 'o', 'r', 'd', '*', 'k', 'e', 'r', '*'}, res)
 }
 
-//
-//@Test
-//public void shouldPrintKeysIsTrie() {
-//Trie t = new Trie();
-//final List<String> words = List.of("word", "worker");
-//words.forEach(t::insert);
-//final List<Character> results = t.collectAllKeys();
-//MatcherAssert.assertThat(results, Matchers.containsInAnyOrder(List.of('w','o','r','d','*','k','e','r','*').toArray()));
-//}
+func TestTrie_shouldAutoCompletePrefixEmpty(t *testing.T) {
+	trie := NewTrie()
+	res, err := trie.AutoComplete("book")
+	assert.Nil(t, res)
+	assert.NotNil(t, err)
+}
 
-/*
-  @Test
-  public void shouldAutoCompletePrefix() {
-      Trie t = new Trie();
-      final List<String> words = List.of("word","worker","starter","cube","candle","cat","canter");
-      words.forEach(t::insert);
-      final List<String> results = t.autoComplete("wor");
-      MatcherAssert.assertThat(results, Matchers.containsInAnyOrder( List.of("word","worker").toArray()));
-  }
-*/
+func TestTrie_shouldAutoCompletePrefixNotFound(t *testing.T) {
+	trie := createTestTrie("word", "worker")
+	res, err := trie.AutoComplete("book")
+	assert.Nil(t, res)
+	assert.NotNil(t, err)
+}
 
-//	func TestTrie_AutoComplete(t1 *testing.T) {
-//		t := NewTrie()
-//		words := []string{"word", "worker", "starter", "cube", "candle", "cat", "canter"}
-//		for _, word := range words {
-//			_ = t.Insert(word)
-//		}
-//		got, err := t.AutoComplete("wor")
-//		assert.NoError(t1, err)
-//		want := []string{"word", "worker"}
-//		assert.ElementsMatchf(t1, want, got, "AutoComplete()")
-//	}
+func TestTrie_AutoComplete(t1 *testing.T) {
+	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
+	got, err := trie.AutoComplete("wor")
+	assert.NoError(t1, err)
+	want := []string{"word", "worker"}
+	assert.ElementsMatchf(t1, want, got, "AutoComplete()")
+}
+
 func testTrieRoot(words ...string) *Node {
 	trie := NewTrie()
 	for _, word := range words {

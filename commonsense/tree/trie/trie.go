@@ -62,7 +62,7 @@ func (t *Trie) Search(word string) (*Node, error) {
 	return currNode, nil
 }
 
-func (t *Trie) PrintAllWords() ([]string, error) {
+func (t *Trie) CollectAllWords() ([]string, error) {
 	// if trie is empty return error
 	if t.Root == nil {
 		return nil, errors.New("trie is empty")
@@ -102,6 +102,19 @@ func (t *Trie) CollectAllKeys() ([]rune, error) {
 	}
 	res := collectAllKeys(make([]rune, 0), t.Root)
 	return res, nil
+}
+
+func (t *Trie) AutoComplete(prefix string) ([]string, error) {
+	if len(prefix) < 1 {
+		return nil, errors.New("word length less than 1")
+	}
+	// for each char find word
+	if word, err := t.Search(prefix); err != nil {
+		// prefix not found
+		return nil, err
+	} else {
+		return collectAllWords(word, prefix, make([]string, 0)), nil
+	}
 }
 
 func collectAllKeys(res []rune, current *Node) []rune {
