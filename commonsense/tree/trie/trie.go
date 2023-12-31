@@ -117,6 +117,10 @@ func (t *Trie) AutoComplete(prefix string) ([]string, error) {
 	}
 }
 
+func (t *Trie) AutoCorrect(word string) (string, error) {
+	return "", nil
+}
+
 func collectAllKeys(res []rune, current *Node) []rune {
 	for k, node := range current.children {
 		res = append(res, k)

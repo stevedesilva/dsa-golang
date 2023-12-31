@@ -226,6 +226,64 @@ func TestTrie_AutoComplete(t1 *testing.T) {
 	assert.ElementsMatchf(t1, want, got, "AutoComplete()")
 }
 
+/*
+ @Test
+    public void shouldAutoCorrectWordNotFound() {
+        Trie t = new Trie();
+        final List<String> words = List.of("word", "worker", "starter", "cube", "candle", "cat", "canter");
+        words.forEach(t::insert);
+        final String result = t.autoCorrect("wors");
+        MatcherAssert.assertThat(result, Matchers.equalTo("word"));
+    }
+*/
+
+func TestTrie_AutoCorrectWordNotFound(t1 *testing.T) {
+	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
+	got, err := trie.AutoCorrect("wors")
+	assert.Nil(t1, got)
+	assert.NotNil(t1, err)
+}
+
+/*
+@Test
+    public void shouldAutoCorrectWordFound() {
+        Trie t = new Trie();
+        final List<String> words = List.of("word", "worker", "starter", "cube", "candle", "cat", "canter");
+        words.forEach(t::insert);
+        MatcherAssert.assertThat(t.autoCorrect("word"), Matchers.equalTo("word"));
+        MatcherAssert.assertThat(t.autoCorrect("cube"), Matchers.equalTo("cube"));
+    }
+*/
+
+func TestTrie_AutoCorrectWordFound(t1 *testing.T) {
+	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
+	got, err := trie.AutoCorrect("word")
+	assert.Nil(t1, err)
+	want := "word"
+	assert.Equal(t1, want, got)
+	got, err = trie.AutoCorrect("cube")
+	assert.Nil(t1, err)
+	want = "cube"
+	assert.Equal(t1, want, got)
+}
+
+/*
+@Test
+
+	public void shouldThrowExceptionWhenAutoCorrectWordEmpty() {
+	    Trie t = new Trie();
+	    final List<String> words = List.of("word", "worker", "starter", "cube", "candle", "cat", "canter");
+	    words.forEach(t::insert);
+	    assertThrows(IllegalArgumentException.class, () -> t.autoCorrect(""));
+	}
+*/
+func TestTrie_shouldReturnErrorWhenAutoCompleteWordEmpty(t *testing.T) {
+	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
+	got, err := trie.AutoCorrect("")
+	assert.Nil(t, got)
+	assert.NotNil(t, err)
+}
+
 func testTrieRoot(words ...string) *Node {
 	trie := NewTrie()
 	for _, word := range words {
