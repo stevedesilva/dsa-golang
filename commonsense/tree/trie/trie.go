@@ -121,7 +121,7 @@ func (t *Trie) AutoCorrect(word string) (string, error) {
 	if len(word) < 1 {
 		return "", errors.New("word length less than 1")
 	}
-	return "", nil
+	return "", errors.New("word  not found")
 }
 
 func collectAllKeys(res []rune, current *Node) []rune {
