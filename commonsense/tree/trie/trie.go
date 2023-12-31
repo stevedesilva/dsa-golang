@@ -118,6 +118,9 @@ func (t *Trie) AutoComplete(prefix string) ([]string, error) {
 }
 
 func (t *Trie) AutoCorrect(word string) (string, error) {
+	if len(word) < 1 {
+		return "", errors.New("word length less than 1")
+	}
 	return "", nil
 }
 

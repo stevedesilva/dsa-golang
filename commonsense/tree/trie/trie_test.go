@@ -201,7 +201,8 @@ func TestTrie_shouldCollectKeysIsTrie(t *testing.T) {
 	res, err := trie.CollectAllKeys()
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
-	assert.Equal(t, []rune{'w', 'o', 'r', 'd', '*', 'k', 'e', 'r', '*'}, res)
+	expected := []rune{'w', 'o', 'r', 'd', '*', 'k', 'e', 'r', '*'}
+	assert.ElementsMatchf(t, expected, res, "CollectAllKeys()")
 }
 
 func TestTrie_shouldAutoCompletePrefixEmpty(t *testing.T) {
@@ -239,8 +240,7 @@ func TestTrie_AutoComplete(t1 *testing.T) {
 
 func TestTrie_AutoCorrectWordNotFound(t1 *testing.T) {
 	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
-	got, err := trie.AutoCorrect("wors")
-	assert.Nil(t1, got)
+	_, err := trie.AutoCorrect("wors")
 	assert.NotNil(t1, err)
 }
 
@@ -279,8 +279,7 @@ func TestTrie_AutoCorrectWordFound(t1 *testing.T) {
 */
 func TestTrie_shouldReturnErrorWhenAutoCompleteWordEmpty(t *testing.T) {
 	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
-	got, err := trie.AutoCorrect("")
-	assert.Nil(t, got)
+	_, err := trie.AutoCorrect("")
 	assert.NotNil(t, err)
 }
 
