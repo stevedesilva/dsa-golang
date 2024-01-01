@@ -86,14 +86,14 @@ func collectAllWords(node *Node, word string, words []string) []string {
 	return words
 }
 
-func (t *Trie) AutoCompleteWord(word string) ([]string, error) {
-	// if trie is empty return error
-	if t.Root == nil {
-		return nil, errors.New("trie is empty")
-	}
-	words := collectAllWords(t.Root, "", make([]string, 0))
-	return words, nil
-}
+//func (t *Trie) AutoCompleteWord(word string) ([]string, error) {
+//	// if trie is empty return error
+//	if t.Root == nil {
+//		return nil, errors.New("trie is empty")
+//	}
+//	words := collectAllWords(t.Root, "", make([]string, 0))
+//	return words, nil
+//}
 
 func (t *Trie) CollectAllKeys() ([]rune, error) {
 	// if trie is empty return error
@@ -117,11 +117,67 @@ func (t *Trie) AutoComplete(prefix string) ([]string, error) {
 	}
 }
 
+/*
+public String autoCorrect(String prefix) throws IllegalArgumentException {
+        if (prefix == null || prefix.length() < 1) {
+            throw new IllegalArgumentException();
+        }
+        final ArrayList<String> words = new ArrayList<>();
+
+        final char[] prefixAsArrayOfChar = prefix.toCharArray();
+        if (!root.getChildren().containsKey(prefixAsArrayOfChar[0])) {
+            throw new IllegalArgumentException("Prefix not in trie");
+        }
+
+        String wordToFind = "";
+        Node current = root;
+        for (Character prefixChar : prefixAsArrayOfChar) {
+            final HashMap<Character, Node> children = current.getChildren();
+            if (children.containsKey(prefixChar)) {
+                wordToFind += prefixChar;
+                current = children.get(prefixChar);
+            } else {
+                printAll(current, wordToFind, words);
+                if (words.isEmpty()) {
+                    throw new IllegalArgumentException();
+                } else {
+                    return words.get(0);
+                }
+            }
+        }
+        return wordToFind;
+    }
+*/
+
 func (t *Trie) AutoCorrect(word string) (string, error) {
 	if len(word) < 1 {
 		return "", errors.New("word length less than 1")
 	}
-	return "", errors.New("word  not found")
+	// match as much of word as possible
+	curr := t.Root
+	found := ""
+	for _, v := range word {
+		children := curr.children
+		// if v in map
+		if _, ok := children[v]; ok {
+			found += string(v)
+			curr = children[v]
+		} else {
+			// collect words for prefix
+			node := curr
+			if node == nil {
+				return "", errors.New("word not found")
+			}
+			words := collectAllWords(node, found, make([]string, 0))
+			if len(words) > 0 {
+				return words[0], nil
+			} else {
+				return "", errors.New("word not found")
+			}
+		}
+	}
+
+	return found, nil
 }
 
 func collectAllKeys(res []rune, current *Node) []rune {

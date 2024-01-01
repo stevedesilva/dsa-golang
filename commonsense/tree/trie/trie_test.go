@@ -240,20 +240,11 @@ func TestTrie_AutoComplete(t1 *testing.T) {
 
 func TestTrie_AutoCorrectWordNotFound(t1 *testing.T) {
 	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
-	_, err := trie.AutoCorrect("wors")
-	assert.NotNil(t1, err)
+	got, err := trie.AutoCorrect("wors")
+	assert.Nil(t1, err)
+	want := []string{"word", "worker"}
+	assert.ElementsMatch(t1, want, got)
 }
-
-/*
-@Test
-    public void shouldAutoCorrectWordFound() {
-        Trie t = new Trie();
-        final List<String> words = List.of("word", "worker", "starter", "cube", "candle", "cat", "canter");
-        words.forEach(t::insert);
-        MatcherAssert.assertThat(t.autoCorrect("word"), Matchers.equalTo("word"));
-        MatcherAssert.assertThat(t.autoCorrect("cube"), Matchers.equalTo("cube"));
-    }
-*/
 
 func TestTrie_AutoCorrectWordFound(t1 *testing.T) {
 	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
