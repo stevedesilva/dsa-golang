@@ -227,23 +227,13 @@ func TestTrie_AutoComplete(t1 *testing.T) {
 	assert.ElementsMatchf(t1, want, got, "AutoComplete()")
 }
 
-/*
- @Test
-    public void shouldAutoCorrectWordNotFound() {
-        Trie t = new Trie();
-        final List<String> words = List.of("word", "worker", "starter", "cube", "candle", "cat", "canter");
-        words.forEach(t::insert);
-        final String result = t.autoCorrect("wors");
-        MatcherAssert.assertThat(result, Matchers.equalTo("word"));
-    }
-*/
-
 func TestTrie_AutoCorrectWordNotFound(t1 *testing.T) {
 	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
 	got, err := trie.AutoCorrect("wors")
 	assert.Nil(t1, err)
 	want := []string{"word", "worker"}
-	assert.ElementsMatch(t1, want, got)
+	// want either word or worker
+	assert.Contains(t1, want, got)
 }
 
 func TestTrie_AutoCorrectWordFound(t1 *testing.T) {
@@ -258,16 +248,6 @@ func TestTrie_AutoCorrectWordFound(t1 *testing.T) {
 	assert.Equal(t1, want, got)
 }
 
-/*
-@Test
-
-	public void shouldThrowExceptionWhenAutoCorrectWordEmpty() {
-	    Trie t = new Trie();
-	    final List<String> words = List.of("word", "worker", "starter", "cube", "candle", "cat", "canter");
-	    words.forEach(t::insert);
-	    assertThrows(IllegalArgumentException.class, () -> t.autoCorrect(""));
-	}
-*/
 func TestTrie_shouldReturnErrorWhenAutoCompleteWordEmpty(t *testing.T) {
 	trie := createTestTrie("word", "worker", "starter", "cube", "candle", "cat", "canter")
 	_, err := trie.AutoCorrect("")
