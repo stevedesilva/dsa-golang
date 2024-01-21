@@ -16,3 +16,15 @@ func TestVertex_AddAdjacentVertex(t *testing.T) {
 	assert.Equal(t, v1, v2.adjacentVertices[0])
 
 }
+
+func TestVertx_DFS_Traverse(t *testing.T) {
+	v1 := NewVertex(1)
+	v2 := NewVertex(2)
+	v3 := NewVertex(3)
+
+	v1.AddAdjacentVertex(v2)
+	v1.AddAdjacentVertex(v3)
+
+	v1.DfsTraverse(v2)
+
+}

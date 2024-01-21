@@ -11,7 +11,6 @@ func NewVertex[T any](value T) *Vertex[T] {
 	}
 }
 
-// TODO find something more efficient than linear search
 func (v *Vertex[T]) AddAdjacentVertex(adjacentVertex *Vertex[T]) {
 	// if slice contains adjacentVertex, return
 	for _, vertex := range v.adjacentVertices {
@@ -24,4 +23,13 @@ func (v *Vertex[T]) AddAdjacentVertex(adjacentVertex *Vertex[T]) {
 
 	// add to calling vertex slice
 	adjacentVertex.AddAdjacentVertex(v)
+}
+
+func (v *Vertex[T]) DfsTraverse(v2 *Vertex[int]) {
+
+}
+
+// dfs
+func Dfs() {
+
 }
