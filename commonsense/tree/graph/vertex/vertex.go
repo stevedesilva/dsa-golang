@@ -1,5 +1,7 @@
 package vertex
 
+import "fmt"
+
 type Vertex[T any] struct {
 	value            T
 	adjacentVertices []*Vertex[T]
@@ -25,8 +27,24 @@ func (v *Vertex[T]) AddAdjacentVertex(adjacentVertex *Vertex[T]) {
 	adjacentVertex.AddAdjacentVertex(v)
 }
 
-func (v *Vertex[T]) DfsTraverse(v2 *Vertex[int]) {
+func (v *Vertex[T]) DfsTraverse(vertex *Vertex[T]) {
+	visited := make(map[*Vertex[T]]bool, 0)
+	dfsTraverse(vertex, visited)
+}
 
+func dfsTraverse[T any](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
+	// already visited
+	visited[vertex] = true
+	// print
+	fmt.Printf("%v\n", vertex.value)
+	// loop over adjacent vertx
+	for _, v := range vertex.adjacentVertices {
+		if _, ok := visited[v]; ok {
+			continue
+		} else {
+			dfsTraverse(v, visited)
+		}
+	}
 }
 
 // dfs

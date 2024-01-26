@@ -26,5 +26,4 @@ func TestVertx_DFS_Traverse(t *testing.T) {
 	v1.AddAdjacentVertex(v3)
 
 	v1.DfsTraverse(v2)
-
 }
