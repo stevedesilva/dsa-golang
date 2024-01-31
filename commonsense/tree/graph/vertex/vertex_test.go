@@ -62,5 +62,17 @@ func TestVertx_DFS_Traverse(t *testing.T) {
 
 	expected := "2\n1\n3\n"
 	assert.Equal(t, output, expected)
+}
 
+func TestDfs(t *testing.T) {
+	v1 := NewVertex[int](1)
+	v2 := NewVertex[int](2)
+	v3 := NewVertex[int](3)
+
+	v1.AddAdjacentVertex(v2)
+	v1.AddAdjacentVertex(v3)
+
+	dfs, err := v3.Dfs(1)
+	assert.Nil(t, err)
+	assert.Equal(t, dfs, v1)
 }

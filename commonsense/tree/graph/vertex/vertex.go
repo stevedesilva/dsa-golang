@@ -48,6 +48,6 @@ func dfsTraverse[T any](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
 }
 
 // dfs
-func Dfs() {
-
+func (v *Vertex[T]) Dfs(value T) (*Vertex[T], error) {
+	return nil, nil
 }
