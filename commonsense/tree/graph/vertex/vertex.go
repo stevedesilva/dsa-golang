@@ -1,13 +1,16 @@
 package vertex
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-type Vertex[T any] struct {
+type Vertex[T comparable] struct {
 	value            T
 	adjacentVertices []*Vertex[T]
 }
 
-func NewVertex[T any](value T) *Vertex[T] {
+func NewVertex[T comparable](value T) *Vertex[T] {
 	return &Vertex[T]{
 		value: value,
 	}
@@ -28,11 +31,11 @@ func (v *Vertex[T]) AddAdjacentVertex(adjacentVertex *Vertex[T]) {
 }
 
 func (v *Vertex[T]) DfsTraverse(vertex *Vertex[T]) {
-	visited := make(map[*Vertex[T]]bool, 0)
+	visited := make(map[*Vertex[T]]bool)
 	dfsTraverse(vertex, visited)
 }
 
-func dfsTraverse[T any](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
+func dfsTraverse[T comparable](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
 	// already visited
 	visited[vertex] = true
 	// print
@@ -47,7 +50,26 @@ func dfsTraverse[T any](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
 	}
 }
 
-// dfs
 func (v *Vertex[T]) Dfs(value T) (*Vertex[T], error) {
-	return nil, nil
+	// get root value
+	return dfs(v, make(map[*Vertex[T]]bool), value)
+}
+
+func dfs[T comparable](vertx *Vertex[T], visited map[*Vertex[T]]bool, value T) (*Vertex[T], error) {
+	visited[vertx] = true
+	if vertx.value == value {
+		return vertx, nil
+	}
+	for _, v := range vertx.adjacentVertices {
+		if _, ok := visited[v]; ok {
+			continue
+		} else {
+			v2, err := dfs(v, visited, value)
+			if v2 != nil {
+				return v2, err
+			}
+			return nil, errors.New("not found")
+		}
+	}
+	return nil, errors.New("not found")
 }

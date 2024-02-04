@@ -72,7 +72,36 @@ func TestDfs(t *testing.T) {
 	v1.AddAdjacentVertex(v2)
 	v1.AddAdjacentVertex(v3)
 
-	dfs, err := v3.Dfs(1)
+	dfs, err := v2.Dfs(1)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v1)
+
+	//dfs, err = v3.Dfs(1)
+	//assert.Nil(t, err)
+	//assert.Equal(t, dfs, v1)
+	//
+	//dfs, err = v1.Dfs(2)
+	//assert.Nil(t, err)
+	//assert.Equal(t, dfs, v2)
+	//
+	//dfs, err = v2.Dfs(2)
+	//assert.Nil(t, err)
+	//assert.Equal(t, dfs, v2)
+	//
+	//dfs, err = v3.Dfs(2)
+	//assert.Nil(t, err)
+	//assert.Equal(t, dfs, v2)
+	//
+	//dfs, err = v1.Dfs(3)
+	//assert.Nil(t, err)
+	//assert.Equal(t, dfs, v3)
+	//
+	//dfs, err = v2.Dfs(3)
+	//assert.Nil(t, err)
+	//assert.Equal(t, dfs, v3)
+
+	dfs, err = v3.Dfs(3)
+	assert.Nil(t, err)
+	assert.Equal(t, dfs, v3)
+
 }
