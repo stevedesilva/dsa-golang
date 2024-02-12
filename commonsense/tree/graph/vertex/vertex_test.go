@@ -3,6 +3,7 @@ package vertex
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"os"
 	"testing"
 
@@ -72,39 +73,64 @@ func TestDfs(t *testing.T) {
 	v1.AddAdjacentVertex(v2)
 	v1.AddAdjacentVertex(v3)
 
-	dfs, err := v1.Dfs(1)
+	dfs, err := v1.DepthFirstSearch(1)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v1)
 
-	dfs, err = v2.Dfs(1)
+	dfs, err = v2.DepthFirstSearch(1)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v1)
 
-	dfs, err = v3.Dfs(1)
+	dfs, err = v3.DepthFirstSearch(1)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v1)
 
-	dfs, err = v1.Dfs(2)
+	dfs, err = v1.DepthFirstSearch(2)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v2)
 
-	dfs, err = v2.Dfs(2)
+	dfs, err = v2.DepthFirstSearch(2)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v2)
 
-	dfs, err = v3.Dfs(2)
+	dfs, err = v3.DepthFirstSearch(2)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v2)
 
-	dfs, err = v1.Dfs(3)
+	dfs, err = v1.DepthFirstSearch(3)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v3)
 
-	dfs, err = v2.Dfs(3)
+	dfs, err = v2.DepthFirstSearch(3)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v3)
 
-	dfs, err = v3.Dfs(3)
+	dfs, err = v3.DepthFirstSearch(3)
 	assert.Nil(t, err)
 	assert.Equal(t, dfs, v3)
+}
+
+func TestVertex_BreadthFirstSearch(t *testing.T) {
+	type args[T comparable] struct {
+		value T
+	}
+	type testCase[T comparable] struct {
+		name    string
+		v       Vertex[T]
+		args    args[T]
+		want    *Vertex[T]
+		wantErr assert.ErrorAssertionFunc
+	}
+	tests := []testCase[ /* TODO: Insert concrete types here */ ]{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := tt.v.BreadthFirstSearch(tt.args.value)
+			if !tt.wantErr(t, err, fmt.Sprintf("BreadthFirstSearch(%v)", tt.args.value)) {
+				return
+			}
+			assert.Equalf(t, tt.want, got, "BreadthFirstSearch(%v)", tt.args.value)
+		})
+	}
 }

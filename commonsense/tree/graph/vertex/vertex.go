@@ -3,6 +3,7 @@ package vertex
 import (
 	"errors"
 	"fmt"
+	"github.com/stevedesilva/dsa-golang.git/commonsense/queue"
 )
 
 type Vertex[T comparable] struct {
@@ -32,10 +33,10 @@ func (v *Vertex[T]) AddAdjacentVertex(adjacentVertex *Vertex[T]) {
 
 func (v *Vertex[T]) DfsTraverse(vertex *Vertex[T]) {
 	visited := make(map[*Vertex[T]]bool)
-	dfsTraverse(vertex, visited)
+	depthFirstSearchTraverse(vertex, visited)
 }
 
-func dfsTraverse[T comparable](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
+func depthFirstSearchTraverse[T comparable](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
 	// already visited
 	visited[vertex] = true
 	// print
@@ -45,12 +46,12 @@ func dfsTraverse[T comparable](vertex *Vertex[T], visited map[*Vertex[T]]bool) {
 		if _, ok := visited[v]; ok {
 			continue
 		} else {
-			dfsTraverse(v, visited)
+			depthFirstSearchTraverse(v, visited)
 		}
 	}
 }
 
-func (v *Vertex[T]) Dfs(value T) (*Vertex[T], error) {
+func (v *Vertex[T]) DepthFirstSearch(value T) (*Vertex[T], error) {
 	// get root value
 	return dfs(v, make(map[*Vertex[T]]bool), value)
 }
@@ -69,6 +70,27 @@ func dfs[T comparable](vertx *Vertex[T], visited map[*Vertex[T]]bool, value T) (
 				// return if found
 				return v2, nil
 			}
+		}
+	}
+	return nil, errors.New("not found")
+}
+
+func (v *Vertex[T]) BreadthFirstSearch(value T) (*Vertex[T], error) {
+	q := queue.New[*Vertex[T]](v)
+	q.Enqueue(v)
+	visited := make(map[*Vertex[T]]bool)
+	visited[v] = true
+	for q.Size() > 0 {
+		current, err := q.Dequeue()
+		if err != nil {
+			return nil, err
+		}
+		if current.value == value {
+			return current, nil
+		}
+		for _, vertx := range current.adjacentVertices {
+			q.Enqueue(vertx)
+			visited[vertx] = true
 		}
 	}
 	return nil, errors.New("not found")
