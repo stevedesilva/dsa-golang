@@ -64,11 +64,11 @@ func dfs[T comparable](vertx *Vertex[T], visited map[*Vertex[T]]bool, value T) (
 		if _, ok := visited[v]; ok {
 			continue
 		} else {
-			v2, err := dfs(v, visited, value)
+			v2, _ := dfs(v, visited, value)
 			if v2 != nil {
-				return v2, err
+				// return if found
+				return v2, nil
 			}
-			return nil, errors.New("not found")
 		}
 	}
 	return nil, errors.New("not found")
