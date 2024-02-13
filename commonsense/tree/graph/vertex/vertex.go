@@ -89,9 +89,33 @@ func (v *Vertex[T]) BreadthFirstSearch(value T) (*Vertex[T], error) {
 			return current, nil
 		}
 		for _, vertx := range current.adjacentVertices {
-			q.Enqueue(vertx)
-			visited[vertx] = true
+			// add if we haven't already processed
+			if _, ok := visited[vertx]; !ok {
+				q.Enqueue(vertx)
+				visited[vertx] = true
+			}
 		}
 	}
 	return nil, errors.New("not found")
+}
+
+func (v *Vertex[T]) BreadthFirstSearchTraversal() error {
+	q := queue.New[*Vertex[T]](v)
+	visited := make(map[*Vertex[T]]bool)
+	visited[v] = true
+	for q.Size() > 0 {
+		current, err := q.Dequeue()
+		if err != nil {
+			return err
+		}
+		fmt.Println(current.value)
+		for _, vertx := range current.adjacentVertices {
+			// add if we haven't already processed
+			if _, ok := visited[vertx]; !ok {
+				q.Enqueue(vertx)
+				visited[vertx] = true
+			}
+		}
+	}
+	return nil
 }
