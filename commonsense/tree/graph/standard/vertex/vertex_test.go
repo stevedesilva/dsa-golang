@@ -18,7 +18,6 @@ func TestVertex_AddAdjacentVertex(t *testing.T) {
 	// v1 slice contains v2 testify assert
 	assert.Equal(t, v2, v1.adjacentVertices[0])
 	assert.Equal(t, v1, v2.adjacentVertices[0])
-
 }
 
 func TestVertx_DFS_Traverse(t *testing.T) {
