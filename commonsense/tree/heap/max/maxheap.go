@@ -39,43 +39,6 @@ func parentIndex(index int) int {
 	return (index - 1) / 2
 }
 
-/*
-	public E delete() throws NoSuchElementException {
-	        //           0
-	        //      /          \
-	        //     1            2
-	        //    /  \        /  \
-	        //   3    4      5    6
-	        //  / \  / \    / \   / \
-	        // 7  8  9  10 11 12 13 14
-	        if (data.size() == 0) {
-	            throw new NoSuchElementException("no element found");
-	        }
-
-	        // move last node into root node position
-	        E rootNode = rootNode();
-	        // remove last node and store value in root
-	        E lastItem = data.remove(lastNodeIndex());
-	        if (data.size() > 0) {
-	            data.set(rootNodeIndex(), lastItem);
-	            int newNodeIndex = 0;
-	            // trickle to root node down into its proper place
-	            while (hasChildren(newNodeIndex)) {
-	                int indexOfLargestChild = findIndexOfLargestChild(newNodeIndex);
-	                final E childValue = data.get(indexOfLargestChild);
-	                final E currentValue = data.get(newNodeIndex);
-	                if (childValue.compareTo(currentValue) > 0) {
-	                    data.set(newNodeIndex, childValue);
-	                    data.set(indexOfLargestChild, currentValue);
-	                    newNodeIndex = indexOfLargestChild;
-	                } else {
-	                    break;
-	                }
-	            }
-	        }
-	        return rootNode;
-	    }
-*/
 func (h *Heap[T]) Delete() (*T, error) {
 	// delete top node
 	if len(h.data) == 0 {
