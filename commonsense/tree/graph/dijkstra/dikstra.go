@@ -7,8 +7,9 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 	cheapestPriceFromStartingCity := make(map[string]int)
 	cheapestPreviousStopoverCity := make(map[string]string)
 
-	visitedCities := make(map[string]bool)
-	unvisitedCities := make([]City, 0, 10)
+	visitedCities := make(map[string]*City)
+	unvisitedCities := make([]*City, 0, 10)
+
 	// initialize
 	cheapestPriceFromStartingCity[startCity.Name] = 0
 	currentCity := startCity
@@ -16,7 +17,7 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 	// for each route in starting
 	for currentCity != nil {
 		// process current city
-		visitedCities[currentCity.Name] = true
+		visitedCities[currentCity.Name] = currentCity
 		removeElement(currentCity.Name, unvisitedCities)
 
 		for adjacentCityName, adjacentCityCost := range currentCity.Routes {
@@ -45,11 +46,11 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 	return []string{"A", "B", "C"}
 }
 
-func removeElement(element string, slice []string) []string {
-	for i, v := range slice {
-		if v == element {
-			return append(slice[:i], slice[i+1:]...)
+func removeElement(nameToRemove string, cities []*City) []*City {
+	for i, v := range cities {
+		if v.Name == nameToRemove {
+			return append(cities[:i], cities[i+1:]...)
 		}
 	}
-	return slice
+	return cities
 }
