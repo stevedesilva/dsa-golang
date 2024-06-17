@@ -11,7 +11,7 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 
 	visitedCities := make(map[string]City)
 	unvisitedCities := comparator.New[City](func(i, j City) bool {
-		return cheapestPriceFromStartingCity[i] < cheapestPriceFromStartingCity[j]
+		return cheapestPriceFromStartingCity[i.Name] < cheapestPriceFromStartingCity[j.Name]
 	})
 
 	// initialize
@@ -23,22 +23,18 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 		// process current city
 		visitedCities[currentCity.Name] = *currentCity
 
-		for adjacentCityName, adjacentCityRoute := range currentCity.Routes {
-			if _, ok := visitedCities[adjacentCityName]; !ok {
-				err := unvisitedCities.Insert(adjacentCityRoute.City)
+		for adjacentCity, adjacentCityCost := range currentCity.Routes {
+			if _, ok := visitedCities[adjacentCity.Name]; !ok {
+				err := unvisitedCities.Insert(*adjacentCity)
 				if err != nil {
 					return nil
 				}
-				//unvisitedCities = append(unvisitedCities, adjacentCityName)
-
 			}
-			var adjacentCityCost int = adjacentCityRoute.Cost
-
 			// cost from current city to adjacentCity
 			priceThroughStartingCity := cheapestPriceFromStartingCity[currentCity.Name] + adjacentCityCost
-			if existingCheapestPriceForCity, ok := cheapestPriceFromStartingCity[adjacentCityName]; !ok || priceThroughStartingCity < existingCheapestPriceForCity {
-				cheapestPriceFromStartingCity[adjacentCityName] = priceThroughStartingCity
-				cheapestPreviousStopoverCity[adjacentCityName] = currentCity.Name
+			if existingCheapestPriceForCity, ok := cheapestPriceFromStartingCity[adjacentCity.Name]; !ok || priceThroughStartingCity < existingCheapestPriceForCity {
+				cheapestPriceFromStartingCity[adjacentCity.Name] = priceThroughStartingCity
+				cheapestPreviousStopoverCity[adjacentCity.Name] = currentCity.Name
 			}
 		}
 
@@ -50,17 +46,32 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 		}
 		currentCity = city
 	}
-	// calculate shortest
 
 	// reverse  cheapestPreviousStopoverCity and current
-	return []string{"A", "B", "C"}
-}
+	/*
+		List<String> shortestPath = new ArrayList<>();
+		        String currentCityName = finalDestination.getName();
 
-//func removeElement(nameToRemove string, cities []*City) []*City {
-//	for i, v := range cities {
-//		if v.Name == nameToRemove {
-//			return append(cities[:i], cities[i+1:]...)
-//		}
-//	}
-//	return cities
-//}
+		        while (!currentCityName.equalsIgnoreCase(startingCity.getName())) {
+		            shortestPath.add(currentCityName);
+		            currentCityName = cheapestPreviousStopoverCityTable.get(currentCityName);
+		        }
+		        shortestPath.add(startingCity.getName());
+
+		        return shortestPath.reversed();
+	*/
+	result := make([]string, 0, len(cheapestPreviousStopoverCity))
+	currentCityName := destinationCity.Name
+	for currentCityName != startCity.Name {
+		result = append(result, currentCityName)
+		currentCityName = cheapestPreviousStopoverCity[currentCityName]
+	}
+	result = append(result, startCity.Name)
+	// reverse result
+	for i := 0; i < len(result)/2; i++ {
+		j := len(result) - i - 1
+		result[i], result[j] = result[j], result[i]
+	}
+
+	return result
+}

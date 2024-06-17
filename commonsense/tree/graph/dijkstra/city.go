@@ -10,40 +10,40 @@ package dijkstra
 //	Cost int
 //}
 //
-//func NewCity(name string) *City {
+//func NewCity(Name string) *City {
 //	return &City{
-//		Name:   name,
+//		Name:   Name,
 //		Routes: make(map[string]Route),
 //	}
 //}
 //
-//func (c *City) AddRoute(name string, value int) {
-//	c.Routes[name] = Route{
+//func (c *City) AddRoute(Name string, value int) {
+//	c.Routes[Name] = Route{
 //		City: City{},
 //		Cost: value,
 //	}
 //}
 
 type City struct {
-	name   string
-	routes map[*City]int
+	Name   string
+	Routes map[*City]int
 }
 
 func NewCity(name string) *City {
 	return &City{
-		name:   name,
-		routes: make(map[*City]int),
+		Name:   name,
+		Routes: make(map[*City]int),
 	}
 }
 
 func (c *City) AddRoute(city *City, price int) {
-	c.routes[city] = price
+	c.Routes[city] = price
 }
 
 func (c *City) GetName() string {
-	return c.name
+	return c.Name
 }
 
 func (c *City) GetRoutes() map[*City]int {
-	return c.routes
+	return c.Routes
 }
