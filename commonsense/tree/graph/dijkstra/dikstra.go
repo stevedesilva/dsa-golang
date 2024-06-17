@@ -42,7 +42,7 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 
 		city, err := unvisitedCities.Delete()
 		if err != nil {
-			return nil
+			break
 		}
 		currentCity = city
 	}
