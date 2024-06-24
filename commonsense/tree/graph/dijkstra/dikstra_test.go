@@ -31,31 +31,3 @@ func TestShortestPath(t *testing.T) {
 	expected := []string{"Atlanta", "Denver", "Chicago", "El Paso"}
 	assert.Equal(t, expected, shortestPath)
 }
-
-/*
-private static Stream<Object[]> provideCitiesAndExpectedPaths() {
-        City atlanta = new City("Atlanta");
-        City boston = new City("Boston");
-        City chicago = new City("Chicago");
-        City denver = new City("Denver");
-        City elPaso = new City("El Paso");
-
-        atlanta.addRoutes(boston, 100);
-        atlanta.addRoutes(denver, 160);
-        boston.addRoutes(chicago, 120);
-        boston.addRoutes(denver, 180);
-        chicago.addRoutes(elPaso, 80);
-        denver.addRoutes(chicago, 40);
-        denver.addRoutes(elPaso, 140);
-        elPaso.addRoutes(boston, 100);
-
-        return Stream.of(
-                new Object[]{atlanta, elPaso, List.of("Atlanta", "Denver", "Chicago", "El Paso")},
-                new Object[]{atlanta, chicago, List.of("Atlanta", "Denver", "Chicago")},
-                new Object[]{atlanta, boston, List.of("Atlanta", "Boston")},
-                new Object[]{denver, elPaso, List.of("Denver", "Chicago", "El Paso")},
-                new Object[]{elPaso, denver, List.of("El Paso", "Boston", "Denver")}
-        );
-    }
-*/
-// TODO create
