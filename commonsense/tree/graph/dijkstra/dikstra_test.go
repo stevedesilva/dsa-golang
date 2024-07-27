@@ -50,7 +50,8 @@ func TestShortestPath2(t *testing.T) {
 	denver.AddRoute(elPaso, 140)
 	elPaso.AddRoute(boston, 100)
 
-	// When
+	// Whencccccbgvnutdhkfjcvnirjleuleiuhvkjddevnfercch
+
 	d := Dijkstra{}
 	shortestPath := d.ShortestPath(atlanta, denver)
 	// Then

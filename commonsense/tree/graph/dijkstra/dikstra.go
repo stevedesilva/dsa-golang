@@ -48,18 +48,6 @@ func (d *Dijkstra) ShortestPath(startCity, destinationCity *City) []string {
 	}
 
 	// reverse  cheapestPreviousStopoverCity and current
-	/*
-		List<String> shortestPath = new ArrayList<>();
-		        String currentCityName = finalDestination.getName();
-
-		        while (!currentCityName.equalsIgnoreCase(startingCity.getName())) {
-		            shortestPath.add(currentCityName);
-		            currentCityName = cheapestPreviousStopoverCityTable.get(currentCityName);
-		        }
-		        shortestPath.add(startingCity.getName());
-
-		        return shortestPath.reversed();
-	*/
 	result := make([]string, 0, len(cheapestPreviousStopoverCity))
 	currentCityName := destinationCity.Name
 	for currentCityName != startCity.Name {
