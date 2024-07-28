@@ -160,6 +160,19 @@ func (v *Vertex[T]) shortestPath(start, end *Vertex[T]) []string {
 	//	visited nodes
 	//  queue
 	//  previous node table
+	/*
+		// visited nodes
+		        Set<Vertex<T>> visitedVertices = new HashSet<>();
+		        visitedVertices.add(start);
+		        // queue
+		        Queue<Vertex<T>> queue = new LinkedList<>();
+		        queue.add(start);
+	*/
+	queue := queue.New[*Vertex[T]](start)
+	queue.Enqueue(start)
+
+	visitedVertices := make(map[*Vertex[T]]bool)
+	visitedVertices[start] = true
 
 	// while queue is not empty
 	// get node from queue
