@@ -160,26 +160,44 @@ func (v *Vertex[T]) shortestPath(start, end *Vertex[T]) []string {
 	//	visited nodes
 	//  queue
 	//  previous node table
-	/*
-		// visited nodes
-		        Set<Vertex<T>> visitedVertices = new HashSet<>();
-		        visitedVertices.add(start);
-		        // queue
-		        Queue<Vertex<T>> queue = new LinkedList<>();
-		        queue.add(start);
-	*/
-	queue := queue.New[*Vertex[T]](start)
-	queue.Enqueue(start)
-
 	visitedVertices := make(map[*Vertex[T]]bool)
 	visitedVertices[start] = true
 
-	// while queue is not empty
-	// get node from queue
-	// loop over every adjacent node
-	//    add to previous visited table
-	///   add
+	queue := queue.New[*Vertex[T]](start)
+	queue.Enqueue(start)
 
-	// reverse
+	//previousVertex := make(map[string]string)
+	previousVertex := make(map[T]T)
+	// while queue is not empty
+	for queue.Size() > 0 {
+		current, err := queue.Dequeue()
+		if err != nil {
+			return nil
+		}
+
+		for _, vertx := range current.adjacentVertices {
+			if _, ok := visitedVertices[vertx]; !ok {
+				queue.Enqueue(vertx)
+				visitedVertices[vertx] = true
+				previousVertex[vertx.value] = current.value
+			}
+		}
+	}
+
+	// reverse  cheapestPreviousStopoverCity and current
+	//result := make([]string, 0, len(cheapestPreviousStopoverCity))
+	//currentCityName := destinationCity.Name
+	//for currentCityName != startCity.Name {
+	//	result = append(result, currentCityName)
+	//	currentCityName = cheapestPreviousStopoverCity[currentCityName]
+	//}
+	//result = append(result, startCity.Name)
+	//// reverse result
+	//for i := 0; i < len(result)/2; i++ {
+	//	j := len(result) - i - 1
+	//	result[i], result[j] = result[j], result[i]
+	//}
+	//
+	//return result
 	return nil
 }
