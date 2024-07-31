@@ -120,41 +120,7 @@ func (v *Vertex[T]) BreadthFirstSearchTraversal() error {
 	return nil
 }
 
-/*
-public List<T> shortestPath(Vertex<T> start, Vertex<T> end) {
-        // visited nodes
-        Set<Vertex<T>> visitedVertices = new HashSet<>();
-        visitedVertices.add(start);
-        // queue
-        Queue<Vertex<T>> queue = new LinkedList<>();
-        queue.add(start);
-
-        Map<Vertex<T>, Vertex<T>> previousVertex = new HashMap<>();
-        // while queue is not empty
-        while (!queue.isEmpty()) {
-            Vertex<T> currentVertex = queue.remove();
-            for (Vertex<T> adjacentVertx : currentVertex.edges) {
-                if (!visitedVertices.contains(adjacentVertx)) {
-                    visitedVertices.add(adjacentVertx);
-                    queue.add(adjacentVertx);
-
-                    previousVertex.put(adjacentVertx, currentVertex);
-                }
-            }
-        }
-
-        List<T> shortestPath = new ArrayList<>();
-        Vertex<T> current = end;
-        while (current != start) {
-            shortestPath.add(current.value);
-            current = previousVertex.get(current);
-        }
-        shortestPath.add(start.value);
-        return shortestPath.reversed();
-    }
-*/
-
-func (v *Vertex[T]) shortestPath(start, end *Vertex[T]) []string {
+func (v *Vertex[T]) shortestPath(start, end *Vertex[T]) []T {
 	// first to reach the end node wins - since it would be added to the visited node table
 	// setup
 	//	visited nodes
@@ -184,20 +150,17 @@ func (v *Vertex[T]) shortestPath(start, end *Vertex[T]) []string {
 		}
 	}
 
-	// reverse  cheapestPreviousStopoverCity and current
-	//result := make([]string, 0, len(cheapestPreviousStopoverCity))
-	//currentCityName := destinationCity.Name
-	//for currentCityName != startCity.Name {
-	//	result = append(result, currentCityName)
-	//	currentCityName = cheapestPreviousStopoverCity[currentCityName]
-	//}
-	//result = append(result, startCity.Name)
-	//// reverse result
-	//for i := 0; i < len(result)/2; i++ {
-	//	j := len(result) - i - 1
-	//	result[i], result[j] = result[j], result[i]
-	//}
-	//
-	//return result
-	return nil
+	result := make([]T, 0, len(previousVertex))
+	currentValue := end.value
+	for currentValue != start.value {
+		result = append(result, currentValue)
+		currentValue = previousVertex[currentValue]
+	}
+	result = append(result, start.value)
+
+	for i := 0; i < len(result)/2; i++ {
+		j := len(result) - i - 1
+		result[i], result[j] = result[j], result[i]
+	}
+	return result
 }
