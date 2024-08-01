@@ -43,7 +43,9 @@ func TestVertx_Shortest_Path(t *testing.T) {
 	graph.shortestPath(idris, lina)
 
 	// then we should get the shortest path
-	expected := []string{"idris", "kamil", "lina"}
-	assert.Equal(t, graph.shortestPath(idris, lina), expected)
-
+	assert.Equal(t, graph.shortestPath(idris, lina), []string{"idris", "kamil", "lina"})
+	assert.Equal(t, graph.shortestPath(idris, sasha), []string{"idris", "kamil", "lina", "sasha"})
+	assert.Equal(t, graph.shortestPath(idris, kamil), []string{"idris", "kamil"})
+	assert.Equal(t, graph.shortestPath(idris, marco), []string{"idris", "talia", "ken", "marco"})
+	assert.Equal(t, graph.shortestPath(idris, talia), []string{"idris", "talia"})
 }
