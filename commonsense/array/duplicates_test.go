@@ -1,6 +1,10 @@
 package array
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestHasDuplicates(t *testing.T) {
 
@@ -45,6 +49,25 @@ func TestHasDuplicates(t *testing.T) {
 			if got := HasDuplicates(tt.args); got != tt.want {
 				t.Errorf("TestHasDuplicates() = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func TestFindDuplicates(t *testing.T) {
+	type args struct {
+		array []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, FindDuplicates(tt.args.array), "FindDuplicates(%v)", tt.args.array)
 		})
 	}
 }
