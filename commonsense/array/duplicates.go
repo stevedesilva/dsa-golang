@@ -1,5 +1,7 @@
 package array
 
+import "sort"
+
 func HasDuplicates(array []int) bool {
 	for i := 0; i < len(array); i++ {
 		for j := 0; j < len(array); j++ {
@@ -22,9 +24,15 @@ func FindDuplicates(array []string) bool {
 	return false
 }
 
-func FindDuplicates2(array []string) bool {
+func FindDuplicatesWithSort(array []string) bool {
 	// sort array
-	sort
+	sort.Strings(array)
+
 	// compare adjacent elements
+	for i := 0; i < len(array)-1; i++ {
+		if array[i] == array[i+1] {
+			return true
+		}
+	}
 	return false
 }
