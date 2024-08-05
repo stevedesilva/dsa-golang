@@ -7,7 +7,6 @@ import (
 )
 
 func TestHasDuplicates(t *testing.T) {
-
 	tests := []struct {
 		name string
 		args []int

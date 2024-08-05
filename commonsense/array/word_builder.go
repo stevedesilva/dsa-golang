@@ -24,3 +24,15 @@ func BuildThreeLevelWordArray(array []rune) []string {
 	}
 	return res
 }
+
+func BuildFourLevelWordArray(array []rune) []string {
+	res := make([]string, 0, len(array))
+	for i := 0; i < len(array); i++ {
+		for j := 0; j < len(array); j++ {
+			if i != j {
+				res = append(res, string(array[i]+array[j]))
+			}
+		}
+	}
+	return res
+}
