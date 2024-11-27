@@ -1,8 +1,23 @@
 package optimise
 
+import "strings"
+
+const ME = "ME"
+const THEM = "THEM"
+
 func flipCoin(coinNumber int, currentPlayer string) string {
+
 	if (coinNumber-1)%3 == 0 {
-		return "THEM"
+		if strings.EqualFold(currentPlayer, ME) {
+			return THEM
+		} else {
+			return ME
+		}
+
 	}
-	return "ME"
+	if strings.EqualFold(currentPlayer, ME) {
+		return ME
+	} else {
+		return THEM
+	}
 }
