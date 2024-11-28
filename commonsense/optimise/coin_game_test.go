@@ -34,12 +34,28 @@ func Test_flipCoin(t *testing.T) {
 			"THEM",
 		},
 		{
+			"Number of coins = 1 Winner = ME",
+			args{
+				coinNumber:    1,
+				currentPlayer: "THEM",
+			},
+			"ME",
+		},
+		{
 			"Number of coins = 2 Winner = ME",
 			args{
 				coinNumber:    2,
 				currentPlayer: "ME",
 			},
 			"ME",
+		},
+		{
+			"Number of coins = 2 Winner = THEM",
+			args{
+				coinNumber:    2,
+				currentPlayer: "THEM",
+			},
+			"THEM",
 		},
 		{
 			"Number of coins = 3 Winner = ME",
