@@ -5,32 +5,6 @@ import (
 	"testing"
 )
 
-func TestSumSwap(t *testing.T) {
-	type args struct {
-		a []int
-		b []int
-	}
-	tests := []struct {
-		name  string
-		args  args
-		want  int
-		want1 int
-	}{
-		{},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := SumSwap(tt.args.a, tt.args.b)
-			if got != tt.want {
-				t.Errorf("SumSwap() got = %v, want %v", got, tt.want)
-			}
-			if got1 != tt.want1 {
-				t.Errorf("SumSwap() got1 = %v, want %v", got1, tt.want1)
-			}
-		})
-	}
-}
-
 func TestSwapToMakeEqual(t *testing.T) {
 	type args struct {
 		a, b []int
@@ -49,6 +23,16 @@ func TestSwapToMakeEqual(t *testing.T) {
 			name: "'4,2,5,3,6', '4,2,3,1', '4,3'",
 			args: args{[]int{4, 2, 5, 3, 6}, []int{4, 2, 3, 1}},
 			want: []int{4, 3},
+		},
+		{
+			name: "'5,3,2,9,1', '1,12,5', '2,0'",
+			args: args{[]int{5, 3, 2, 9, 1}, []int{1, 12, 5}},
+			want: []int{2, 0},
+		},
+		{
+			name: "'1,12,5','5,3,2,9,1',  '0,2'",
+			args: args{[]int{1, 12, 5}, []int{5, 3, 2, 9, 1}},
+			want: []int{0, 2},
 		},
 	}
 	for _, tt := range tests {
