@@ -85,14 +85,30 @@ func SwapToMakeEqual(a1, a2 []int) ([]int, error) {
 
 	// calculate the difference
 	diff := (sumA - sumB) / 2
-
+	//
+	//for (int i=0; i < a2.length; i++) {
+	//	// check map for the numbers counterpart in the 1st array,
+	//	// which is calculated as the current number
+	//	// plus the amount it has to shift by:
+	//	final int num = a2[i];
+	//	final int numToFind = num + difference;
+	//	try {
+	//		if (a1Map.containsKey(numToFind)) {
+	//		//                    return new int[]{a1[numToFind],i};
+	//		return new int[]{a1Map.get(numToFind),i};
+	//	}
+	//	} catch (Exception e) {
+	//		// continue
+	//	}
+	//
+	//}
 	// check map for the numbers counterpart in the 1st array,
 	// which is calculated as the current number
 	// plus the amount it has to shift by:
-	for _, v := range a2 {
+	for i, v := range a2 {
 		numToFind := diff + v
 		if _, ok := hashA[numToFind]; ok {
-			return []int{numToFind, v}, nil
+			return []int{hashA[numToFind], i}, nil
 		}
 	}
 
