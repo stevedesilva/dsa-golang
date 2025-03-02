@@ -9,13 +9,13 @@ import (
 func TestStockPredictor(t *testing.T) {
 	tests := []struct {
 		name string
-		args []int
-		want []int
+		args []float64
+		want []float64
 	}{
 		{
-			name: "Test with positive and negative numbers",
-			args: []int{1, -2, 3, 4, -5, 8},
-			want: []int{1, 3, 4},
+			name: "Test with positive",
+			args: []float64{22, 25, 18, 19.6, 17, 16, 20.5},
+			want: []float64{1, 3, 4},
 		},
 	}
 	for _, tt := range tests {
