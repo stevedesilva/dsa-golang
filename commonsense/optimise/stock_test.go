@@ -10,12 +10,12 @@ func TestStockPredictor(t *testing.T) {
 	tests := []struct {
 		name string
 		args []float64
-		want []float64
+		want bool
 	}{
 		{
 			name: "Test with positive",
 			args: []float64{22, 25, 18, 19.6, 17, 16, 20.5},
-			want: []float64{1, 3, 4},
+			want: true,
 		},
 	}
 	for _, tt := range tests {
