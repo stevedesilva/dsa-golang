@@ -46,6 +46,14 @@ func TestIsPlayerMatch(t *testing.T) {
 			},
 			want: []PlayerResult{},
 		},
+		{
+			name: "Test with empty player lists",
+			args: args{
+				playersA: []PlayerMatcher{},
+				playersB: []PlayerMatcher{},
+			},
+			want: []PlayerResult{},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
