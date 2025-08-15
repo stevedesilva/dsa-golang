@@ -26,6 +26,14 @@ func TestFindGreatestProfit(t *testing.T) {
 			wantErr: assert.NoError,
 		},
 		{
+			name: "Test with prices in descending order simple",
+			args: args{
+				prices: []float64{2.0, 1.0},
+			},
+			want:    0.0, // no profit possible
+			wantErr: assert.NoError,
+		},
+		{
 			name: "Test with prices in ascending order all",
 			args: args{
 				prices: []float64{1.0, 2.0, 3.0, 4.0, 5.0},
