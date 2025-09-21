@@ -30,6 +30,12 @@ func TestSortBodyTemperatures(t *testing.T) {
 		},
 		{
 			name:    "Test with valid temperatures 3 elements",
+			args:    args{temp: []float64{99.1, 97.5, 98.6}},
+			want:    []float64{97.5, 98.6, 99.1},
+			wantErr: false,
+		},
+		{
+			name:    "Test with invalid temperatures 3 elements",
 			args:    args{temp: []float64{98.6, 101.3, 97.5}},
 			want:    nil,
 			wantErr: true,
