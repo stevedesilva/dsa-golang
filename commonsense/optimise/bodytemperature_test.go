@@ -28,30 +28,24 @@ func TestSortBodyTemperatures(t *testing.T) {
 			want:    []float64{97.5, 99.0},
 			wantErr: false,
 		},
-		//{
-		//	name:    "Test with valid temperatures 3 elements",
-		//	args:    args{temp: []float64{99.1, 97.5, 98.6}},
-		//	want:    []float64{97.5, 98.6, 99.1},
-		//	wantErr: false,
-		//},
-		//{
-		//	name:    "Test with invalid temperatures 3 elements",
-		//	args:    args{temp: []float64{98.6, 101.3, 97.5}},
-		//	want:    nil,
-		//	wantErr: true,
-		//},
-		//{
-		//	name:    "Test with invalid temperature below range",
-		//	args:    args{temp: []float64{96.9, 98.6, 97.5}},
-		//	want:    nil,
-		//	wantErr: true,
-		//},
-		//{
-		//	name:    "Test with invalid temperature above range",
-		//	args:    args{temp: []float64{97.5, 99.0, 99.1}},
-		//	want:    nil,
-		//	wantErr: true,
-		//},
+		{
+			name:    "Test with valid temperatures 2 elements wrong order",
+			args:    args{temp: []float64{97.5, 99.0}},
+			want:    []float64{97.5, 99.0},
+			wantErr: false,
+		},
+		{
+			name:    "Test with valid temperatures 3 elements",
+			args:    args{temp: []float64{99.0, 97.5, 98.6}},
+			want:    []float64{97.5, 98.6, 99.0},
+			wantErr: false,
+		},
+		{
+			name:    "Test with valid temperatures 3 elements",
+			args:    args{temp: []float64{99.0, 98.6, 97.5}},
+			want:    []float64{97.5, 98.6, 99.0},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
